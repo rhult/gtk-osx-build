@@ -284,7 +284,7 @@ if (echo "$*" | grep bootstrap) >/dev/null; then
 	http://heanet.dl.sourceforge.net/sourceforge/expat/expat-2.0.0.tar.gz \
 	http://heanet.dl.sourceforge.net/sourceforge/freetype/freetype-2.1.10.tar.bz2 \
 	http://fontconfig.org/release/fontconfig-2.3.2.tar.gz \
-	http://people.imendio.com/richard/gtk-osx/files/docbook-files-1.tar.gz \
+	http://people.imendio.com/richard/gtk-osx/files/docbook-files-2.tar.gz \
 	http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-1.tar.gz \
 	"
 
