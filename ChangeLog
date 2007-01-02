@@ -1,5 +1,12 @@
 2006-12-18  Richard Hult  <richard@imendio.com>
 
+	* Update for GNOME SVN.
+	- Add support for multiples cores, might need to disable
+	this if it turns out to be a problem.
+	- Add clean-build command that cleans before building.
+
+2006-12-18  Richard Hult  <richard@imendio.com>
+
 	* Add docbook files for gnome docs.
 
 2006-12-11  Richard Hult  <richard@imendio.com>

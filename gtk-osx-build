@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=1.3
+version=1.4
 
 export PREFIX=${PREFIX-/opt/gtk}
 export PATH=$PREFIX/bin:$PATH
@@ -13,6 +13,12 @@ export PYTHONPATH=$PREFIX/lib/python2.3/site-packages
 export LDFLAGS=-L$PREFIX/lib
 export CPPFLAGS=-I$PREFIX/include
 
+# Use dual (or more) cores if available
+ncpu=`sysctl -n hw.ncpu`
+if [ $ncpu -ge 2 ]; then
+    export MAKEFLAGS="-j`expr $ncpu + 1`"
+fi
+
 export XDG_DATA_DIRS=$PREFIX/share
 
 # Support install-check from jhbuild to speed up compilation
@@ -24,7 +30,7 @@ COMMON_OPTIONS="--prefix=$PREFIX --disable-static --enable-shared \
 --disable-gtk-doc --disable-scrollkeeper"
 
 SOURCE=${SOURCE-$HOME/Source/gtk}
-GNOMECVSROOT=${GNOMECVSROOT-:pserver:anonymous@anoncvs.gnome.org:/cvs/gnome}
+GNOMESVNROOT=${GNOMESVNROOT-http://svn.gnome.org/svn}
 
 if [ x$1 = xrun ]; then
     cmd="$2"
@@ -37,6 +43,12 @@ if [ $# -eq 0 -o "x`echo "$*" | grep shell`" = xshell ]; then
     export INSIDE_GTK_BUILD=1
     bash
     exit 0
+fi
+
+if [ x$1 = xclean-build ]; then
+    CLEAN="make clean"
+else
+    CLEAN="true"
 fi
 
 CORE_MODULES="cairo gnome-common glib pango atk gtk+"
@@ -52,7 +64,7 @@ function print_usage
     echo "GTK+ on Mac OS X build script version $version."
     echo 
     echo "Usage:"
-    echo "`basename $0` [bootstrap|[shell]|run <cmd>|build [<modules>]], modules are:"
+    echo "`basename $0` [bootstrap|[shell]|run <cmd>|[clean-]build [<modules>]], modules are:"
     echo " Core: $CORE_MODULES"
     echo " Extra: $EXTRA_MODULES"
     echo " Python: $PYGTK_MODULES"
@@ -60,9 +72,9 @@ function print_usage
     echo "Setup: This script defaults to downloading source to ~/Source/gtk and"
     echo "installing in /opt/gtk. Make sure your user has write access to the"
     echo "latter directory. You can override those directories by setting the"
-    echo "SOURCE and PREFIX environment variables. Anoncvs is used by default"
-    echo "for access to GNOME CVS, if you wish to override, set the environment"
-    echo "variable GNOMECVSROOT to your own account."
+    echo "SOURCE and PREFIX environment variables. Anonsvn is used by default"
+    echo "for access to GNOME SVN, if you wish to override, set the environment"
+    echo "variable GNOMESVNROOT to your own account."
     echo
     echo "While in the shell that this script provides, the environment variable"
     echo "INSIDE_GTK_BUILD is set, which makes it possible to put something like"
@@ -83,7 +95,7 @@ function print_usage
     echo "properly setup."
     echo 
     echo "Tip: if you build and install \"install-check\" from jhbuild into your"
-    echo "PREFIX, recompiling when hacking on GTK+ & co will be a lot faster."
+    echo "PREFIX, recompiling when hacking on GTK+ & co will be faster."
     echo
 }
 
@@ -138,7 +150,8 @@ function tarball_get_and_build
     tar ${COMP}xf $BASENAME && \
 	cd $DIRNAME && \
 	echo "./configure --prefix=$PREFIX $COMMON_OPTIONS $2" && \
-	./configure --prefix=$PREFIX $COMMON_OPTIONS $2 && make && $INSTCMD && touch BUILT
+	./configure --prefix=$PREFIX $COMMON_OPTIONS $2 && \
+	make $MAKEFLAGS && $INSTCMD && touch BUILT
 }
 
 function cpan_get_and_build
@@ -162,7 +175,7 @@ function cpan_get_and_build
     tar ${COMP}xf $BASENAME && \
 	cd $DIRNAME && \
 	perl Makefile.PL $2 && \
-	make && \
+	make $MAKEFLAGS && \
 	(echo "Enter your password to install $BASENAME"; sudo make install) && \
 	touch BUILT
 }
@@ -187,7 +200,7 @@ function git_get_and_build
     fi
     
     echo "./autogen.sh $COMMON_OPTIONS $3"
-    (./autogen.sh $COMMON_OPTIONS $3 && make && make install)
+    (./autogen.sh $COMMON_OPTIONS $3 && $CLEAN && make $MAKEFLAGS && make install)
 }
 
 function check_error
@@ -195,12 +208,12 @@ function check_error
     if !(echo "$CORE_MODULES" | grep -w $1) >/dev/null; then
 	echo
 	echo "Build failed. Please note that $1 is NOT part of GTK+ but"
-	echo "and just provided here as an example of an application that"
+	echo "and just provided here as an example of software that"
 	echo "can be used on the OS X port of GTK+."
 	echo
 	echo "DON'T report this failure to the GTK+ mailing list, it is"
 	echo "unrelated to GTK+. If you only want to build GTK+, just run"
-	echo " build-gtk.sh build core"
+	echo " gtk-osx-build build core"
    fi
 }
 
@@ -224,7 +237,30 @@ function cvs_get_and_build
     fi
     
     echo "./autogen.sh $COMMON_OPTIONS $3"
-    (./autogen.sh $COMMON_OPTIONS $3 && make && make install) || check_error $2
+    (./autogen.sh $COMMON_OPTIONS $3 && $CLEAN && make $MAKEFLAGS && make install) || check_error $2
+}
+
+function svn_get_and_build
+{
+    if !(echo "$MODULES" | grep -w $2) >/dev/null; then
+	return 0
+    fi
+    
+    echo
+    echo "Building $2"
+    echo -ne "\033]0;Building $2\007"
+    
+    cd $SOURCE
+    if [ -d $2 ]; then
+	cd $2
+	svn up || return
+    else
+	svn co $1 $2 || return
+	cd $2
+    fi
+    
+    echo "./autogen.sh $COMMON_OPTIONS $3"
+    (./autogen.sh $COMMON_OPTIONS $3 && $CLEAN && make $MAKEFLAGS && make install) || check_error $2
 }
 
 function set_automake
@@ -260,20 +296,32 @@ function do_exit
 # Make sure to restore the title when done.
 trap do_exit EXIT SIGINT SIGTERM
 
+if [ "x`git --version 2>/dev/null`" == "x" ]; then
+    echo "You need git. It's available e.g. in MacPorts (http://www.macports.org/)."
+    exit 1
+fi
+if [ "x`svn --version 2>/dev/null`" == "x" ]; then
+    echo "You need svn (subversion). It's available e.g. in MacPorts (http://www.macports.org/)."
+    exit 1
+fi    
+
+mkdir -p $SOURCE 2>/dev/null || (echo "Error: Couldn't create source checkout dir $SOURCE"; exit 1)
+mkdir -p $PREFIX/bin 2>/dev/null || (echo "Error: Couldn't create bin dir $PREFIX/bin"; exit 1)
+    
 if (echo "$*" | grep bootstrap) >/dev/null; then
-    if [ "x`git --version 2>/dev/null`" == "x" ]; then
-	echo "You need git to get cairo. It's available e.g. in MacPorts (http://www.macports.org/)."
-	exit 1
-    fi
-    
-    mkdir -p $SOURCE 2>/dev/null || (echo "Error: Couldn't create source checkout dir $SOURCE"; exit 1)
-    mkdir -p $PREFIX/bin 2>/dev/null || (echo "Error: Couldn't create bin dir $PREFIX/bin"; exit 1)
-    
     echo "Building bootstrap packages."
-    
+
+    PACKAGE=http://ftp.gnu.org/gnu/libtool/libtool-1.5.22.tar.gz
+    tarball_get_and_build $PACKAGE || exit 1
+    if [ ! -L $PREFIX/bin/glibtool ]; then
+	ln -s $PREFIX/bin/libtool $PREFIX/bin/glibtool
+    fi
+    if [ ! -L $PREFIX/bin/glibtoolize ]; then
+	ln -s $PREFIX/bin/libtoolize $PREFIX/bin/glibtoolize
+    fi
+
     PACKAGES=" \
 	http://pkgconfig.freedesktop.org/releases/pkg-config-0.20.tar.gz \
-	http://ftp.gnu.org/gnu/libtool/libtool-1.5.22.tar.gz \
 	http://ftp.gnu.org/gnu/autoconf/autoconf-2.59.tar.bz2 \
 	http://ftp.gnu.org/pub/gnu/automake/automake-1.7.9.tar.bz2 \
 	http://ftp.gnu.org/gnu/automake/automake-1.9.6.tar.bz2 \
@@ -288,12 +336,12 @@ if (echo "$*" | grep bootstrap) >/dev/null; then
 	http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-1.tar.gz \
 	"
 
-	#http://people.imendio.com/richard/gtk-osx/files/popt-1.7.tar.gz
+    #http://people.imendio.com/richard/gtk-osx/files/popt-1.7.tar.gz
     
     for PACKAGE in $PACKAGES; do
 	tarball_get_and_build $PACKAGE || exit 1
     done
-    
+
     PACKAGE=http://ftp.gnome.org/pub/GNOME/sources/gtk-doc/1.7/gtk-doc-1.7.tar.bz2
     tarball_get_and_build $PACKAGE "--with-xml-catalog=$PREFIX/etc/xml/catalog" || exit 1
     
@@ -315,18 +363,12 @@ if (echo "$*" | grep bootstrap) >/dev/null; then
 	tarball_get_and_build $PACKAGE || exit 1
     done
     
-    # Setup glibtool* links since some stuff expects them to be named like that on OSX
-    if [ -z $PREFIX/bin/glibtoolize ]; then
-	ln -s $PREFIX/bin/libtoolize $PREFIX/bin/glibtoolize
-	ln -s $PREFIX/bin/libtool $PREFIX/bin/glibtool
-    fi
-
     echo
     echo "Done bootstrapping. Continue with \"build\" or \"shell\"."
     exit 0
 fi
 
-if [ "x$1" != xbuild ]; then
+if [ "x$1" != xbuild -a "x$1" != xclean-build ]; then
     print_usage
     exit 1
 fi
@@ -350,23 +392,23 @@ fi
 
 git_get_and_build git://git.cairographics.org/git cairo "--enable-pdf --enable-atsui --enable-quartz --disable-xlib" || exit 1
 
-cvs_get_and_build $GNOMECVSROOT libxml2 || exit 1
-cvs_get_and_build $GNOMECVSROOT libxslt || exit 1
-cvs_get_and_build $GNOMECVSROOT gnome-common || exit 1
-cvs_get_and_build $GNOMECVSROOT glib || exit 1
-cvs_get_and_build $GNOMECVSROOT atk || exit 1
-cvs_get_and_build $GNOMECVSROOT pango "--without-x" || exit 1
-cvs_get_and_build $GNOMECVSROOT gtk+ "--with-gdktarget=quartz" || exit 1
-cvs_get_and_build $GNOMECVSROOT gtk-engines || exit 1
+svn_get_and_build $GNOMESVNROOT/libxml2/trunk libxml2 || exit 1
+svn_get_and_build $GNOMESVNROOT/libxslt/trunk libxslt || exit 1
+svn_get_and_build $GNOMESVNROOT/gnome-common/trunk gnome-common || exit 1
+svn_get_and_build $GNOMESVNROOT/glib/trunk glib || exit 1
+svn_get_and_build $GNOMESVNROOT/atk/trunk atk || exit 1
+svn_get_and_build $GNOMESVNROOT/pango/trunk pango "--without-x" || exit 1
+svn_get_and_build $GNOMESVNROOT/gtk+/trunk gtk+ "--with-gdktarget=quartz" || exit 1
+svn_get_and_build $GNOMESVNROOT/gtk-engines/trunk gtk-engines || exit 1
 cvs_get_and_build $GNOMECVSROOT loudmouth "--with-ssl=openssl" || exit 1
-cvs_get_and_build $GNOMECVSROOT libglade || exit 1
-cvs_get_and_build $GNOMECVSROOT gossip "--with-backend=cocoa" || exit 1
+svn_get_and_build $GNOMESVNROOT/libglade/trunk libglade || exit 1
+svn_get_and_build $GNOMESVNROOT/gossip/trunk gossip "--with-backend=cocoa" || exit 1
 cvs_get_and_build :pserver:anoncvs@cvs.freedesktop.org:/cvs/cairo pycairo || exit 1
-cvs_get_and_build $GNOMECVSROOT pygobject "--disable-docs" || exit 1
-cvs_get_and_build $GNOMECVSROOT pygtk "--disable-docs" || exit 1
+svn_get_and_build $GNOMESVNROOT/pygobject/trunk pygobject "--disable-docs" || exit 1
+svn_get_and_build $GNOMESVNROOT/pygtk/trunk pygtk "--disable-docs" || exit 1
 
-#cvs_get_and_build $GNOMECVSROOT gimp || exit 1
-# For gimp:
+#svn_get_and_build $GNOMESVNROOT/gimp/trunk gimp || exit 1
+# Needed for gimp:
 # libart_lgpl, needs automake 1.4 and doesn't run libtoolize
 # gtkhtml2 (optional)
 # libpoppler (optional)
