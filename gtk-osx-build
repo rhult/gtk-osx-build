@@ -400,7 +400,7 @@ svn_get_and_build $GNOMESVNROOT/atk/trunk atk || exit 1
 svn_get_and_build $GNOMESVNROOT/pango/trunk pango "--without-x" || exit 1
 svn_get_and_build $GNOMESVNROOT/gtk+/trunk gtk+ "--with-gdktarget=quartz" || exit 1
 svn_get_and_build $GNOMESVNROOT/gtk-engines/trunk gtk-engines || exit 1
-cvs_get_and_build $GNOMECVSROOT loudmouth "--with-ssl=openssl" || exit 1
+svn_get_and_build $GNOMESVNROOT/loudmouth/trunk loudmouth "--with-ssl=openssl" || exit 1
 svn_get_and_build $GNOMESVNROOT/libglade/trunk libglade || exit 1
 svn_get_and_build $GNOMESVNROOT/gossip/trunk gossip "--with-backend=cocoa" || exit 1
 cvs_get_and_build :pserver:anoncvs@cvs.freedesktop.org:/cvs/cairo pycairo || exit 1
