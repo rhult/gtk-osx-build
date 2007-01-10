@@ -21,6 +21,8 @@ fi
 
 export XDG_DATA_DIRS=$PREFIX/share
 
+export PERL5LIB=$PREFIX/lib/perl5/site_perl/5.8.6
+
 # Support install-check from jhbuild to speed up compilation
 if [ -x $PREFIX/bin/install-check ]; then
     export INSTALL=$PREFIX/bin/install-check
@@ -174,9 +176,9 @@ function cpan_get_and_build
     should_build $DIRNAME || return 0
     tar ${COMP}xf $BASENAME && \
 	cd $DIRNAME && \
-	perl Makefile.PL $2 && \
+	perl Makefile.PL $2 PREFIX=$PREFIX && \
 	make $MAKEFLAGS && \
-	(echo "Enter your password to install $BASENAME"; sudo make install) && \
+	make install && \
 	touch BUILT
 }
 
