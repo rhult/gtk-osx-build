@@ -26,6 +26,8 @@ export PERL5LIB=$PREFIX/lib/perl5/site_perl/5.8.6
 # Support install-check from jhbuild to speed up compilation
 if [ -x $PREFIX/bin/install-check ]; then
     export INSTALL=$PREFIX/bin/install-check
+elif [ -x $HOME/bin/install-check ]; then
+    export INSTALL=$HOME/bin/install-check
 fi
 
 COMMON_OPTIONS="--prefix=$PREFIX --disable-static --enable-shared \

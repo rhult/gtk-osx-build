@@ -1,3 +1,9 @@
+2007-01-11  Richard Hult  <rhult@Celery.local>
+
+	* Makefile: Build and install install-check, clean up a bit.
+
+	* gtk-osx-build: Support install-check $HOME/bin as well.
+
 2007-01-08  Richard Hult  <rhult@Celery.local>
 
 	* Install the perl modules in the same prefix as the rest.
