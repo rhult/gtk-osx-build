@@ -1,5 +1,9 @@
 2007-01-11  Richard Hult  <rhult@Celery.local>
 
+	* gtk-osx-build: Correct the PERL5LIB variable.
+
+2007-01-11  Richard Hult  <rhult@Celery.local>
+
 	* Makefile: Build and install install-check, clean up a bit.
 
 	* gtk-osx-build: Support install-check $HOME/bin as well.

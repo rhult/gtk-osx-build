@@ -21,7 +21,7 @@ fi
 
 export XDG_DATA_DIRS=$PREFIX/share
 
-export PERL5LIB=$PREFIX/lib/perl5/site_perl/5.8.6
+export PERL5LIB=$PREFIX/lib/perl5/site_perl
 
 # Support install-check from jhbuild to speed up compilation
 if [ -x $PREFIX/bin/install-check ]; then
