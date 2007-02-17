@@ -9,6 +9,9 @@ export LIBTOOLIZE=$PREFIX/bin/libtoolize
 # FIXME: We might need some more intelligent way to get the path here.
 export PYTHONPATH=$PREFIX/lib/python2.3/site-packages
 
+export XDG_DATA_DIRS="$PREFIX/share"
+export PERL5LIB="$PREFIX/lib/perl5/site_perl:`perl -e 'printf "/opt/gtk/Library/Perl/v%vd", $^V'`"
+
 # Needed for glib etc to pick up gettext
 export LDFLAGS=-L$PREFIX/lib
 export CPPFLAGS=-I$PREFIX/include
@@ -18,10 +21,6 @@ ncpu=`sysctl -n hw.ncpu`
 if [ $ncpu -ge 2 ]; then
     export MAKEFLAGS="-j`expr $ncpu + 1`"
 fi
-
-export XDG_DATA_DIRS=$PREFIX/share
-
-export PERL5LIB=$PREFIX/lib/perl5/site_perl
 
 # Support install-check from jhbuild to speed up compilation
 if [ -x $PREFIX/bin/install-check ]; then

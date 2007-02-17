@@ -1,14 +1,19 @@
-2007-01-11  Richard Hult  <rhult@Celery.local>
+2007-02-17  Richard Hult  <richard@imendio.com>
+
+	* Get the right PERL5LIB for older versions (e.g. panther),
+	fix from Mathias Hasselmann.
+
+2007-01-11  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-build: Correct the PERL5LIB variable.
 
-2007-01-11  Richard Hult  <rhult@Celery.local>
+2007-01-11  Richard Hult  <richard@imendio.com>
 
 	* Makefile: Build and install install-check, clean up a bit.
 
 	* gtk-osx-build: Support install-check $HOME/bin as well.
 
-2007-01-08  Richard Hult  <rhult@Celery.local>
+2007-01-08  Richard Hult  <richard@imendio.com>
 
 	* Install the perl modules in the same prefix as the rest.
 
