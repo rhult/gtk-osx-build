@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=1.4
+version=1.5
 
 export PREFIX=${PREFIX-/opt/gtk}
 export PATH=$PREFIX/bin:$PATH
@@ -18,7 +18,7 @@ export CPPFLAGS=-I$PREFIX/include
 
 # Use dual (or more) cores if available
 ncpu=`sysctl -n hw.ncpu`
-if [ $ncpu -ge 2 ]; then
+if [ "x$PARALLEL_BUILDS" != x -a $ncpu -ge 2 ]; then
     export MAKEFLAGS="-j`expr $ncpu + 1`"
 fi
 
@@ -44,6 +44,7 @@ fi
 if [ $# -eq 0 -o "x`echo "$*" | grep shell`" = xshell ]; then
     # Can be used in .bashrc to set a fancy prompt...
     export INSIDE_GTK_BUILD=1
+    echo "Starting GTK+ OS X shell. Use 'exit' or Ctrl-D to exit."
     bash
     exit 0
 fi
