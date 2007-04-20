@@ -1,3 +1,8 @@
+2007-04-20  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-build: Improve comments and add note about cloning cairo
+	taking a while.
+
 2007-04-02  Richard Hult  <richard@imendio.com>
 
 	* Correct the commit from below to get the path right, thanks to
