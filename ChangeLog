@@ -1,3 +1,10 @@
+2007-04-24  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-build: Put all the gnu software in a mirror at
+	people.imendio.com, should help downloading the bootstrap
+	packages, since the gnu server seems very slow or down even
+	sometimes.
+
 2007-04-20  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-build: Improve comments and add note about cloning cairo
