@@ -56,8 +56,9 @@ else
 fi
 
 CORE_MODULES="cairo gnome-common glib pango atk gtk+"
-EXTRA_MODULES="libxml2 libxslt loudmouth libglade gossip gtk-engines libart_lgpl libgnomecanvas"
-PYGTK_MODULES=" pycairo pygobject pygtk"
+EXTRA_MODULES="libxml2 libxslt libglade gtk-engines libart_lgpl libgnomecanvas"
+TEST_MODULES="loudmouth gossip"
+PYGTK_MODULES="pycairo pygobject pygtk"
 
 # Could add those (orbit requires popt though)
 MORE_MODULES="libIDL ORBit2 gconf"
@@ -71,32 +72,11 @@ function print_usage
     echo "`basename $0` [bootstrap|[shell]|run <cmd>|[clean-]build [<modules>]], modules are:"
     echo " Core: $CORE_MODULES"
     echo " Extra: $EXTRA_MODULES"
+    echo " Test: $TEST_MODULES"
     echo " Python: $PYGTK_MODULES"
     echo
-    echo "Setup: This script defaults to downloading source to ~/Source/gtk and"
-    echo "installing in /opt/gtk. Make sure your user has write access to the"
-    echo "latter directory. You can override those directories by setting the"
-    echo "SOURCE and PREFIX environment variables. Anonsvn is used by default"
-    echo "for access to GNOME SVN, if you wish to override, set the environment"
-    echo "variable GNOMESVNROOT to your own account."
-    echo
-    echo "While in the shell that this script provides, the environment variable"
-    echo "INSIDE_GTK_BUILD is set, which makes it possible to put something like"
-    echo "the following in ~/.bashrc:"
-    echo
-    echo " if [ x\$INSIDE_GTK_BUILD != x ]; then"
-    echo "     PS1=\"[GTK] \u@\h \W $ \""
-    echo " fi"
-    echo
-    echo "Start by bootstrapping. This will install the necessary build tools."
-    echo "Then build GTK+ & co by using the \"build\" command. If no modules are"
-    echo "specified, only the ones needed for GTK+ will be built. The special"
-    echo "modules \"core\" and \"all\" can be used to build just the core or all"
-    echo "modules."
-    echo
-    echo "If you want to build something manually or run something, use the "
-    echo "\"shell\" command (or no command) to get a shell with the environment"
-    echo "properly setup."
+    echo "Please see http://developer.imendio.com/projects/gtk-macosx/build-instructions"
+    echo "for documentation."
     echo
 }
 
@@ -390,9 +370,19 @@ elif [ "x$1" = xcore ]; then
 elif [ "x$1" = xpython ]; then
     echo "Building python modules."
     MODULES="$PYGTK_MODULES"
+elif [ "x$1" = xtest ]; then
+    echo "Building test modules."
+    MODULES="$TEST_MODULES"
 elif [ "x$1" = xall ]; then
-    echo "Building core+extra+python modules."
-    MODULES="$CORE_MODULES $EXTRA_MODULES $PYGTK_MODULES"
+    echo "Building core+extra+test+pygtk modules."
+    echo
+    echo "NOTE: Unless you are not looking for test cases for debugging, you"
+    echo "most likely don't want to build all modules. They might not always"
+    echo "build successfully, and that is expected. If you only are interested"
+    echo "in GTK+, please use the \"core\" module set."
+    echo
+    sleep 3
+    MODULES="$CORE_MODULES $EXTRA_MODULES $TEST_MODULES $PYGTK_MODULES"
 fi
 
 if [ "x$USE_CAIRO_TARBALL" == x ]; then
