@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=1.7
+version=1.8
 
 export PREFIX=${PREFIX-/opt/gtk}
 export PATH=$PREFIX/bin:$PATH
@@ -56,7 +56,7 @@ else
 fi
 
 CORE_MODULES="cairo gnome-common glib pango atk gtk+"
-EXTRA_MODULES="libxml2 libxslt loudmouth libglade gossip gtk-engines"
+EXTRA_MODULES="libxml2 libxslt loudmouth libglade gossip gtk-engines libart_lgpl libgnomecanvas"
 PYGTK_MODULES=" pycairo pygobject pygtk"
 
 # Could add those (orbit requires popt though)
@@ -195,9 +195,9 @@ function git_get_and_build
     cd $SOURCE
     if [ -d $2 ]; then
 	cd $2
-	echo "Cloning Cairo git repository. This while take quite a while."
 	git pull || return
     else
+	echo "Cloning Cairo git repository. This while take quite a while."
 	git clone $1/$2 || return
 	cd $2
     fi
@@ -395,7 +395,15 @@ elif [ "x$1" = xall ]; then
     MODULES="$CORE_MODULES $EXTRA_MODULES $PYGTK_MODULES"
 fi
 
-git_get_and_build git://git.cairographics.org/git cairo "--enable-pdf --enable-atsui --enable-quartz --disable-xlib" || exit 1
+if [ "x$USE_CAIRO_TARBALL" == x ]; then
+    git_get_and_build git://git.cairographics.org/git cairo "--enable-pdf --enable-atsui --enable-quartz --disable-xlib" || exit 1
+else
+    echo "NOTE: Using tarball of Cairo. This is not recommended if not absolutely"
+    echo "necessary, for example if you are behind a proxy that doesn't work with"
+    echo "the GIT repository for Cairo."
+    PACKAGE=http://cairographics.org/releases/cairo-1.4.4.tar.gz
+    tarball_get_and_build $PACKAGE || exit 1
+fi
 
 svn_get_and_build $GNOMESVNROOT/libxml2/trunk libxml2 || exit 1
 svn_get_and_build $GNOMESVNROOT/libxslt/trunk libxslt || exit 1
@@ -411,10 +419,11 @@ svn_get_and_build $GNOMESVNROOT/gossip/trunk gossip "--with-backend=cocoa" || ex
 cvs_get_and_build :pserver:anoncvs@cvs.freedesktop.org:/cvs/cairo pycairo || exit 1
 svn_get_and_build $GNOMESVNROOT/pygobject/trunk pygobject "--disable-docs" || exit 1
 svn_get_and_build $GNOMESVNROOT/pygtk/trunk pygtk "--disable-docs" || exit 1
+svn_get_and_build $GNOMESVNROOT/libart_lgpl/trunk libart_lgpl "--disable-docs" || exit 1
+svn_get_and_build $GNOMESVNROOT/libgnomecanvas/trunk libgnomecanvas "--disable-docs" || exit 1
 
 #svn_get_and_build $GNOMESVNROOT/gimp/trunk gimp || exit 1
 # Needed for gimp:
-# libart_lgpl, needs automake 1.4 and doesn't run libtoolize
 # gtkhtml2 (optional)
 # libpoppler (optional)
 # ./autogen.sh --prefix=/opt/gimp --disable-gtk-doc 
