@@ -178,7 +178,7 @@ function git_get_and_build
 	git pull || return
     else
 	echo "Cloning Cairo git repository. This while take quite a while."
-	git clone $1/$2 || return
+	git clone $1 || return
 	cd $2
     fi
     
@@ -386,7 +386,7 @@ elif [ "x$1" = xall ]; then
 fi
 
 if [ "x$USE_CAIRO_TARBALL" == x ]; then
-    git_get_and_build git://git.cairographics.org/git cairo "--enable-pdf --enable-atsui --enable-quartz --disable-xlib" || exit 1
+    git_get_and_build git://git.cairographics.org/git/cairo cairo "--enable-pdf --enable-atsui --enable-quartz --disable-xlib" || exit 1
 else
     echo "NOTE: Using tarball of Cairo. This is not recommended if not absolutely"
     echo "necessary, for example if you are behind a proxy that doesn't work with"
@@ -403,7 +403,7 @@ svn_get_and_build $GNOMESVNROOT/atk/trunk atk || exit 1
 svn_get_and_build $GNOMESVNROOT/pango/trunk pango "--without-x" || exit 1
 svn_get_and_build $GNOMESVNROOT/gtk+/trunk gtk+ "--with-gdktarget=quartz" || exit 1
 svn_get_and_build $GNOMESVNROOT/gtk-engines/trunk gtk-engines || exit 1
-svn_get_and_build $GNOMESVNROOT/loudmouth/trunk loudmouth "--with-ssl=openssl" || exit 1
+git_get_and_build git://git.imendio.com/projects/loudmouth.git loudmouth "--with-ssl=openssl" || exit 1
 svn_get_and_build $GNOMESVNROOT/libglade/trunk libglade || exit 1
 svn_get_and_build $GNOMESVNROOT/gossip/trunk gossip "--with-backend=cocoa" || exit 1
 cvs_get_and_build :pserver:anoncvs@cvs.freedesktop.org:/cvs/cairo pycairo || exit 1
