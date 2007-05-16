@@ -7,7 +7,7 @@ export PATH=$PREFIX/bin:$PATH
 export LIBTOOLIZE=$PREFIX/bin/libtoolize
 
 # FIXME: We might need some more intelligent way to get the path here.
-export PYTHONPATH=$PREFIX/lib/python2.3/site-packages
+export PYTHONPATH=$PREFIX/lib/python2.3/site-packages:$PREFIX/lib/python2.3/site-packages/gtk-2.0
 
 export XDG_DATA_DIRS="$PREFIX/share"
 export PERL5LIB="$PREFIX/lib/perl5/site_perl:`perl -e 'printf "/opt/gtk/Library/Perl/%vd", $^V'`"
@@ -59,9 +59,6 @@ CORE_MODULES="cairo gnome-common glib pango atk gtk+"
 EXTRA_MODULES="libxml2 libxslt libglade gtk-engines libart_lgpl libgnomecanvas"
 TEST_MODULES="loudmouth gossip"
 PYGTK_MODULES="pycairo pygobject pygtk"
-
-# Could add those (orbit requires popt though)
-MORE_MODULES="libIDL ORBit2 gconf"
 
 function print_usage
 {
@@ -319,9 +316,8 @@ if (echo "$*" | grep bootstrap) >/dev/null; then
 	http://fontconfig.org/release/fontconfig-2.3.2.tar.gz \
 	http://people.imendio.com/richard/gtk-osx/files/docbook-files-2.tar.gz \
 	http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-1.tar.gz \
+	http://people.imendio.com/richard/gtk-osx/files/popt-1.7.tar.gz \
 	"
-
-    #http://people.imendio.com/richard/gtk-osx/files/popt-1.7.tar.gz
     
     for PACKAGE in $PACKAGES; do
 	tarball_get_and_build $PACKAGE || exit 1
@@ -411,9 +407,12 @@ svn_get_and_build $GNOMESVNROOT/pygobject/trunk pygobject "--disable-docs" || ex
 svn_get_and_build $GNOMESVNROOT/pygtk/trunk pygtk "--disable-docs" || exit 1
 svn_get_and_build $GNOMESVNROOT/libart_lgpl/trunk libart_lgpl "--disable-docs" || exit 1
 svn_get_and_build $GNOMESVNROOT/libgnomecanvas/trunk libgnomecanvas "--disable-docs" || exit 1
+svn_get_and_build $GNOMESVNROOT/gimp/trunk gimp || exit 1
+svn_get_and_build $GNOMESVNROOT/libIDL/trunk libIDL || exit 1
+svn_get_and_build $GNOMESVNROOT/ORBit2/trunk ORBit2 || exit 1
+svn_get_and_build $GNOMESVNROOT/gconf/trunk gconf || exit 1
+svn_get_and_build http://svn.gnucash.org/repo/gnucash/branches/2.0 gnucash || exit 1
 
-#svn_get_and_build $GNOMESVNROOT/gimp/trunk gimp || exit 1
 # Needed for gimp:
 # gtkhtml2 (optional)
 # libpoppler (optional)
-# ./autogen.sh --prefix=/opt/gimp --disable-gtk-doc 

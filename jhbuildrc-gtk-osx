@@ -1,0 +1,65 @@
+# -*- mode: python -*-
+
+# Edit this file to match your settings and copy it to:
+#  ~/.jhbuildrc
+
+# If you have a GNOME svn account, specify it here:
+#repos['svn.gnome.org'] = 'svn+ssh://rhult@svn.gnome.org/svn/'
+
+# What module set should be used. Can be any of the files in the
+# modulesets directory, or even the URL of a module set file on a web
+# server.
+#moduleset = 'http://people.imendio.com/richard/gtk-osx/gtk-osx.modules'
+moduleset = 'gtk-osx'
+
+# A list of the modules to build.
+modules = [ 'meta-gtk-osx-core' ]
+
+# A list of modules to skip.
+skip = [ 'python' ]
+
+# What directory should the source be checked out to?
+checkoutroot = os.path.expanduser('~/Source/gnome')
+
+tarballdir = os.path.join(checkoutroot, 'pkgs')
+
+# The prefix to configure/install modules to (must have write access).
+prefix = '/opt/gtk'
+
+# Extra arguments to pass to all autogen.sh scripts.
+autogenargs='--disable-static --disable-gtk-doc --disable-docs --disable-scrollkeeper'
+
+# Module specific overrides for autogen.sh arguments.
+module_autogenargs['gettext'] = autogenargs + "--without-emacs --disable-java --disable-native-java"
+
+# To set CFLAGS, do this:
+#os.environ['CFLAGS'] = '-g -O2'
+
+# On SMP systems you may use something like this to improve
+# compilation time: Be aware that not all modules compile correctly
+# with make -j2 though, like GTK+.
+#os.environ['MAKEFLAGS'] = '-j2'
+
+# Use the included install-check program if available. It won't update
+# timestamps if the header hasn't changed, which speeds up builds.
+path = os.path.expanduser('~/bin/install-checks')
+if os.path.exists(path):
+    os.environ['INSTALL'] = path
+
+# Can be used to set a different prompt when inside jhbuild shells.
+os.environ['INSIDE_JHBUILD'] = '1'
+
+# Hack used in the fake tarballs to install in the right place.
+os.environ['PREFIX'] = prefix
+
+os.environ['LIBTOOLIZE'] = prefix + '/bin/libtoolize'
+
+# Needed for glib etc to pick up gettext (libintl). I'm not sure why.
+os.environ['LDFLAGS'] = '-L' + prefix + '/lib'
+os.environ['CPPFLAGS'] = '-I' + prefix + '/include'
+
+# Add additional Python path for pygtk since we are using the system
+# version.
+import sys
+version = 'python' + str(sys.version_info[0]) + '.' + str(sys.version_info[1])
+os.environ['PYTHONPATH'] = prefix + '/lib/' + version + '/site-packages/gtk-2.0'
