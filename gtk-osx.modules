@@ -286,6 +286,7 @@
   <autotools id="gossip" autogenargs="--with-backend=cocoa">
     <branch/>
     <dependencies>
+      <dep package="loudmouth"/>
       <dep package="gtk+"/>
       <dep package="libglade"/>
       <dep package="gnome-icon-theme"/>

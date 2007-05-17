@@ -1,15 +1,6 @@
-2007-04-27  Richard Hult  <richard@imendio.com>
+2007-05-17  Richard Hult  <richard@imendio.com>
 
-	* gtk-osx-build: Add note about the "all" module set. Remove the
-	duplicated help notes and point to the web pages instead, it's too
-	easy to let those not be in sync. Add "test" module set and move
-	gossip and loudmouth to it.
-
-2007-04-27  Richard Hult  <richard@imendio.com>
-
-	* gtk-osx-build: Add USE_CAIRO_TARBALL environment variable, if
-	set, cairo will be dowloaded from a released tarball instead of
-	GIT. Useful from behind a proxy that can't access the GIT repo.
+	* Add jhbuild stuff.
 
 2007-04-26  Richard Hult  <richard@imendio.com>
 
