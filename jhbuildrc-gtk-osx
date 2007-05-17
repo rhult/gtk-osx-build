@@ -4,13 +4,13 @@
 #  ~/.jhbuildrc
 
 # If you have a GNOME svn account, specify it here:
-#repos['svn.gnome.org'] = 'svn+ssh://rhult@svn.gnome.org/svn/'
+#repos['svn.gnome.org'] = 'svn+ssh://user@svn.gnome.org/svn/'
 
 # What module set should be used. Can be any of the files in the
 # modulesets directory, or even the URL of a module set file on a web
 # server.
-#moduleset = 'http://people.imendio.com/richard/gtk-osx/gtk-osx.modules'
-moduleset = 'gtk-osx'
+moduleset = 'http://developer.imendio.com/svn/gtk-osx-build/gtk-osx.modules'
+#moduleset = 'gtk-osx'
 
 # A list of the modules to build.
 modules = [ 'meta-gtk-osx-core' ]
