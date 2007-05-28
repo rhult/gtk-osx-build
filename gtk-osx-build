@@ -10,7 +10,7 @@ export LIBTOOLIZE=$PREFIX/bin/libtoolize
 export PYTHONPATH=$PREFIX/lib/python2.3/site-packages:$PREFIX/lib/python2.3/site-packages/gtk-2.0
 
 export XDG_DATA_DIRS="$PREFIX/share"
-export PERL5LIB="$PREFIX/lib/perl5/site_perl:`perl -e 'printf "/opt/gtk/Library/Perl/%vd", $^V'`"
+export PERL5LIB="$PREFIX/lib/perl5/site_perl:`perl -e 'printf "$PREFIX/Library/Perl/%vd", $^V'`"
 
 # Needed for glib etc to pick up gettext
 export LDFLAGS=-L$PREFIX/lib

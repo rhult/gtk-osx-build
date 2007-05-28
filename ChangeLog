@@ -1,5 +1,11 @@
 2007-05-28  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-build: Fix hard coded prefix.
+
+	* jhbuildrc-gtk-osx: Attempt to add perl path setup.
+
+2007-05-28  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Remove the extra modules, since they don't
 	build without a lot of manual work anyway.
 
