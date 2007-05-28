@@ -16,8 +16,6 @@
   <repository type="cvs" name="tango.freedesktop.org"
       cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/tango"
       password=""/>
-  <repository type="svn" name="ardour"
-      href="http://subversion.ardour.org/svn/"/>
   <repository type="cvs" name="gstreamer.freedesktop.org"
       cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
       password=""/>
@@ -325,115 +323,6 @@
     <dependencies>
       <dep package="ORBit2"/>
       <dep package="libxml2"/>
-    </dependencies>
-  </autotools>
-
-  <tarball id="libsamplerate" version="0.1.2">
-    <source href="http://www.mega-nerd.com/SRC/libsamplerate-0.1.2.tar.gz"
-            md5sum="06861c2c6b8e5273c9b80cf736b9fd0e" size="707867"/>
-  </tarball>
-  <tarball id="raptor" version="1.4.15" autogenargs="--disable-www">
-    <source href="http://download.librdf.org/source/raptor-1.4.15.tar.gz"
-            md5sum="658fac0c25d50274c879f6cc49c3364b" size="1445553"/>
-    <dependencies>
-      <dep package="libxslt"/>
-    </dependencies>
-  </tarball>
-  <tarball id="liblrdf" version="0.4.0"> <!-- this doesn't build, needs to do make -k install -->
-    <source href="http://switch.dl.sourceforge.net/sourceforge/lrdf/liblrdf-0.4.0.tar.gz"
-            md5sum="327a5674f671c4b360c6353800226877" size="336959"/>
-    <dependencies>
-      <dep package="raptor"/>
-    </dependencies>
-  </tarball>
-  <tarball id="jack" version="0.103.0">
-    <source href="http://mesh.dl.sourceforge.net/sourceforge/jackit/jack-audio-connection-kit-0.103.0.tar.gz"
-            md5sum="03a0f63b997ce7b83a1eeaa6b80f4388" size="763244"/>
-  </tarball>
-  <tarball id="liblo" version="0.24">
-    <source href="http://users.ecs.soton.ac.uk/~njh/liblo/liblo-0.24.tar.gz"
-            md5sum="a9b5e7c6fcc835cd468e26cc95aba91a" size="432285"/>
-  </tarball>
-  <tarball id="boost" version="1.33.1"> <!-- this needs to be configured manually -->
-    <source href="http://puzzle.dl.sourceforge.net/sourceforge/boost/boost_1_33_1.tar.gz"
-            md5sum="a0be7261bfdc8a6c98a25f964766c7a5" size="14358143"/>
-  </tarball>
-
-  <autotools id="ardour"> <!-- this is not an autotools module, uses scons -->
-    <branch repo="ardour" revision="2.0-ongoing" module="ardour2" checkoutdir="ardour"/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="libgnomecanvas"/>
-      <dep package="gconf"/>
-      <dep package="libsamplerate"/>
-      <dep package="raptor"/>
-      <dep package="liblrdf"/>
-      <dep package="liblo"/>
-      <dep package="jack"/>
-      <dep package="boost"/>
-    </dependencies>
-  </autotools>
-
-  <tarball id="liboil" version="0.3.9">
-    <source href="http://liboil.freedesktop.org/download/liboil-0.3.9.tar.gz"
-            md5sum="5d139b1fb16f0e93f0c84290ad2aaff8" size="833083"/>
-  </tarball>
-
-  <!-- you need bison 1.35 or later, use MacPorts for example -->
-  <autotools id="gstreamer" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" module="gstreamer"/>
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="libxml2"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gst-plugins-base" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-base"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gtk+"/>
-      <dep package="liboil"/>
-    </dependencies>
-    <after>
-      <dep package="gnome-vfs"/>
-    </after>
-  </autotools>
-
-  <autotools id="gst-plugins-good" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-good"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gst-plugins-ugly" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-ugly"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gst-plugins-bad" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-bad"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gst-ffmpeg" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-ffmpeg"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
     </dependencies>
   </autotools>
 

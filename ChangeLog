@@ -1,3 +1,8 @@
+2007-05-28  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Remove the extra modules, since they don't
+	build without a lot of manual work anyway.
+
 2007-05-17  Richard Hult  <richard@imendio.com>
 
 	* Add jhbuild stuff.
