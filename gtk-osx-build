@@ -387,7 +387,7 @@ else
     echo "NOTE: Using tarball of Cairo. This is not recommended if not absolutely"
     echo "necessary, for example if you are behind a proxy that doesn't work with"
     echo "the GIT repository for Cairo."
-    PACKAGE=http://cairographics.org/releases/cairo-1.4.4.tar.gz
+    PACKAGE=http://cairographics.org/releases/cairo-1.4.10.tar.gz
     tarball_get_and_build $PACKAGE || exit 1
 fi
 
