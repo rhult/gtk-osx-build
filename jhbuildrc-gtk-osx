@@ -20,7 +20,6 @@ skip = [ 'python' ]
 
 # What directory should the source be checked out to?
 checkoutroot = os.path.expanduser('~/Source/gnome')
-
 tarballdir = os.path.join(checkoutroot, 'pkgs')
 
 # The prefix to configure/install modules to (must have write access).
@@ -30,7 +29,8 @@ prefix = '/opt/gtk'
 autogenargs='--disable-static --disable-gtk-doc --disable-docs --disable-scrollkeeper'
 
 # Module specific overrides for autogen.sh arguments.
-module_autogenargs['gettext'] = autogenargs + "--without-emacs --disable-java --disable-native-java"
+module_autogenargs['gettext'] = autogenargs + ' --without-emacs --disable-java --disable-native-java'
+module_autogenargs['doxygen'] = ''
 
 # To set CFLAGS, do this:
 #os.environ['CFLAGS'] = '-g -O2'
@@ -42,7 +42,7 @@ module_autogenargs['gettext'] = autogenargs + "--without-emacs --disable-java --
 
 # Use the included install-check program if available. It won't update
 # timestamps if the header hasn't changed, which speeds up builds.
-path = os.path.expanduser('~/bin/install-checks')
+path = os.path.expanduser('~/bin/install-check')
 if os.path.exists(path):
     os.environ['INSTALL'] = path
 

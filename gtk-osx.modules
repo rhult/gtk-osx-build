@@ -327,4 +327,76 @@
     </dependencies>
   </autotools>
 
+  <tarball autogenargs="--disable-selinux" id="dbus" supports-non-srcdir-builds="no" version="1.0.2">
+    <source href="http://dbus.freedesktop.org/releases/dbus/dbus-1.0.2.tar.gz"
+            md5sum="0552a9b54beb4a044951b7cdbc8fc855" size="1400278"/>
+    <dependencies>
+      <dep package="glib"/>
+    </dependencies>
+    <after>
+      <dep package="gtk+"/>
+    </after>
+  </tarball>
+
+  <tarball id="dbus-glib" version="0.71">
+    <source href="http://dbus.freedesktop.org/releases/dbus-glib-0.71.tar.gz"
+            md5sum="4e1e7348b26ee8b6485452113f4221cc" size="566889"/>
+    <dependencies>
+      <dep package="libxml2"/>
+      <dep package="dbus"/>
+      <dep package="glib"/>
+    </dependencies>
+    <patches>
+      <patch file="dbus-glib-build.patch" strip="1" />
+    </patches>
+  </tarball>
+
+  <tarball id="cairomm" version="1.2.2">
+    <source href="http://cairographics.org/releases/cairomm-1.2.2.tar.gz"
+	    md5sum="fabb040a5ff2cf0529af55ff46d22d2d" size="582629"/>
+    <dependencies>
+      <dep package="cairo"/>
+    </dependencies>
+  </tarball>
+
+  <autotools id="glibmm">
+    <branch/>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="libsigc++2"/>
+    </dependencies>
+  </autotools>
+
+  <tarball id="doxygen" version="1.5.3" checkoutdir="doxygen-1.5.3">
+    <source href="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.5.3.src.tar.gz" 
+            md5sum="5fd6f0c2c7946005703b47dc6b663757" size="3617278"/>
+  </tarball>
+
+  <autotools id="libsigc++2">
+    <branch revision="libsigc-2-0"/>
+    <dependencies>
+      <dep package="doxygen"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtkmm">
+    <branch/>
+    <dependencies>
+      <dep package="glibmm"/>
+      <dep package="cairomm"/>
+      <dep package="gtk+"/>
+    </dependencies>
+  </autotools>
+
+  <tarball id="poppler" version="0.5.9">
+    <source href="http://poppler.freedesktop.org/poppler-0.5.9.tar.gz"
+            md5sum="8d1ac008614c0e413bcac95b8102fa07" size="1169002"/>
+    <dependencies>
+      <dep package="cairo"/>
+    </dependencies>
+    <after>
+      <dep package="gtk+"/>
+    </after>
+  </tarball>
+
 </moduleset>

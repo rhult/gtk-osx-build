@@ -1,3 +1,11 @@
+2007-08-23  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Add doxygen, libsigc++2, glibmm, cairomm,
+	gtkmm, poppler. Note that those don't build out of the box, some
+	manual tweaking is needed. Also add dbus and dbus-glib, untested.
+
+	* jhbuildrc-gtk-osx: Small updates.
+
 2007-07-14  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-build: Update cairo tarball to 1.4.10.
