@@ -1,3 +1,10 @@
+2007-09-18  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Add gail. Also add some additional really
+	unsupported modules just to make it easier to build some test
+	apps.
+	- Upgrade the docbook setup.
+	
 2007-08-23  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx.modules: Add doxygen, libsigc++2, glibmm, cairomm,

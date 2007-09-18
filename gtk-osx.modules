@@ -19,6 +19,10 @@
   <repository type="cvs" name="gstreamer.freedesktop.org"
       cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
       password=""/>
+  <repository type="svn" name="inkscape.svn.sourceforge.net"
+      href="https://inkscape.svn.sourceforge.net/svnroot/inkscape/"/>
+  <repository type="svn" name="ardour"
+      href="http://subversion.ardour.org/svn/"/>
 
   <metamodule id="meta-gtk-osx-core">
     <dependencies>
@@ -58,16 +62,16 @@
             md5sum="18050a1d156b137f4bf540fad50c11a6" size="666629"/>
   </tarball>
 
-  <tarball id="docbook-files" supports-non-srcdir-builds="no" version="2">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/docbook-files-2.tar.gz"
-            md5sum="20e06872d7b8285da8d312bc4660f790" size="1119907"/>
+  <tarball id="docbook-setup" supports-non-srcdir-builds="no" version="3">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/docbook-setup-3.tar.gz"
+            md5sum="454f524252f8d74b94097d9a65c4adf9" size="1933984"/>
   </tarball>
 
   <tarball id="gnome-doc-utils-fake" supports-non-srcdir-builds="no" version="0.10.13-1">
     <source href="http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-2.tar.gz"
             md5sum="fbc030927bf65408a8b16d322d9a873a" size="16527"/>
     <dependencies>
-      <dep package="docbook-files"/>
+      <dep package="docbook-setup"/>
     </dependencies>
   </tarball>
 
@@ -87,7 +91,7 @@
     <branch/>
     <dependencies>
       <dep package="libxslt"/>
-      <dep package="docbook-files"/>
+      <dep package="docbook-setup"/>
     </dependencies>
   </autotools>
   <autotools id="glib">
@@ -121,6 +125,13 @@
       <dep package="libpng"/>
       <dep package="libjpeg"/>
       <dep package="libtiff"/>
+    </dependencies>
+  </autotools>
+  <autotools id="gail">
+    <branch/>
+    <dependencies>
+      <dep package="gtk+"/>
+      <dep package="atk"/>
     </dependencies>
   </autotools>
 
@@ -234,6 +245,7 @@
     <dependencies>
       <dep package="gtk+"/>
       <dep package="libart_lgpl"/>
+      <dep package="gail"/>
     </dependencies>
   </autotools>
 
@@ -388,7 +400,8 @@
     </dependencies>
   </autotools>
 
-  <tarball id="poppler" version="0.5.9">
+  <tarball id="poppler" version="0.5.9"
+           autogenargs="--disable-qt --disable-qt4 --without-x --disable-gtk-test --enable-xpdf-headers">
     <source href="http://poppler.freedesktop.org/poppler-0.5.9.tar.gz"
             md5sum="8d1ac008614c0e413bcac95b8102fa07" size="1169002"/>
     <dependencies>
@@ -398,5 +411,86 @@
       <dep package="gtk+"/>
     </after>
   </tarball>
+
+  <!-- Patched version that builds on osx... -->
+  <tarball id="popt" version="1.7">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/popt-1.7.tar.gz"
+            md5sum="a13a3c7ec893200db3e0287dfd40487d" size="575089"/>
+  </tarball>
+
+  <tarball id="gc" version="6.7" checkoutdir="gc6.7">
+    <source href="http://www.hpl.hp.com/personal/Hans_Boehm/gc/gc_source/gc.tar.gz"
+            md5sum="be780413a0360306ad3b701e45fa8871" size="755999"/>
+  </tarball>
+
+  <tarball id="libsamplerate" version="0.1.2">
+    <source href="http://www.mega-nerd.com/SRC/libsamplerate-0.1.2.tar.gz"
+            md5sum="06861c2c6b8e5273c9b80cf736b9fd0e" size="707867"/>
+  </tarball>
+  <tarball id="raptor" version="1.4.15" autogenargs="--disable-www">
+    <source href="http://download.librdf.org/source/raptor-1.4.15.tar.gz"
+            md5sum="658fac0c25d50274c879f6cc49c3364b" size="1445553"/>
+    <dependencies>
+      <dep package="libxslt"/>
+    </dependencies>
+  </tarball>
+
+  <!-- this doesn't build, needs:
+       make -k install
+  -->
+  <tarball id="liblrdf" version="0.4.0">
+    <source href="http://switch.dl.sourceforge.net/sourceforge/lrdf/liblrdf-0.4.0.tar.gz"
+            md5sum="327a5674f671c4b360c6353800226877" size="336959"/>
+    <dependencies>
+      <dep package="raptor"/>
+    </dependencies>
+  </tarball>
+  <tarball id="jack" version="0.103.0">
+    <source href="http://mesh.dl.sourceforge.net/sourceforge/jackit/jack-audio-connection-kit-0.103.0.tar.gz"
+            md5sum="03a0f63b997ce7b83a1eeaa6b80f4388" size="763244"/>
+  </tarball>
+  <tarball id="liblo" version="0.24">
+    <source href="http://users.ecs.soton.ac.uk/~njh/liblo/liblo-0.24.tar.gz"
+            md5sum="a9b5e7c6fcc835cd468e26cc95aba91a" size="432285"/>
+  </tarball>
+
+  <!-- this needs to be configured manually, and libtool must be renamed temporarily while
+       building so it doesn't conflict with /usr/bin/libtool.
+       - also prefix/include/boost_*/boost needs to be symlinked to prefix/include/boost
+       - and SConstructs needs /usr/local -> prefix
+  -->
+  <tarball id="boost" version="1.33.1">
+    <source href="http://puzzle.dl.sourceforge.net/sourceforge/boost/boost_1_33_1.tar.gz"
+            md5sum="a0be7261bfdc8a6c98a25f964766c7a5" size="14358143"/>
+  </tarball>
+
+  <!-- this is not an autotools module, uses scons:
+       scons PREFIX=/opt/gtk GTKOSX=yes install
+  -->
+  <autotools id="ardour">
+    <branch repo="ardour" revision="2.0-ongoing" module="ardour2" checkoutdir="ardour"/>
+    <dependencies>
+      <dep package="gtk+"/>
+      <dep package="libgnomecanvas"/>
+      <dep package="gconf"/>
+      <dep package="libsamplerate"/>
+      <dep package="raptor"/>
+      <dep package="liblrdf"/>
+      <dep package="liblo"/>
+      <dep package="jack"/>
+      <dep package="boost"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="inkscape" autogenargs="--disable-lcms">
+    <branch repo="inkscape.svn.sourceforge.net"/>
+    <dependencies>
+      <dep package="poppler"/>
+      <dep package="gtkmm"/>
+      <dep package="popt"/>
+      <dep package="gc"/>
+      <dep package="boost"/>
+    </dependencies>
+  </autotools>
 
 </moduleset>
