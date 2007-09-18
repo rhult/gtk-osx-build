@@ -65,3 +65,6 @@ version = 'python' + str(sys.version_info[0]) + '.' + str(sys.version_info[1])
 os.environ['PYTHONPATH'] = prefix + '/lib/' + version + '/site-packages/gtk-2.0'
 
 os.environ['PERL5LIB'] = prefix + '/lib/perl5/site_perl'
+
+# Needed to get gtk-doc and other xlstproc using things working.
+os.environ['XML_CATALOG_FILES'] = prefix + '/etc/xml/catalog'

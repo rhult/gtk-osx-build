@@ -1,5 +1,9 @@
 2007-09-18  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx: Add xml catalog setup. 
+
+2007-09-18  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Add gail. Also add some additional really
 	unsupported modules just to make it easier to build some test
 	apps.
