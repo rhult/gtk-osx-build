@@ -47,19 +47,34 @@
     </dependencies>
   </metamodule>
 
+  <metamodule id="meta-webkit">
+    <dependencies>
+      <dep package="gtk+"/>
+      <dep package="libcurl"/>
+      <dep package="icu"/>
+    </dependencies>
+  </metamodule>
+
   <tarball id="libpng" supports-non-srcdir-builds="no" version="1.2.12">
-    <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.12.tar.bz2"
-            md5sum="2287cfaad53a714acdf6eb75a7c1d15f" size="621295"/>
+    <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.22.tar.bz2"
+            md5sum="e50208ad684a5822c74b8a260962a4d4" size="614414"/>
+  </tarball>
+
+  <!-- Note the weirdness here, working around a completely broken
+       tarball of libjpeg... We symlink in libtool from our prefix -->
+  <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b"
+           makeargs=" ; ln -s $PREFIX/bin/libtool libtool; make install-lib"
+           checkoutdir="jpeg-6b" autogenargs="--enable-shared">
+    <source href="http://www.ijg.org/files/jpegsrc.v6b.tar.gz"
+            md5sum="dbd5f3b47ed13132f04c685d608a7547" size="613261"/>
   </tarball>
 
   <tarball id="libtiff" supports-non-srcdir-builds="no" version="3.8.2">
     <source href="ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.tar.gz"
             md5sum="fbb6f446ea4ed18955e2714934e5b698" size="1336295"/>
-  </tarball>
-
-  <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b-rh1" makeargs="install-lib">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/jpeg-6b.tar.gz"
-            md5sum="18050a1d156b137f4bf540fad50c11a6" size="666629"/>
+    <dependencies>
+      <dep package="libjpeg"/>
+    </dependencies>
   </tarball>
 
   <tarball id="docbook-setup" supports-non-srcdir-builds="no" version="3">
@@ -210,8 +225,8 @@
 
   <perl id="perl-xml-simple">
     <branch repo="cpan"
-        module="authors/id/G/GR/GRANTM/XML-Simple-2.16.tar.gz" version="2.16"
-        size="69084" md5sum="80c0980ff63d77b871de41acc7175df7"/>
+        module="authors/id/G/GR/GRANTM/XML-Simple-2.18.tar.gz" version="2.18"
+        size="71129" md5sum="593aa8001e5c301cdcdb4bb3b63abc33"/>
     <dependencies>
       <dep package="perl-xml-parser"/>
     </dependencies>
@@ -249,9 +264,9 @@
     </dependencies>
   </autotools>
 
-  <tarball id="icon-naming-utils" version="0.8.2">
-    <source href="http://tango.freedesktop.org/releases/icon-naming-utils-0.8.2.tar.gz"
-            md5sum="76e6afde567bd17b4fe095aa0ec90531" size="66393"/>
+  <tarball id="icon-naming-utils" version="0.8.6">
+    <source href="http://tango.freedesktop.org/releases/icon-naming-utils-0.8.6.tar.gz"
+            md5sum="22bd13295d42ff886f6ea355d00e036b" size="69522"/>
     <branch repo="icon-theme.freedesktop.org"/>
     <dependencies>
       <dep package="perl-xml-simple"/>
@@ -299,13 +314,20 @@
     </dependencies>
   </autotools>
 
-  <autotools id="gossip" autogenargs="--with-backend=cocoa">
+  <autotools id="gossip">
     <branch/>
     <dependencies>
       <dep package="loudmouth"/>
       <dep package="gtk+"/>
       <dep package="libglade"/>
       <dep package="gnome-icon-theme"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtksourceview" autogenargs="--disable-gnome-print">
+    <branch revision="gnome-2-18"/> <!-- module="ardour2" checkoutdir="ardour"/-->
+    <dependencies>
+      <dep package="gtk+"/>
     </dependencies>
   </autotools>
 
@@ -338,6 +360,16 @@
       <dep package="libxml2"/>
     </dependencies>
   </autotools>
+
+  <tarball id="icu" supports-non-srcdir-builds="no" version="3.6" checkoutdir="icu/source">
+    <source href="ftp://ftp.software.ibm.com/software/globalization/icu/3.6/icu4c-3_6-src.tgz"
+            md5sum="6243f7a19e03e05403ce84e597510d4c" size="10183358"/>
+  </tarball>
+
+  <tarball id="libcurl" supports-non-srcdir-builds="no" version="7.17.0">
+    <source href="http://curl.haxx.se/download/curl-7.17.0.tar.bz2"
+            md5sum="b529a8d2778c8ad09c33d9bbddee7e44" size="1698728"/>
+  </tarball>
 
   <tarball autogenargs="--disable-selinux" id="dbus" supports-non-srcdir-builds="no" version="1.0.2">
     <source href="http://dbus.freedesktop.org/releases/dbus/dbus-1.0.2.tar.gz"

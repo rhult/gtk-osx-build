@@ -1,3 +1,9 @@
+2007-10-15  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Add meta-webkit module, and icu and
+	libcurl. Upgrade icon-naming-utils, libpng, libjpeg,
+	perl-xml-simple. Add gtksourceview.
+
 2007-09-18  Richard Hult  <richard@imendio.com>
 
 	* jhbuildrc-gtk-osx: Add xml catalog setup. 
