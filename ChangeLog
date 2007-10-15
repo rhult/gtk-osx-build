@@ -1,5 +1,9 @@
 2007-10-15  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx.modules: Add lcms and make gimp depend on it.
+
+2007-10-15  Richard Hult  <richard@imendio.com>
+
 	* jhbuildrc-gtk-osx: Update the perl path to get perl modules
 	working again.
 
