@@ -1,5 +1,10 @@
 2007-10-15  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx: Update the perl path to get perl modules
+	working again.
+
+2007-10-15  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Add meta-webkit module, and icu and
 	libcurl. Upgrade icon-naming-utils, libpng, libjpeg,
 	perl-xml-simple. Add gtksourceview.
