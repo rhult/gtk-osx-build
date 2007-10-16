@@ -172,6 +172,7 @@
     </dependencies>
     <after>
       <dep package="fontconfig"/>
+      <dep package="freetype"/>
     </after>
   </tarball>
 
@@ -401,16 +402,16 @@
     </patches>
   </tarball>
 
-  <tarball id="cairomm" version="1.2.2">
-    <source href="http://cairographics.org/releases/cairomm-1.2.2.tar.gz"
-	    md5sum="fabb040a5ff2cf0529af55ff46d22d2d" size="582629"/>
+  <tarball id="cairomm" version="1.4.4">
+    <source href="http://cairographics.org/releases/cairomm-1.4.4.tar.gz"
+	    md5sum="a5b947eb2692b0b6c3089fcfa6ce167e" size="677392"/>
     <dependencies>
       <dep package="cairo"/>
     </dependencies>
   </tarball>
 
   <autotools id="glibmm">
-    <branch/>
+    <branch revision="glibmm-2-14"/>
     <dependencies>
       <dep package="glib"/>
       <dep package="libsigc++2"/>
@@ -442,13 +443,18 @@
            autogenargs="--disable-qt --disable-qt4 --without-x --disable-gtk-test --enable-xpdf-headers">
     <source href="http://poppler.freedesktop.org/poppler-0.5.9.tar.gz"
             md5sum="8d1ac008614c0e413bcac95b8102fa07" size="1169002"/>
-    <dependencies>
-      <dep package="cairo"/>
-    </dependencies>
+     <dependencies>
+       <dep package="cairo"/>
+     </dependencies>
     <after>
       <dep package="gtk+"/>
     </after>
   </tarball>
+
+  <!-- Inkscape doesn't work with 0.6.x yet
+       href="http://poppler.freedesktop.org/poppler-0.6.1.tar.gz"
+         md5sum="78a5f8ff1a3464eddb127577eea7a191" size="1286501"/ 
+  -->
 
   <!-- Patched version that builds on osx... -->
   <tarball id="popt" version="1.7">
@@ -492,14 +498,18 @@
             md5sum="a9b5e7c6fcc835cd468e26cc95aba91a" size="432285"/>
   </tarball>
 
-  <!-- this needs to be configured manually, and libtool must be renamed temporarily while
-       building so it doesn't conflict with /usr/bin/libtool.
-       - also prefix/include/boost_*/boost needs to be symlinked to prefix/include/boost
-       - and SConstructs needs /usr/local -> prefix
+  <!-- - This needs to be configured manually, and libtool might need
+       renaming temporarily while building so it doesn't conflict with
+       /usr/bin/libtool.
+
+       - Also $prefix/include/boost_*/boost needs to be symlinked to
+       $prefix/include/boost
+
+       - And SConstructs might need symlinking /usr/local -> $prefix.
   -->
-  <tarball id="boost" version="1.33.1">
-    <source href="http://puzzle.dl.sourceforge.net/sourceforge/boost/boost_1_33_1.tar.gz"
-            md5sum="a0be7261bfdc8a6c98a25f964766c7a5" size="14358143"/>
+  <tarball id="boost" version="1.34.1">
+    <source href="http://dfn.dl.sourceforge.net/sourceforge/boost/boost_1_34_1.tar.bz2"
+            md5sum="2d938467e8a448a2c9763e0a9f8ca7e5" size="12986931"/>
   </tarball>
 
   <!-- this is not an autotools module, uses scons:
@@ -520,7 +530,7 @@
     </dependencies>
   </autotools>
 
-  <autotools id="inkscape" autogenargs="--disable-lcms">
+  <autotools id="inkscape">
     <branch repo="inkscape.svn.sourceforge.net"/>
     <dependencies>
       <dep package="poppler"/>
@@ -528,6 +538,7 @@
       <dep package="popt"/>
       <dep package="gc"/>
       <dep package="boost"/>
+      <dep package="lcms"/>
     </dependencies>
   </autotools>
 
