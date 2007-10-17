@@ -54,8 +54,12 @@ os.environ['PREFIX'] = prefix
 
 os.environ['LIBTOOLIZE'] = prefix + '/bin/libtoolize'
 
-# Needed for glib etc to pick up gettext (libintl). I'm not sure why.
-os.environ['LDFLAGS'] = '-L' + prefix + '/lib'
+# The -L/-I options are needed for glib etc to pick up gettext
+# (libintl), I'm not sure why and I would like to get rid of that.
+#
+# The option "headerpad_max_install_names" is there to leave some room
+# for changing the library locations with install_name_tool.
+os.environ['LDFLAGS'] = '-L' + prefix + '/lib' + ' -headerpad_max_install_names'
 os.environ['CPPFLAGS'] = '-I' + prefix + '/include'
 
 # Add additional Python path for pygtk since we are using the system

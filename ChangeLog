@@ -1,3 +1,10 @@
+2007-10-17  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Add gstreamer and friends.
+
+	* jhbuildrc-gtk-osx: Add library header padding and clean up a
+	bit.
+
 2007-10-16  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx.modules: Update boost and try to get the inkscape build
