@@ -623,8 +623,9 @@
     </dependencies>
   </autotools>
 
-  <autotools id="gst-ffmpeg" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
+  <!-- This must be built with -O2, due to a gcc bug. Also mmx doesn't work yet on OSX -->
+  <autotools id="gst-ffmpeg" autogenargs="-- --disable-tests --disable-mmx" supports-non-srcdir-builds="no"
+    makeargs='ERROR_CFLAGS= CFLAGS="$CFLAGS -O2"'>
     <branch repo="gstreamer.freedesktop.org" module="gst-ffmpeg"/>
     <dependencies>
       <dep package="gstreamer"/>
