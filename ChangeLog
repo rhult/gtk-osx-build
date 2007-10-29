@@ -1,5 +1,11 @@
 2007-10-29  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx: Set the debug format to stabs+3 since the
+	default changed in leopard and we don't want to use dwarf since it
+	doesn't work that well with auto*.
+
+2007-10-29  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Make gst-ffmpeg build on leopard.
 
 2007-10-17  Richard Hult  <richard@imendio.com>
