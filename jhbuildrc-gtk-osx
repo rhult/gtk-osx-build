@@ -35,10 +35,12 @@ module_autogenargs['doxygen'] = ''
 # To set CFLAGS, do this:
 #os.environ['CFLAGS'] = '-g -O2'
 
-# Specify stabs+3 as debug format, since the default changed in
-# leopard to dwarf, and that doesn't work well with auto*.
-os.environ['CFLAGS'] = '-gstabs+3'
-os.environ['CXXFLAGS'] = '-gstabs+3'
+# Set debugging format to the old one from Tiger and earlier since the
+# new default in Leopard breaks many things. Also set gnu89 as the new
+# default gnu99 changes how extern inline works, breaking, glib's
+# inline setup.
+os.environ['CFLAGS'] = '-gstabs+3 -std=gnu89'
+os.environ['CXXFLAGS'] = '-gstabs+3 -std=gnu89'
 
 # On SMP systems you may use something like this to improve
 # compilation time: Be aware that not all modules compile correctly

@@ -1,3 +1,7 @@
+2007-10-31  Richard Hult  <richard@imendio.com>
+
+	* jhbuildrc-gtk-osx: Use -std=gnu89 to fix build on leopard.
+
 2007-10-29  Richard Hult  <richard@imendio.com>
 
 	* jhbuildrc-gtk-osx: Set the debug format to stabs+3 since the
