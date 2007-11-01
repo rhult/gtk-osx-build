@@ -1,3 +1,7 @@
+2007-11-01  Richard Hult  <richard@imendio.com>
+
+	* jhbuildrc-gtk-osx: Don't set -std for C++.
+
 2007-10-31  Richard Hult  <richard@imendio.com>
 
 	* jhbuildrc-gtk-osx: Use -std=gnu89 to fix build on leopard.
