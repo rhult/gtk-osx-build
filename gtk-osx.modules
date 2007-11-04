@@ -332,7 +332,7 @@
     </dependencies>
   </autotools>
 
-  <autotools id="gimp" autogenargs="--disable-python --disable-print">
+  <autotools id="gimp" autogenargs="--disable-python --disable-print --without-x">
     <branch/>
     <dependencies>
       <dep package="gtk+"/>
