@@ -1,5 +1,11 @@
 2007-11-13  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-gstreamer.modules: Update liboil to 0.3.12 to get it
+	building on ppc and apply patches from macports to get it building
+	on intel.
+
+2007-11-13  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx-bootstrap.modules:
 	* gtk-osx-gstreamer.modules:
 	* gtk-osx-gtkmm.modules:

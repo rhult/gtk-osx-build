@@ -6,15 +6,19 @@
       cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
       password=""/>
 
-  <!--tarball id="liboil" version="0.3.12">
+  <!-- The patch disables SSE1/2/3 to fix the build on intel. -->
+  <tarball id="liboil" version="0.3.12">
     <source href="http://liboil.freedesktop.org/download/liboil-0.3.12.tar.gz"
             md5sum="96ee4c627ffb0db3999cef3c7454b1d9" size="810532"/>
-  </tarball-->
+    <patches>
+      <patch file="http://people.imendio.com/richard/gtk-osx/files/liboil-build.patch" strip="0"/>
+    </patches>
+  </tarball>
 
-  <tarball id="liboil" version="0.3.9">
+  <!--tarball id="liboil" version="0.3.9">
     <source href="http://liboil.freedesktop.org/download/liboil-0.3.9.tar.gz"
             md5sum="5d139b1fb16f0e93f0c84290ad2aaff8" size="833083"/>
-  </tarball>
+  </tarball-->
 
   <!-- This is not really working out of the box, drop into the shell
        when you get an error and run "chmod +x configure install-sh",
