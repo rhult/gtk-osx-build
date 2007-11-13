@@ -20,20 +20,15 @@
             md5sum="5d139b1fb16f0e93f0c84290ad2aaff8" size="833083"/>
   </tarball-->
 
-  <!-- This is not really working out of the box, drop into the shell
-       when you get an error and run "chmod +x configure install-sh",
-       then back to jhbuild and retry.
+  <!-- This is the original tarball from
+       http://belnet.dl.sourceforge.net/sourceforge/faac/faad2-2.6.tar.gz
+       but retarred after running "autoreconf -vif".
   -->
-  <tarball id="faad" version="2.6" checkoutdir="faad2">
-    <source href="http://belnet.dl.sourceforge.net/sourceforge/faac/faad2-2.6.tar.gz"
-            md5sum="aeeb1e6c2dc70eeb7fb74afd546d8b82" size="840155"/>
-    <patches>
-      <patch file="http://people.imendio.com/richard/gtk-osx/files/faad-autoreconf.patch" strip="1"/>
-      <patch file="http://people.imendio.com/richard/gtk-osx/files/faad-lrintf.patch" strip="0"/>
-    </patches>
+  <tarball id="faad" version="2.6-rh1" autogenargs="-without-bmp --without-xmms --without-drm --without-mpeg4ip">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/faad2-2.6-rh1.tar.gz"
+            md5sum="25f4e0f0bce5961966c8b0e9b05b9d1b" size="1589478"/>
   </tarball>
 
-  <!-- You need bison 1.35 or later, use MacPorts for example. -->
   <autotools id="gstreamer" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
     makeargs="ERROR_CFLAGS=">
     <branch repo="gstreamer.freedesktop.org" module="gstreamer"/>

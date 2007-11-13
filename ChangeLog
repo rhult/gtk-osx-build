@@ -1,5 +1,12 @@
 2007-11-13  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-bootstrap.modules: Add gtk-doc to the meta module.
+	
+	* gtk-osx-gstreamer.modules: Make a reautoconfed tarball of faad
+	to get it building without manual work.
+
+2007-11-13  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx-gstreamer.modules: Update liboil to 0.3.12 to get it
 	building on ppc and apply patches from macports to get it building
 	on intel.

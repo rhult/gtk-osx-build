@@ -132,6 +132,7 @@
   <metamodule id="meta-gtk-osx-bootstrap">
     <dependencies>
       <dep package="libpng"/>
+      <dep package="gtk-doc"/>
       <dep package="libjpeg"/>
       <dep package="libtiff"/>
       <dep package="libxml2"/>
