@@ -1,0 +1,42 @@
+<?xml version="1.0"?><!--*- mode: xml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+
+  <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
+  <repository type="cvs" name="cvs-cairo.freedesktop.org" cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/cairo"
+      password=""/>
+
+  <metamodule id="meta-gtk-osx-python">
+    <dependencies>
+      <dep package="pycairo"/>
+      <dep package="pygobject"/>
+      <dep package="pygtk"/>
+    </dependencies>
+  </metamodule>
+
+  <autotools id="pycairo">
+    <branch repo="cvs-cairo.freedesktop.org"/>
+    <dependencies>
+      <dep package="cairo"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="pygobject">
+    <branch/>
+    <dependencies>
+      <dep package="glib"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="pygtk">
+    <branch/>
+    <dependencies>
+      <dep package="pygobject"/>
+      <dep package="gtk+"/>
+      <dep package="pycairo"/>
+      <dep package="libglade"/>
+    </dependencies>
+  </autotools>
+
+</moduleset>

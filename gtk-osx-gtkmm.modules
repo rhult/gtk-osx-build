@@ -1,0 +1,51 @@
+<?xml version="1.0"?><!--*- mode: xml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+  <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
+
+  <metamodule id="meta-gtk-osx-gtkmm">
+    <dependencies>
+      <dep package="gtkmm"/>
+    </dependencies>
+  </metamodule>
+
+  <tarball id="cairomm" version="1.4.4">
+    <source href="http://cairographics.org/releases/cairomm-1.4.4.tar.gz"
+	    md5sum="a5b947eb2692b0b6c3089fcfa6ce167e" size="677392"/>
+    <dependencies>
+      <dep package="cairo"/>
+    </dependencies>
+  </tarball>
+
+  <autotools id="glibmm">
+    <branch revision="glibmm-2-14"/>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="libsigc++2"/>
+    </dependencies>
+  </autotools>
+
+  <!-- This doesn't build out of the box, drop into the shell and run configure manually. -->
+  <tarball id="doxygen" version="1.5.3" checkoutdir="doxygen-1.5.3">
+    <source href="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.5.3.src.tar.gz" 
+            md5sum="5fd6f0c2c7946005703b47dc6b663757" size="3617278"/>
+  </tarball>
+
+  <autotools id="libsigc++2">
+    <branch revision="libsigc-2-0"/>
+    <dependencies>
+      <dep package="doxygen"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtkmm">
+    <branch/>
+    <dependencies>
+      <dep package="glibmm"/>
+      <dep package="cairomm"/>
+      <dep package="gtk+"/>
+    </dependencies>
+  </autotools>
+
+</moduleset>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?><!--*- mode: xml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+
+  <tarball id="icu" version="3.6" checkoutdir="icu/source">
+    <source href="ftp://ftp.software.ibm.com/software/globalization/icu/3.6/icu4c-3_6-src.tgz"
+            md5sum="6243f7a19e03e05403ce84e597510d4c" size="10183358"/>
+  </tarball>
+
+  <metamodule id="meta-webkit-deps">
+    <dependencies>
+      <dep package="gtk+"/>
+      <dep package="libcurl"/>
+      <dep package="icu"/>
+    </dependencies>
+  </metamodule>
+
+</moduleset>

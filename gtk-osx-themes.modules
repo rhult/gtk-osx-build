@@ -1,0 +1,60 @@
+<?xml version="1.0"?><!--*- mode: nxml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+  <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
+  <repository type="cvs" name="tango.freedesktop.org"
+      cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/tango"
+      password=""/>
+
+  <metamodule id="meta-gtk-osx-themes">
+    <dependencies>
+      <dep package="tango-icon-theme"/>
+      <dep package="tango-icon-theme-extras"/>
+      <dep package="gnome-icon-theme"/>
+      <dep package="gtk-engines"/>
+    </dependencies>
+  </metamodule>
+
+  <tarball id="icon-naming-utils" version="0.8.6">
+    <source href="http://tango.freedesktop.org/releases/icon-naming-utils-0.8.6.tar.gz"
+            md5sum="22bd13295d42ff886f6ea355d00e036b" size="69522"/>
+    <branch repo="icon-theme.freedesktop.org"/>
+    <dependencies>
+      <dep package="perl-xml-simple"/>
+    </dependencies>
+  </tarball>
+
+  <autotools id="tango-icon-theme" autogenargs="--disable-icon-framing">
+    <branch repo="tango.freedesktop.org"/>
+    <dependencies>
+      <dep package="icon-naming-utils"/>
+      <dep package="hicolor-icon-theme"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="tango-icon-theme-extras" autogenargs="--disable-icon-framing">
+    <branch repo="tango.freedesktop.org"/>
+    <dependencies>
+      <dep package="tango-icon-theme"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gnome-icon-theme">
+    <branch/>
+    <dependencies>
+      <dep package="hicolor-icon-theme"/>
+      <dep package="icon-naming-utils"/>
+      <dep package="gnome-common"/>
+      <dep package="intltool"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtk-engines">
+    <branch/>
+    <dependencies>
+      <dep package="gtk+"/>
+    </dependencies>
+  </autotools>
+
+</moduleset>

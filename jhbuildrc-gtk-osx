@@ -1,81 +1,123 @@
 # -*- mode: python -*-
 
-# Edit this file to match your settings and copy it to:
-#  ~/.jhbuildrc
+import sys
+import errno
 
-# If you have a GNOME svn account, specify it here:
-#repos['svn.gnome.org'] = 'svn+ssh://user@svn.gnome.org/svn/'
+# Some utitilies:
+#
+def environ_append(key, value, separator=' '):
+    try:
+        old_value = os.environ[key]
+        value = old_value + separator + value
+    except:
+        pass
+    os.environ[key] = value
 
-# What module set should be used. Can be any of the files in the
-# modulesets directory, or even the URL of a module set file on a web
-# server.
+def environ_prepend(key, value, separator=' '):
+    try:
+        old_value = os.environ[key]
+        value = value + separator + old_value
+    except:
+        pass
+    os.environ[key] = value
+
+def environ_get(key):
+    try:
+        return os.environ[key]
+    except:
+        return ""
+
+
+# Moduleset to use.
+#
 moduleset = 'http://developer.imendio.com/svn/gtk-osx-build/gtk-osx.modules'
-#moduleset = 'gtk-osx'
 
 # A list of the modules to build.
-modules = [ 'meta-gtk-osx-core' ]
+#
+modules = [ 'meta-gtk-osx-bootstrap', 'meta-gtk-osx-core' ]
 
 # A list of modules to skip.
+#
 skip = [ 'python' ]
 
-# What directory should the source be checked out to?
+# The directory where the source will be checked out to.
+#
 checkoutroot = os.path.expanduser('~/Source/gnome')
-tarballdir = os.path.join(checkoutroot, 'pkgs')
 
 # The prefix to configure/install modules to (must have write access).
+#
 prefix = '/opt/gtk'
 
 # Extra arguments to pass to all autogen.sh scripts.
+#
 autogenargs='--disable-static --disable-gtk-doc --disable-docs --disable-scrollkeeper'
+alwaysautogen = True
 
-# Module specific overrides for autogen.sh arguments.
-module_autogenargs['gettext'] = autogenargs + ' --without-emacs --disable-java --disable-native-java'
-module_autogenargs['doxygen'] = ''
-
-# To set CFLAGS, do this:
-#os.environ['CFLAGS'] = '-g -O2'
-
-# Set debugging format to the old one from Tiger and earlier since the
-# new default in Leopard breaks many things. Also set gnu89 as the new
-# default gnu99 changes how extern inline works, breaking, glib's
-# inline setup.
-os.environ['CFLAGS'] = '-gstabs+3 -std=gnu89'
-os.environ['CXXFLAGS'] = '-gstabs+3'
-
-# On SMP systems you may use something like this to improve
-# compilation time: Be aware that not all modules compile correctly
-# with make -j2 though, like GTK+.
-#os.environ['MAKEFLAGS'] = '-j2'
+# Set debugging format to the old one from Tiger and earlier since the new
+# default in Leopard breaks many things. Also set gnu89 as the new default
+# gnu99 changes how extern inline works, breaking, glib's inline setup,
+# until glib is fixed.
+#
+os.environ['CFLAGS'] = '-O -gstabs+3 -std=gnu89'
+os.environ['CXXFLAGS'] = '-O -gstabs+3'
 
 # Use the included install-check program if available. It won't update
 # timestamps if the header hasn't changed, which speeds up builds.
+#
 path = os.path.expanduser('~/bin/install-check')
 if os.path.exists(path):
     os.environ['INSTALL'] = path
 
-# Can be used to set a different prompt when inside jhbuild shells.
-os.environ['INSIDE_JHBUILD'] = '1'
+# Import optional user RC for further customization. You can override the
+# prefix for example, or CFLAGS or module_autogenargs, etc.
+#
+userrc = os.path.join(os.environ['HOME'], '.jhbuildrc-custom')
+try:
+    execfile(userrc)
+except EnvironmentError, e:
+    userrc = None
+    if e.errno != errno.ENOENT:
+        pass # File not found is OK.
 
-# Hack used in the fake tarballs to install in the right place.
-os.environ['PREFIX'] = prefix
+tarballdir = os.path.join(checkoutroot, 'pkgs')
+
+os.environ['PREFIX'] = prefix # Deprecated, please move to JHBUILD_PREFIX.
+os.environ['JHBUILD_PREFIX'] = prefix
 
 os.environ['LIBTOOLIZE'] = prefix + '/bin/libtoolize'
 
-# The -L/-I options are needed for glib etc to pick up gettext
-# (libintl), I'm not sure why and I would like to get rid of that.
+# The option "headerpad_max_install_names" is there to leave some room for
+# changing the library locations with install_name_tool.
 #
-# The option "headerpad_max_install_names" is there to leave some room
-# for changing the library locations with install_name_tool.
-os.environ['LDFLAGS'] = '-L' + prefix + '/lib' + ' -headerpad_max_install_names'
-os.environ['CPPFLAGS'] = '-I' + prefix + '/include'
+environ_prepend('LDFLAGS', '-L' + prefix + '/lib')
+environ_append('LDFLAGS', '-headerpad_max_install_names')
+environ_prepend('CPPFLAGS', '-I' + prefix + '/include')
 
-# Add additional Python path for pygtk since we are using the system
-# version.
-import sys
+# Add additional Python path so that our Python modules can be found.
+#
 version = 'python' + str(sys.version_info[0]) + '.' + str(sys.version_info[1])
-os.environ['PYTHONPATH'] = prefix + '/lib/' + version + '/site-packages/gtk-2.0'
+environ_append('PYTHONPATH', prefix + '/lib/' + version + '/site-packages/gtk-2.0', ':')
 
-os.environ['PERL5LIB'] = prefix + '/lib/perl5/vendor_perl' + ':' + prefix + '/lib/perl5/site_perl'
+# Likewise for Perl.
+#
+environ_append('PERL5LIB', prefix + '/lib/perl5/vendor_perl', ':')
+environ_append('PERL5LIB', prefix + '/lib/perl5/site_perl', ':')
 
-# Needed to get gtk-doc and other xlstproc using things working.
+# Point gtk-doc and other xlstproc users to our XML catalog.
+#
 os.environ['XML_CATALOG_FILES'] = prefix + '/etc/xml/catalog'
+
+# Speed up gettext build a lot by disabling unneeded stuff.
+try:
+    old_value = module_autogenargs['gettext']
+except:
+    old_value = autogenargs
+module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --disable-native-java'
+
+if userrc:
+    print "Using customized config: %s, prefix: %s" % (userrc, prefix)
+else:
+    print "Using prefix: %s" % (prefix)
+
+if "shell" in sys.argv:
+    print "Entered jhbuild shell, type 'exit' to return."

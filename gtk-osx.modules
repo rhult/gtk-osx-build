@@ -1,636 +1,93 @@
 <?xml version="1.0"?><!--*- mode: nxml; indent-tabs-mode: nil -*-->
 <!DOCTYPE moduleset SYSTEM "moduleset.dtd">
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
-<!-- vim:set ts=2 expandtab: -->
 <moduleset>
-  <repository type="svn" name="svn.gnome.org" default="yes"
-      href="http://svn.gnome.org/svn/"/>
-  <repository type="git" name="git.freedesktop.org"
-      href="git://anongit.freedesktop.org/git/"/>
-  <repository type="cvs" name="cvs-cairo.freedesktop.org"
-      cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/cairo"
-      password=""/>
-  <repository type="git" name="git.imendio.com"
-    href="git://git.imendio.com/projects/"/>
-  <repository type="tarball" name="cpan" href="http://search.cpan.org/CPAN/" />
+  <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
   <repository type="cvs" name="tango.freedesktop.org"
       cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/tango"
       password=""/>
-  <repository type="cvs" name="gstreamer.freedesktop.org"
-      cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
-      password=""/>
-  <repository type="svn" name="inkscape.svn.sourceforge.net"
-      href="https://inkscape.svn.sourceforge.net/svnroot/inkscape/"/>
-  <repository type="svn" name="ardour"
-      href="http://subversion.ardour.org/svn/"/>
+
+  <include href="gtk-osx-bootstrap.modules"/>
+  <include href="gtk-osx-python.modules"/>
+  <include href="gtk-osx-gstreamer.modules"/>
+  <include href="gtk-osx-webkit-deps.modules"/>
+  <include href="gtk-osx-gtkmm.modules"/>
+  <include href="gtk-osx-themes.modules"/>
+  <include href="gtk-osx-random.modules"/>
+  <include href="gtk-osx-universal.modules"/>
 
   <metamodule id="meta-gtk-osx-core">
     <dependencies>
       <dep package="gtk+"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
   </metamodule>
 
-  <metamodule id="meta-gtk-osx-python">
-    <dependencies>
-      <dep package="pycairo"/>
-      <dep package="pygobject"/>
-      <dep package="pygtk"/>
-    </dependencies>
-  </metamodule>
-
-  <metamodule id="meta-gtk-osx-themes">
-    <dependencies>
-      <dep package="tango-icon-theme"/>
-      <dep package="tango-icon-theme-extras"/>
-      <dep package="gnome-icon-theme"/>
-      <dep package="gtk-engines"/>
-    </dependencies>
-  </metamodule>
-
-  <metamodule id="meta-webkit">
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="libcurl"/>
-      <dep package="icu"/>
-    </dependencies>
-  </metamodule>
-
-  <tarball id="libpng" supports-non-srcdir-builds="no" version="1.2.12">
-    <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.22.tar.bz2"
-            md5sum="e50208ad684a5822c74b8a260962a4d4" size="614414"/>
-  </tarball>
-
-  <!-- Note the weirdness here, working around a completely broken
-       tarball of libjpeg... We symlink in libtool from our prefix -->
-  <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b"
-           makeargs=" ; ln -s $PREFIX/bin/libtool libtool; make install-lib"
-           checkoutdir="jpeg-6b" autogenargs="--enable-shared">
-    <source href="http://www.ijg.org/files/jpegsrc.v6b.tar.gz"
-            md5sum="dbd5f3b47ed13132f04c685d608a7547" size="613261"/>
-  </tarball>
-
-  <tarball id="libtiff" supports-non-srcdir-builds="no" version="3.8.2">
-    <source href="ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.tar.gz"
-            md5sum="fbb6f446ea4ed18955e2714934e5b698" size="1336295"/>
-    <dependencies>
-      <dep package="libjpeg"/>
-    </dependencies>
-  </tarball>
-
-  <tarball id="docbook-setup" supports-non-srcdir-builds="no" version="3">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/docbook-setup-3.tar.gz"
-            md5sum="454f524252f8d74b94097d9a65c4adf9" size="1933984"/>
-  </tarball>
-
-  <tarball id="gnome-doc-utils-fake" supports-non-srcdir-builds="no" version="0.10.13-1">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-2.tar.gz"
-            md5sum="fbc030927bf65408a8b16d322d9a873a" size="16527"/>
-    <dependencies>
-      <dep package="docbook-setup"/>
-    </dependencies>
-  </tarball>
-
-  <autotools id="gnome-common">
-    <branch/>
-  </autotools>
-  <autotools id="libxml2">
-    <branch/>
-  </autotools>
-  <autotools id="libxslt">
-    <branch/>
-    <dependencies>
-      <dep package="libxml2"/>
-    </dependencies>
-  </autotools>
-  <autotools id="gtk-doc" autogenargs="--disable-scrollkeepeer --with-xml-catalog=$PREFIX/etc/xml/catalog">
-    <branch/>
-    <dependencies>
-      <dep package="libxslt"/>
-      <dep package="docbook-setup"/>
-    </dependencies>
-  </autotools>
   <autotools id="glib">
     <branch/>
-    <dependencies>
-      <dep package="gtk-doc"/>
-    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
   </autotools>
+
   <autotools id="pango" autogenargs="--without-x">
     <branch/>
     <dependencies>
-      <dep package="gnome-common"/>
       <dep package="glib"/>
       <dep package="cairo"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="fontconfig"/>
+      <dep package="freetype"/>
+      <dep package="cairo-lipo"/>
+    </after>
   </autotools>
+
   <autotools id="atk">
     <branch/>
     <dependencies>
       <dep package="glib"/>
-      <dep package="gnome-doc-utils-fake"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
   </autotools>
+
   <autotools id="gtk+" autogenargs="--with-gdktarget=quartz">
     <branch/>
     <dependencies>
-      <dep package="cairo"/>
       <dep package="pango"/>
       <dep package="atk"/>
-      <dep package="shared-mime-info"/>
-      <dep package="libpng"/>
-      <dep package="libjpeg"/>
-      <dep package="libtiff"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
   </autotools>
-  <autotools id="gail">
-    <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="atk"/>
-    </dependencies>
-  </autotools>
-
-  <tarball id="freetype" version="2.1.10">
-    <source href="http://heanet.dl.sourceforge.net/sourceforge/freetype/freetype-2.1.10.tar.bz2"
-            md5sum="a4012e7d1f6400df44a16743b11b8423" size="1037107"/>
-  </tarball>
-
-  <tarball id="fontconfig" version="2.4.1">
-    <source href="http://www.fontconfig.org/release/fontconfig-2.4.1.tar.gz"
-            md5sum="108f9a03fa9ed9dd779cc7ca236da557" size="1270946"/>
-    <dependencies>
-      <dep package="freetype"/>
-    </dependencies>
-  </tarball>
 
   <tarball id="cairo" version="1.4.10" autogenargs="--enable-pdf --enable-atsui --enable-quartz --disable-xlib">
     <source href="http://cairographics.org/releases/cairo-1.4.10.tar.gz"
             md5sum="5598a5e500ad922e37b159dee72fc993" size="3216689"/>
-    <dependencies>
-      <dep package="libpng"/>
-      <dep package="gtk-doc"/>
-    </dependencies>
+    <patches>
+      <patch file="http://people.imendio.com/richard/gtk-osx/files/cairo-height-metrics.patch" strip="1"/>
+    </patches>
     <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="fontconfig"/>
       <dep package="freetype"/>
     </after>
   </tarball>
-
-  <autotools id="pycairo">
-    <branch repo="cvs-cairo.freedesktop.org"/>
-    <dependencies>
-      <dep package="cairo"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="pygobject">
-    <branch/>
-    <dependencies>
-      <dep package="glib"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="pygtk">
-    <branch/>
-    <dependencies>
-      <dep package="pygobject"/>
-      <dep package="gtk+"/>
-      <dep package="pycairo"/>
-      <dep package="libglade"/>
-    </dependencies>
-  </autotools>
-
-  <tarball id="shared-mime-info" supports-non-srcdir-builds="no" version="0.19">
-    <source href="http://freedesktop.org/~hadess/shared-mime-info-0.19.tar.gz"
-            md5sum="056a86a8245aecfd9c80740380c5265a" size="595168"/>
-    <dependencies>
-      <dep package="intltool"/>
-      <dep package="libxml2"/>
-      <dep package="glib"/>
-    </dependencies>
-  </tarball>
-
-  <tarball id="expat" supports-non-srcdir-builds="no" version="2.0.0">
-    <source href="http://heanet.dl.sourceforge.net/sourceforge/expat/expat-2.0.0.tar.gz"
-            md5sum="d945df7f1c0868c5c73cf66ba9596f3f" size="450860"/>
-  </tarball>
-
-  <perl id="perl-xml-parser" makeargs="EXPATLIBPATH=${prefix}/lib EXPATINCPATH=${prefix}/include">
-    <branch repo="cpan"
-        module="authors/id/M/MS/MSERGEANT/XML-Parser-2.34.tar.gz" version="2.34"
-        size="229689" md5sum="84d9e0001fe01c14867256c3fe115899"/>
-    <dependencies>
-      <dep package="expat"/>
-    </dependencies>
-  </perl>
-
-  <perl id="perl-xml-simple">
-    <branch repo="cpan"
-        module="authors/id/G/GR/GRANTM/XML-Simple-2.18.tar.gz" version="2.18"
-        size="71129" md5sum="593aa8001e5c301cdcdb4bb3b63abc33"/>
-    <dependencies>
-      <dep package="perl-xml-parser"/>
-    </dependencies>
-  </perl>
-
-  <autotools id="intltool">
-    <branch/>
-    <dependencies>
-      <dep package="gnome-common"/>
-      <dep package="perl-xml-parser"/>
-    </dependencies>
-  </autotools>
 
   <autotools id="libglade">
     <branch/>
     <dependencies>
       <dep package="gtk+"/>
-      <dep package="libxml2"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libart_lgpl">
-    <branch/>
-    <dependencies>
-      <dep package="glib"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libgnomecanvas">
-    <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="libart_lgpl"/>
-      <dep package="gail"/>
-    </dependencies>
-  </autotools>
-
-  <tarball id="icon-naming-utils" version="0.8.6">
-    <source href="http://tango.freedesktop.org/releases/icon-naming-utils-0.8.6.tar.gz"
-            md5sum="22bd13295d42ff886f6ea355d00e036b" size="69522"/>
-    <branch repo="icon-theme.freedesktop.org"/>
-    <dependencies>
-      <dep package="perl-xml-simple"/>
-    </dependencies>
-  </tarball>
-  <tarball id="hicolor-icon-theme" version="0.10" supports-non-srcdir-builds="no" >
-    <source href="http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.10.tar.gz"
-            md5sum="3534f7b8e59785c7d5bfa923e85510a7" size="33616"/>
-  </tarball>
-  <autotools id="tango-icon-theme" autogenargs="--disable-icon-framing">
-    <branch repo="tango.freedesktop.org"/>
-    <dependencies>
-      <dep package="icon-naming-utils"/>
-    </dependencies>
-  </autotools>
-  <autotools id="tango-icon-theme-extras" autogenargs="--disable-icon-framing">
-    <branch repo="tango.freedesktop.org"/>
-    <dependencies>
-      <dep package="tango-icon-theme"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gnome-icon-theme">
-    <branch/>
-    <dependencies>
-      <dep package="hicolor-icon-theme"/>
-      <dep package="icon-naming-utils"/>
-      <dep package="gnome-common"/>
-      <dep package="intltool"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gtk-engines">
-    <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="loudmouth" autogenargs="--with-ssl=openssl">
-    <branch repo="git.imendio.com" module="loudmouth" checkoutdir="loudmouth"/>
-    <dependencies>
-      <dep package="gtk-doc"/>
-      <dep package="glib"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gossip">
-    <branch/>
-    <dependencies>
-      <dep package="loudmouth"/>
-      <dep package="gtk+"/>
-      <dep package="libglade"/>
-      <dep package="gnome-icon-theme"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gtksourceview" autogenargs="--disable-gnome-print">
-    <branch revision="gnome-2-18"/> <!-- module="ardour2" checkoutdir="ardour"/-->
-    <dependencies>
-      <dep package="gtk+"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gimp" autogenargs="--disable-python --disable-print --without-x">
-    <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="lcms"/>
-      <dep package="libart_lgpl"/>
-      <dep package="fontconfig"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libIDL">
-    <branch/>
-    <dependencies>
-      <dep package="glib"/>
-    </dependencies>
-  </autotools>
-  <autotools id="ORBit2">
-    <branch/>
-    <dependencies>
-      <dep package="libIDL"/>
-      <dep package="gnome-common"/>
-    </dependencies>
-  </autotools>
-  <autotools id="gconf">
-    <branch/>
-    <dependencies>
-      <dep package="ORBit2"/>
-      <dep package="libxml2"/>
-    </dependencies>
-  </autotools>
-
-  <tarball id="lcms" supports-non-srcdir-builds="no" version="1.17">
-    <source href="http://www.littlecms.com/lcms-1.17.tar.gz"
-            md5sum="07bdbb4cfb05d21caa58fe3d1c84ddc1" size="898816"/>
-  </tarball>
-
-  <tarball id="icu" supports-non-srcdir-builds="no" version="3.6" checkoutdir="icu/source">
-    <source href="ftp://ftp.software.ibm.com/software/globalization/icu/3.6/icu4c-3_6-src.tgz"
-            md5sum="6243f7a19e03e05403ce84e597510d4c" size="10183358"/>
-  </tarball>
-
-  <tarball id="libcurl" supports-non-srcdir-builds="no" version="7.17.0">
-    <source href="http://curl.haxx.se/download/curl-7.17.0.tar.bz2"
-            md5sum="b529a8d2778c8ad09c33d9bbddee7e44" size="1698728"/>
-  </tarball>
-
-  <tarball autogenargs="--disable-selinux" id="dbus" supports-non-srcdir-builds="no" version="1.0.2">
-    <source href="http://dbus.freedesktop.org/releases/dbus/dbus-1.0.2.tar.gz"
-            md5sum="0552a9b54beb4a044951b7cdbc8fc855" size="1400278"/>
-    <dependencies>
-      <dep package="glib"/>
     </dependencies>
     <after>
-      <dep package="gtk+"/>
+      <dep package="meta-gtk-osx-bootstrap"/>
     </after>
-  </tarball>
-
-  <tarball id="dbus-glib" version="0.71">
-    <source href="http://dbus.freedesktop.org/releases/dbus-glib-0.71.tar.gz"
-            md5sum="4e1e7348b26ee8b6485452113f4221cc" size="566889"/>
-    <dependencies>
-      <dep package="libxml2"/>
-      <dep package="dbus"/>
-      <dep package="glib"/>
-    </dependencies>
-    <patches>
-      <patch file="dbus-glib-build.patch" strip="1" />
-    </patches>
-  </tarball>
-
-  <tarball id="cairomm" version="1.4.4">
-    <source href="http://cairographics.org/releases/cairomm-1.4.4.tar.gz"
-	    md5sum="a5b947eb2692b0b6c3089fcfa6ce167e" size="677392"/>
-    <dependencies>
-      <dep package="cairo"/>
-    </dependencies>
-  </tarball>
-
-  <autotools id="glibmm">
-    <branch revision="glibmm-2-14"/>
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="libsigc++2"/>
-    </dependencies>
-  </autotools>
-
-  <tarball id="doxygen" version="1.5.3" checkoutdir="doxygen-1.5.3">
-    <source href="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.5.3.src.tar.gz" 
-            md5sum="5fd6f0c2c7946005703b47dc6b663757" size="3617278"/>
-  </tarball>
-
-  <autotools id="libsigc++2">
-    <branch revision="libsigc-2-0"/>
-    <dependencies>
-      <dep package="doxygen"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gtkmm">
-    <branch/>
-    <dependencies>
-      <dep package="glibmm"/>
-      <dep package="cairomm"/>
-      <dep package="gtk+"/>
-    </dependencies>
-  </autotools>
-
-  <tarball id="poppler" version="0.5.9"
-           autogenargs="--disable-qt --disable-qt4 --without-x --disable-gtk-test --enable-xpdf-headers">
-    <source href="http://poppler.freedesktop.org/poppler-0.5.9.tar.gz"
-            md5sum="8d1ac008614c0e413bcac95b8102fa07" size="1169002"/>
-     <dependencies>
-       <dep package="cairo"/>
-     </dependencies>
-    <after>
-      <dep package="gtk+"/>
-    </after>
-  </tarball>
-
-  <!-- Inkscape doesn't work with 0.6.x yet
-       href="http://poppler.freedesktop.org/poppler-0.6.1.tar.gz"
-         md5sum="78a5f8ff1a3464eddb127577eea7a191" size="1286501"/ 
-  -->
-
-  <!-- Patched version that builds on osx... -->
-  <tarball id="popt" version="1.7">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/popt-1.7.tar.gz"
-            md5sum="a13a3c7ec893200db3e0287dfd40487d" size="575089"/>
-  </tarball>
-
-  <tarball id="gc" version="6.7" checkoutdir="gc6.7">
-    <source href="http://www.hpl.hp.com/personal/Hans_Boehm/gc/gc_source/gc.tar.gz"
-            md5sum="be780413a0360306ad3b701e45fa8871" size="755999"/>
-  </tarball>
-
-  <tarball id="libsamplerate" version="0.1.2">
-    <source href="http://www.mega-nerd.com/SRC/libsamplerate-0.1.2.tar.gz"
-            md5sum="06861c2c6b8e5273c9b80cf736b9fd0e" size="707867"/>
-  </tarball>
-  <tarball id="raptor" version="1.4.15" autogenargs="--disable-www">
-    <source href="http://download.librdf.org/source/raptor-1.4.15.tar.gz"
-            md5sum="658fac0c25d50274c879f6cc49c3364b" size="1445553"/>
-    <dependencies>
-      <dep package="libxslt"/>
-    </dependencies>
-  </tarball>
-
-  <!-- this doesn't build, needs:
-       make -k install
-  -->
-  <tarball id="liblrdf" version="0.4.0">
-    <source href="http://switch.dl.sourceforge.net/sourceforge/lrdf/liblrdf-0.4.0.tar.gz"
-            md5sum="327a5674f671c4b360c6353800226877" size="336959"/>
-    <dependencies>
-      <dep package="raptor"/>
-    </dependencies>
-  </tarball>
-  <tarball id="jack" version="0.103.0">
-    <source href="http://mesh.dl.sourceforge.net/sourceforge/jackit/jack-audio-connection-kit-0.103.0.tar.gz"
-            md5sum="03a0f63b997ce7b83a1eeaa6b80f4388" size="763244"/>
-  </tarball>
-  <tarball id="liblo" version="0.24">
-    <source href="http://users.ecs.soton.ac.uk/~njh/liblo/liblo-0.24.tar.gz"
-            md5sum="a9b5e7c6fcc835cd468e26cc95aba91a" size="432285"/>
-  </tarball>
-
-  <!-- - This needs to be configured manually, and libtool might need
-       renaming temporarily while building so it doesn't conflict with
-       /usr/bin/libtool.
-
-       - Also $prefix/include/boost_*/boost needs to be symlinked to
-       $prefix/include/boost
-
-       - And SConstructs might need symlinking /usr/local -> $prefix.
-  -->
-  <tarball id="boost" version="1.34.1">
-    <source href="http://dfn.dl.sourceforge.net/sourceforge/boost/boost_1_34_1.tar.bz2"
-            md5sum="2d938467e8a448a2c9763e0a9f8ca7e5" size="12986931"/>
-  </tarball>
-
-  <!-- this is not an autotools module, uses scons:
-       scons PREFIX=/opt/gtk GTKOSX=yes install
-  -->
-  <autotools id="ardour">
-    <branch repo="ardour" revision="2.0-ongoing" module="ardour2" checkoutdir="ardour"/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="libgnomecanvas"/>
-      <dep package="gconf"/>
-      <dep package="libsamplerate"/>
-      <dep package="raptor"/>
-      <dep package="liblrdf"/>
-      <dep package="liblo"/>
-      <dep package="jack"/>
-      <dep package="boost"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="inkscape">
-    <branch repo="inkscape.svn.sourceforge.net"/>
-    <dependencies>
-      <dep package="poppler"/>
-      <dep package="gtkmm"/>
-      <dep package="popt"/>
-      <dep package="gc"/>
-      <dep package="boost"/>
-      <dep package="lcms"/>
-    </dependencies>
-  </autotools>
-
-  <metamodule id="meta-gstreamer">
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="liboil"/>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
-      <dep package="gst-plugins-good"/>
-      <!--dep package="gst-plugins-ugly"/-->
-      <dep package="gst-plugins-bad"/>
-      <dep package="gst-ffmpeg"/>
-    </dependencies>
-  </metamodule>
-
-  <tarball id="liboil" version="0.3.9">
-    <source href="http://liboil.freedesktop.org/download/liboil-0.3.9.tar.gz"
-            md5sum="5d139b1fb16f0e93f0c84290ad2aaff8" size="833083"/>
-  </tarball>
-
-  <!-- This is not really working out of the box, drop into the shell
-       when you get an error and run "chmod +x configure install-sh",
-       then back to jhbuild and retry.
-  -->
-  <tarball id="faad" version="2.6" checkoutdir="faad2">
-    <source href="http://belnet.dl.sourceforge.net/sourceforge/faac/faad2-2.6.tar.gz"
-            md5sum="aeeb1e6c2dc70eeb7fb74afd546d8b82" size="840155"/>
-    <patches>
-      <patch file="http://people.imendio.com/richard/gtk-osx/files/faad-autoreconf.patch" strip="1"/>
-      <patch file="http://people.imendio.com/richard/gtk-osx/files/faad-lrintf.patch" strip="0"/>
-    </patches>
-  </tarball>
-
-  <!-- You need bison 1.35 or later, use MacPorts for example. -->
-  <autotools id="gstreamer" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" module="gstreamer"/>
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="libxml2"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gst-plugins-base" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-base"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gtk+"/>
-      <dep package="liboil"/>
-    </dependencies>
-    <after>
-      <dep package="gnome-vfs"/>
-    </after>
-  </autotools>
-
-  <autotools id="gst-plugins-good" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-good"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gst-plugins-ugly" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-ugly"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gst-plugins-bad" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
-    makeargs="ERROR_CFLAGS=">
-    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-bad"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
-      <dep package="faad"/>
-    </dependencies>
-  </autotools>
-
-  <!-- This must be built with -O2, due to a gcc bug. Also mmx doesn't work yet on OSX -->
-  <autotools id="gst-ffmpeg" autogenargs="-- --disable-tests --disable-mmx" supports-non-srcdir-builds="no"
-    makeargs='ERROR_CFLAGS= CFLAGS="$CFLAGS -O2"'>
-    <branch repo="gstreamer.freedesktop.org" module="gst-ffmpeg"/>
-    <dependencies>
-      <dep package="gstreamer"/>
-      <dep package="gst-plugins-base"/>
-    </dependencies>
   </autotools>
 
 </moduleset>

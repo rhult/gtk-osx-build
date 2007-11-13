@@ -1,0 +1,160 @@
+<?xml version="1.0"?><!--*- mode: nxml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+
+  <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
+  <repository type="tarball" name="cpan" href="http://search.cpan.org/CPAN/" />
+
+  <!-- http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.23.tar.bz2 -->
+  <tarball id="libpng" version="1.2.12" autogenargs="--enable-shared">
+    <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.22.tar.bz2"
+            md5sum="e50208ad684a5822c74b8a260962a4d4" size="614414"/>
+  </tarball>
+
+ <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b"
+          makeargs="-f makefile.gtkosx"
+          checkoutdir="jpeg-6b" autogenargs="--enable-shared --disable-static">
+   <source href="http://www.ijg.org/files/jpegsrc.v6b.tar.gz"
+           md5sum="dbd5f3b47ed13132f04c685d608a7547" size="613261"/>
+   <patches>
+     <patch file="http://people.imendio.com/richard/gtk-osx/files/libjpeg-libtool-build.patch" strip="1"/>
+   </patches>
+ </tarball>
+
+  <tarball id="libtiff" version="3.8.2">
+    <source href="ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.tar.gz"
+            md5sum="fbb6f446ea4ed18955e2714934e5b698" size="1336295"/>
+    <dependencies>
+      <dep package="libjpeg"/>
+    </dependencies>
+  </tarball>
+
+  <tarball id="docbook-setup" version="3">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/docbook-setup-3.tar.gz"
+            md5sum="454f524252f8d74b94097d9a65c4adf9" size="1933984"/>
+  </tarball>
+
+  <tarball id="gnome-doc-utils-fake" version="0.10.13-1">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-2.tar.gz"
+            md5sum="fbc030927bf65408a8b16d322d9a873a" size="16527"/>
+    <dependencies>
+      <dep package="docbook-setup"/>
+    </dependencies>
+  </tarball>
+
+  <!-- Expat could be skipped for >= 10.05 since it's is part of the SDK there. -->
+  <tarball id="expat" version="2.0.0">
+    <source href="http://heanet.dl.sourceforge.net/sourceforge/expat/expat-2.0.0.tar.gz"
+            md5sum="d945df7f1c0868c5c73cf66ba9596f3f" size="450860"/>
+  </tarball>
+
+  <tarball id="freetype" version="2.3.5">
+    <source href="http://heanet.dl.sourceforge.net/sourceforge/freetype/freetype-2.3.5.tar.gz"
+            md5sum="a7aefa88799df081ca981ce6aa32ec90" size="1775673"/>
+  </tarball>
+
+  <tarball id="fontconfig" version="2.4.1">
+    <source href="http://www.fontconfig.org/release/fontconfig-2.4.1.tar.gz"
+            md5sum="108f9a03fa9ed9dd779cc7ca236da557" size="1270946"/>
+    <dependencies>
+      <dep package="expat"/>
+      <dep package="freetype"/>
+    </dependencies>
+  </tarball>
+
+  <perl id="perl-xml-parser" makeargs="EXPATLIBPATH=${prefix}/lib EXPATINCPATH=${prefix}/include">
+    <branch repo="cpan"
+        module="authors/id/M/MS/MSERGEANT/XML-Parser-2.34.tar.gz" version="2.34"
+        size="229689" md5sum="84d9e0001fe01c14867256c3fe115899"/>
+    <dependencies>
+      <dep package="expat"/>
+    </dependencies>
+  </perl>
+
+  <perl id="perl-xml-simple">
+    <branch repo="cpan"
+        module="authors/id/G/GR/GRANTM/XML-Simple-2.18.tar.gz" version="2.18"
+        size="71129" md5sum="593aa8001e5c301cdcdb4bb3b63abc33"/>
+    <dependencies>
+      <dep package="perl-xml-parser"/>
+    </dependencies>
+  </perl>
+
+  <autotools id="gnome-common">
+    <branch/>
+  </autotools>
+
+  <autotools id="libxml2">
+    <branch/>
+  </autotools>
+
+  <autotools id="libxslt">
+    <branch/>
+    <dependencies>
+      <dep package="libxml2"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtk-doc" autogenargs="--disable-scrollkeepeer --with-xml-catalog=$JHBUILD_PREFIX/etc/xml/catalog">
+    <branch/>
+    <dependencies>
+      <dep package="libxslt"/>
+      <dep package="docbook-setup"/>
+    </dependencies>
+  </autotools>
+
+  <tarball id="hicolor-icon-theme" version="0.10">
+    <source href="http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.10.tar.gz"
+            md5sum="3534f7b8e59785c7d5bfa923e85510a7" size="33616"/>
+  </tarball>
+
+  <!-- 10.5 has 7.16.3, which is too old for some things. Otherwise can be skipped. -->
+  <tarball id="libcurl" version="7.17.0">
+    <source href="http://curl.haxx.se/download/curl-7.17.0.tar.bz2"
+            md5sum="b529a8d2778c8ad09c33d9bbddee7e44" size="1698728"/>
+  </tarball>
+
+  <!-- 10.4 has 1.28 which is too old, 10.5 has 2.3 which is OK. -->
+  <tarball id="bison" version="2.3">
+    <source href="http://ftp.gnu.org/gnu/bison/bison-2.3.tar.bz2"
+            md5sum="c18640c6ec31a169d351e3117ecce3ec" size="1080319"/>
+  </tarball>
+
+  <autotools id="intltool">
+    <branch/>
+    <dependencies>
+      <dep package="gnome-common"/>
+      <dep package="perl-xml-parser"/>
+    </dependencies>
+  </autotools>
+
+  <metamodule id="meta-gtk-osx-bootstrap">
+    <dependencies>
+      <dep package="libpng"/>
+      <dep package="libjpeg"/>
+      <dep package="libtiff"/>
+      <dep package="libxml2"/>
+      <dep package="libxslt"/>
+      <dep package="docbook-setup"/>
+      <dep package="gnome-doc-utils-fake"/>
+      <dep package="expat"/>
+      <dep package="perl-xml-parser"/>
+      <dep package="perl-xml-simple"/>
+      <dep package="hicolor-icon-theme"/>
+      <dep package="libcurl"/>
+      <dep package="bison"/>
+      <dep package="gnome-common"/>
+      <dep package="intltool"/>
+    </dependencies>
+  </metamodule>
+
+  <metamodule id="meta-gtk-osx-freetype">
+    <dependencies>
+      <dep package="freetype"/>
+      <dep package="fontconfig"/>
+      <dep package="expat"/>
+    </dependencies>
+  </metamodule>
+
+</moduleset>

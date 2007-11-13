@@ -1,3 +1,27 @@
+2007-11-13  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-bootstrap.modules:
+	* gtk-osx-gstreamer.modules:
+	* gtk-osx-gtkmm.modules:
+	* gtk-osx-python.modules:
+	* gtk-osx-random.modules:
+	* gtk-osx-themes.modules:
+	* gtk-osx-universal.modules:
+	* gtk-osx-webkit-deps.modules:
+	* gtk-osx.modules: Rework things to make the moduleset easier to
+	maintain. The main file, gtk-osx.modules, includes the others.
+
+	* jhbuildrc-gtk-osx: Make the core and bootstrap meta modules be
+	the default ones, this allows building gtk+ and its dependencies
+	out of the box. Don't make the gtk+ modules depend on the
+	bootstrap modules, this makes it possible to rebuild only the
+	interesting pieces, and not have to go through libxml2, libxslt,
+	etc etc, by overriding the default modules to build.
+	- Also make it possible to have a custom rc file names
+	~/.jhbuildrc-custom that can override things from the regular one,
+	makes it easier to have different setups, for example a universal
+	buuild, and one for gstreamer, one without etc.
+
 2007-11-04  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx.modules: Add --without-x to gimp, suggestion from

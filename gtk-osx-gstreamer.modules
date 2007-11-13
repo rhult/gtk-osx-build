@@ -1,0 +1,105 @@
+<?xml version="1.0"?><!--*- mode: xml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+  <repository type="cvs" name="gstreamer.freedesktop.org"
+      cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
+      password=""/>
+
+  <!--tarball id="liboil" version="0.3.12">
+    <source href="http://liboil.freedesktop.org/download/liboil-0.3.12.tar.gz"
+            md5sum="96ee4c627ffb0db3999cef3c7454b1d9" size="810532"/>
+  </tarball-->
+
+  <tarball id="liboil" version="0.3.9">
+    <source href="http://liboil.freedesktop.org/download/liboil-0.3.9.tar.gz"
+            md5sum="5d139b1fb16f0e93f0c84290ad2aaff8" size="833083"/>
+  </tarball>
+
+  <!-- This is not really working out of the box, drop into the shell
+       when you get an error and run "chmod +x configure install-sh",
+       then back to jhbuild and retry.
+  -->
+  <tarball id="faad" version="2.6" checkoutdir="faad2">
+    <source href="http://belnet.dl.sourceforge.net/sourceforge/faac/faad2-2.6.tar.gz"
+            md5sum="aeeb1e6c2dc70eeb7fb74afd546d8b82" size="840155"/>
+    <patches>
+      <patch file="http://people.imendio.com/richard/gtk-osx/files/faad-autoreconf.patch" strip="1"/>
+      <patch file="http://people.imendio.com/richard/gtk-osx/files/faad-lrintf.patch" strip="0"/>
+    </patches>
+  </tarball>
+
+  <!-- You need bison 1.35 or later, use MacPorts for example. -->
+  <autotools id="gstreamer" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=">
+    <branch repo="gstreamer.freedesktop.org" module="gstreamer"/>
+    <after>
+      <dep package="glib"/>
+      <dep package="libxml2"/>
+    </after>
+  </autotools>
+
+  <autotools id="gst-plugins-base" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=">
+    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-base"/>
+    <dependencies>
+      <dep package="gstreamer"/>
+      <!--dep package="gtk+"/-->
+      <dep package="liboil"/>
+    </dependencies>
+    <after>
+      <dep package="gnome-vfs"/>
+    </after>
+  </autotools>
+
+  <autotools id="gst-plugins-good" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=">
+    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-good"/>
+    <dependencies>
+      <dep package="gstreamer"/>
+      <dep package="gst-plugins-base"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gst-plugins-ugly" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=">
+    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-ugly"/>
+    <dependencies>
+      <dep package="gstreamer"/>
+      <dep package="gst-plugins-base"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gst-plugins-bad" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=">
+    <branch repo="gstreamer.freedesktop.org" module="gst-plugins-bad"/>
+    <dependencies>
+      <dep package="gstreamer"/>
+      <dep package="gst-plugins-base"/>
+      <dep package="faad"/>
+    </dependencies>
+  </autotools>
+
+  <!-- This must be built with -O2, due to a GCC bug. Also MMX doesn't work yet on OSX. -->
+  <autotools id="gst-ffmpeg" autogenargs="-- --disable-tests --disable-mmx" supports-non-srcdir-builds="no"
+    makeargs='ERROR_CFLAGS= CFLAGS="$CFLAGS -O2"'>
+    <branch repo="gstreamer.freedesktop.org" module="gst-ffmpeg"/>
+    <dependencies>
+      <dep package="gstreamer"/>
+      <dep package="gst-plugins-base"/>
+    </dependencies>
+  </autotools>
+
+  <metamodule id="meta-gstreamer">
+    <dependencies>
+      <dep package="liboil"/>
+      <dep package="gstreamer"/>
+      <dep package="gst-plugins-base"/>
+      <dep package="gst-plugins-good"/>
+      <!--dep package="gst-plugins-ugly"/-->
+      <dep package="gst-plugins-bad"/>
+      <dep package="gst-ffmpeg"/>
+    </dependencies>
+  </metamodule>
+
+</moduleset>
