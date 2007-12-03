@@ -56,7 +56,7 @@
     </after>
   </autotools>
 
-  <autotools id="gtk+" autogenargs="--with-gdktarget=quartz">
+  <autotools id="gtk+" autogenargs="--with-gdktarget=quartz --without-libjasper">
     <branch/>
     <dependencies>
       <dep package="pango"/>

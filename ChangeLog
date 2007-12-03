@@ -1,3 +1,7 @@
+2007-12-03  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Build GTK+ without libjasper.
+
 2007-11-13  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-bootstrap.modules: Add gtk-doc to the meta module.
