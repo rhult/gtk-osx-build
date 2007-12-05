@@ -1,3 +1,12 @@
+2007-12-05  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-bootstrap.modules:
+	* gtk-osx-gstreamer.modules:
+	* gtk-osx-random.modules:
+	* gtk-osx.modules: Add comments explaining why some tarballs have
+	been patched and retarred, and add some descriptions to the
+	various module sets.
+
 2007-12-03  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx.modules: Build GTK+ without libjasper.

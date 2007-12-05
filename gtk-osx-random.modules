@@ -143,7 +143,9 @@
          md5sum="78a5f8ff1a3464eddb127577eea7a191" size="1286501"/ 
   -->
 
-  <!-- Patched version that builds on osx... -->
+  <!-- This is just the upstream tarball but had to be retarred
+       instead of patched since the tarball is broken.
+  -->
   <tarball id="popt" version="1.7">
     <source href="http://people.imendio.com/richard/gtk-osx/files/popt-1.7.tar.gz"
             md5sum="a13a3c7ec893200db3e0287dfd40487d" size="575089"/>

@@ -22,7 +22,8 @@
 
   <!-- This is the original tarball from
        http://belnet.dl.sourceforge.net/sourceforge/faac/faad2-2.6.tar.gz
-       but retarred after running "autoreconf -vif".
+       but retarred after running "autoreconf -vif", since the tarball
+       is broken.
   -->
   <tarball id="faad" version="2.6-rh1" autogenargs="-without-bmp --without-xmms --without-drm --without-mpeg4ip">
     <source href="http://people.imendio.com/richard/gtk-osx/files/faad2-2.6-rh1.tar.gz"

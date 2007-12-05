@@ -3,9 +3,33 @@
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
-  <repository type="cvs" name="tango.freedesktop.org"
-      cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/tango"
-      password=""/>
+
+  <!-- This module set works a bit differently than for example the
+       GNOME ones do. It's split up in seperate pieces:
+
+       - gtk-osx-bootstrap: contains bootstrap-like modules that you
+         don't want to rebuild all the time.
+
+       - gtk-osx.modules: contains the core GTK+ stack. This does not
+         have a hard dependency on the bootstrap modules, in order to
+         make it easy to rebuild the whole core stack without redoing
+         the bootstrap parts. They have a soft, "after", depencency.
+
+       The remaining modules are mostly for testing and might not work
+       all the time:
+
+       - gtk-osx-python.modules: self explaining.
+       - gtk-osx-gtkmm.modules: self explaining.
+       - gtk-osx-gstreamer.modules: self explaining.
+       - gtk-osx-themes.modules: self explaining.
+
+       - gtk-osx-random.modules: "random stuff", has apps for testing GTK+.
+
+       - gtk-osx-universal.modules: an experiment, using lipo for
+         building the modules that doesn't work out of the box with
+         building more than one arch at a time.
+
+  -->
 
   <include href="gtk-osx-bootstrap.modules"/>
   <include href="gtk-osx-python.modules"/>
