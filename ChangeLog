@@ -1,3 +1,7 @@
+2007-12-11  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Update cairo to latest stable release (1.4.12).
+
 2007-12-05  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-bootstrap.modules:
