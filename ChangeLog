@@ -1,3 +1,8 @@
+2007-12-21  Richard Hult  <richard@imendio.com>
+
+	* jhbuildrc-gtk-osx: Fix the headerpad option so libtool doesn't
+	drop it.
+
 2007-12-11  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx.modules: Update cairo to latest stable release (1.4.12).
