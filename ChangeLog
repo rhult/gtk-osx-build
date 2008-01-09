@@ -1,3 +1,11 @@
+2008-01-09  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-random.modules: Add babl and gegl. They don't currently
+	build on anything but Linux though.
+
+	* gtk-osx-gstreamer.modules: Disable the X based plugins, and also
+	the OS X video sink since it doesn't play well with GTK+.
+
 2007-12-21  Richard Hult  <richard@imendio.com>
 
 	* jhbuildrc-gtk-osx: Fix the headerpad option so libtool doesn't

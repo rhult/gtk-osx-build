@@ -75,6 +75,18 @@
       <dep package="lcms"/>
       <dep package="libart_lgpl"/>
       <dep package="fontconfig"/>
+      <dep package="gegl"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="babl">
+    <branch/>
+  </autotools>
+
+  <autotools id="gegl">
+    <branch/>
+    <dependencies>
+      <dep package="babl"/>
     </dependencies>
   </autotools>
 

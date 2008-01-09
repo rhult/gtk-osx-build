@@ -39,7 +39,7 @@
     </after>
   </autotools>
 
-  <autotools id="gst-plugins-base" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+  <autotools id="gst-plugins-base" autogenargs="-- --disable-tests --disable-x --disable-xvideo" supports-non-srcdir-builds="no"
     makeargs="ERROR_CFLAGS=">
     <branch repo="gstreamer.freedesktop.org" module="gst-plugins-base"/>
     <dependencies>
@@ -52,7 +52,7 @@
     </after>
   </autotools>
 
-  <autotools id="gst-plugins-good" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+  <autotools id="gst-plugins-good" autogenargs="-- --disable-tests --disable-x --disable-xvideo --disable-osx-video" supports-non-srcdir-builds="no"
     makeargs="ERROR_CFLAGS=">
     <branch repo="gstreamer.freedesktop.org" module="gst-plugins-good"/>
     <dependencies>
