@@ -1,5 +1,10 @@
 2008-01-09  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-webkit-deps.modules: Add a prebuilt binary version of
+	webkit.
+
+2008-01-09  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx-random.modules: Add babl and gegl. They don't currently
 	build on anything but Linux though.
 

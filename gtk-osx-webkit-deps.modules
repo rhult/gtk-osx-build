@@ -16,4 +16,15 @@
     </dependencies>
   </metamodule>
 
+  <!-- This is a prebuilt version of webkit that uses
+       install_name_tool to change library references to point to the
+       right jhbuild prefix. It has some patches applied to make it
+       work on GTK+ OS X, those are targetted for upstream and
+       eventually will not be needed here.
+  -->
+  <tarball id="webkit-prebuilt" version="20080109">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/webkit-prebuilt-20080109.tar.gz"
+            md5sum="067ef261ee1297e78e51225fabcf1d06" size="3250563"/>
+  </tarball>
+
 </moduleset>
