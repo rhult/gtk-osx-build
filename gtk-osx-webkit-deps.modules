@@ -27,4 +27,9 @@
             md5sum="067ef261ee1297e78e51225fabcf1d06" size="3250563"/>
   </tarball>
 
+  <tarball id="webkit-prebuilt-sdk10.4" version="20080114">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/webkit-prebuilt-sdk10.4-20080114.tar.gz"
+            md5sum="4840be0c6a83c9cc71b38b1ea7c04a6f" size="3185149"/>
+  </tarball>
+
 </moduleset>

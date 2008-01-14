@@ -1,3 +1,8 @@
+2008-01-14  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-webkit-deps.modules: Add an sdk 10.4 version of the
+	prebuilt webkit binary.
+
 2008-01-09  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-webkit-deps.modules: Add a prebuilt binary version of
