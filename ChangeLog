@@ -1,3 +1,10 @@
+2008-02-03  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-gstreamer.modules: Try to disable more X11 elements.
+
+	* jhbuildrc-gtk-osx: Skip gmp and guile since we don't really need
+	them and they don't build easily on the Mac.
+
 2008-01-14  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-webkit-deps.modules: Add an sdk 10.4 version of the

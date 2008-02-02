@@ -70,7 +70,7 @@
     </dependencies>
   </autotools>
 
-  <autotools id="gst-plugins-bad" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+  <autotools id="gst-plugins-bad" autogenargs="-- --disable-tests --disable-x --disable-xvid" supports-non-srcdir-builds="no"
     makeargs="ERROR_CFLAGS=">
     <branch repo="gstreamer.freedesktop.org" module="gst-plugins-bad"/>
     <dependencies>

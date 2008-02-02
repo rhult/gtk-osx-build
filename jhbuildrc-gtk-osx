@@ -38,7 +38,7 @@ modules = [ 'meta-gtk-osx-bootstrap', 'meta-gtk-osx-core' ]
 
 # A list of modules to skip.
 #
-skip = [ 'python' ]
+skip = [ 'python', 'gmp', 'guile' ]
 
 # The directory where the source will be checked out to.
 #
