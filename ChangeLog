@@ -1,3 +1,7 @@
+2008-02-24  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-gtkmm.modules: Use trunk for glibmm, fixes build.
+
 2008-02-03  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-gstreamer.modules: Try to disable more X11 elements.
