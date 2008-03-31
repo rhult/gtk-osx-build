@@ -1,3 +1,8 @@
+2008-03-31  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Add pixman, cairo 1.5.x and a comment about
+	including the ATSUI module in libpango.
+
 2008-02-24  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-gtkmm.modules: Use trunk for glibmm, fixes build.
