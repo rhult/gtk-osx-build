@@ -1,5 +1,10 @@
 2008-04-01  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx.modules: Make sure to disable xlib and xlib-xrender for
+	cairo.
+
+2008-04-01  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Build GTK+ after pango-cairo-1.5.
 
 2008-04-01  Richard Hult  <richard@imendio.com>
