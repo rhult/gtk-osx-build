@@ -116,6 +116,7 @@
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="pango-cairo-1.5"/>
     </after>
   </autotools>
 

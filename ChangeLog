@@ -1,5 +1,9 @@
 2008-04-01  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx.modules: Build GTK+ after pango-cairo-1.5.
+
+2008-04-01  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Add pango module (pango-cairo-1.5) that uses
 	cairo 1.5.x with the necessary patches. Will remove again once
 	cairo 1.6 is out.
