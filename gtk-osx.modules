@@ -58,7 +58,7 @@
 
   <!-- We could (and will soon) include the atsui module by using 
        with-included-modules=basic-atsui.
-  -->
+  --> 
   <autotools id="pango" autogenargs="--without-x">
     <branch/>
     <dependencies>
@@ -74,7 +74,31 @@
     </after>
   </autotools>
 
-  <autotools id="atk">
+  <!-- Provide a patched pango snapshot that works with cairo
+       1.5.x. Remove this once we have a release of cairo 1.6 that
+       works with unpatched pango.
+  -->
+  <tarball id="pango-cairo-1.5" autogenargs="--without-x">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/pango-1.20.0-snapshot-20080401.tar.gz"
+            md5sum="df20386d4ed015a39f073d00c17217b8" size="2062793"/>
+    <patches>
+      <patch file="http://people.imendio.com/richard/gtk-osx/files/pango-quartz-font.patch" strip="0"/>
+      <patch file="http://people.imendio.com/richard/patches/pango-utils-relative-path-2.patch" strip="0"/>
+    </patches>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="cairo-1.5"/>
+    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="fontconfig"/>
+      <dep package="freetype"/>
+      <dep package="cairo-lipo"/>
+      <dep package="cairo-1.5"/>
+    </after>
+  </tarball>
+
+ <autotools id="atk">
     <branch/>
     <dependencies>
       <dep package="glib"/>
