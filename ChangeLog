@@ -1,5 +1,10 @@
 2008-04-01  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-bootstrap.modules: Move gnome-doc-utils-fake before
+	gtk-doc since the latter now uses gnome-doc-utils.
+
+2008-04-01  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Make sure to disable xlib and xlib-xrender for
 	cairo.
 
