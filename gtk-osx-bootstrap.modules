@@ -6,10 +6,9 @@
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
   <repository type="tarball" name="cpan" href="http://search.cpan.org/CPAN/" />
 
-  <!-- http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.23.tar.bz2 -->
-  <tarball id="libpng" version="1.2.12" autogenargs="--enable-shared">
-    <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.22.tar.bz2"
-            md5sum="e50208ad684a5822c74b8a260962a4d4" size="614414"/>
+  <tarball id="libpng" version="1.2.26" autogenargs="--enable-shared">
+    <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.26.tar.bz2"
+            md5sum="1f743f4a3e5a9c12ea16eff0c60c3f8e" size="627569"/>
   </tarball>
 
  <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b"

@@ -1,5 +1,10 @@
 2008-04-03  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-gstreamer.modules: Update liboil to 0.3.14 to fix build
+	of recent gstreamer modules. Also update libpng.
+
+2008-04-03  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx-bootstrap.modules: Add temporary download link for jpeg
 	to get things going for now, not sure what happened to the main
 	site.
