@@ -15,7 +15,7 @@
  <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b"
           makeargs="-f makefile.gtkosx"
           checkoutdir="jpeg-6b" autogenargs="--enable-shared --disable-static">
-   <source href="http://www.ijg.org/files/jpegsrc.v6b.tar.gz"
+   <source href="ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v6b.tar.gz"
            md5sum="dbd5f3b47ed13132f04c685d608a7547" size="613261"/>
    <patches>
      <patch file="http://people.imendio.com/richard/gtk-osx/files/libjpeg-libtool-build.patch" strip="1"/>
