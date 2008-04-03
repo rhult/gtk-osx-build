@@ -15,7 +15,7 @@
  <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b"
           makeargs="-f makefile.gtkosx"
           checkoutdir="jpeg-6b" autogenargs="--enable-shared --disable-static">
-   <source href="ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v6b.tar.gz"
+   <source href="ftp://anonymous:needsemail%40forsomereason.com@ftp.uu.net/graphics/jpeg/jpegsrc.v6b.tar.gz"
            md5sum="dbd5f3b47ed13132f04c685d608a7547" size="613261"/>
    <patches>
      <patch file="http://people.imendio.com/richard/gtk-osx/files/libjpeg-libtool-build.patch" strip="1"/>
@@ -121,9 +121,9 @@
   </tarball>
 
   <!-- 10.5 has 7.16.3, which is too old for some things. Otherwise can be skipped. -->
-  <tarball id="libcurl" version="7.17.0">
-    <source href="http://curl.haxx.se/download/curl-7.17.0.tar.bz2"
-            md5sum="b529a8d2778c8ad09c33d9bbddee7e44" size="1698728"/>
+  <tarball id="libcurl" version="7.18.1">
+    <source href="http://curl.haxx.se/download/curl-7.18.1.tar.bz2"
+            md5sum="805834fc1136ff7600d2179bc0386c5a" size="1700966"/>
   </tarball>
 
   <!-- 10.4 has 1.28 which is too old, 10.5 has 2.3 which is OK. -->
