@@ -132,9 +132,9 @@
     </after>
   </tarball>
 
-  <tarball id="cairo-1.5" version="1.5.15-20080331-a30ed5" autogenargs="--enable-pdf --enable-quartz --disable-xlib --disable-xlib-xrender">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/cairo-1.5.15-20080331-a30ed5.tar.gz"
-            md5sum="0559a0a4516382022dfa43de5fafd127" size="4289709"/>
+  <tarball id="cairo-1.5" version="1.5.18" autogenargs="--enable-pdf --enable-quartz --disable-xlib --disable-xlib-xrender">
+    <source href="http://cairographics.org/snapshots/cairo-1.5.18.tar.gz"
+            md5sum="9719cb02ef11fbf7c2096eb80f2b0573" size="4997107"/>
     <dependencies>
       <dep package="pixman"/>
     </dependencies>
