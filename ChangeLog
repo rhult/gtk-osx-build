@@ -1,3 +1,8 @@
+2008-04-12  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Update to cairo 1.6.4.
+	- Add ige-mac-integration too.
+
 2008-04-06  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx.modules: Update cairo-1.5 to the latest snapshot 1.5.18.

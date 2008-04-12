@@ -43,6 +43,7 @@
   <metamodule id="meta-gtk-osx-core">
     <dependencies>
       <dep package="gtk+"/>
+      <dep package="ige-mac-integration"/>
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
@@ -120,10 +121,6 @@
     </after>
   </autotools>
 
-  <!-- We have cairo 1.5 here (and its dependency pixman) to make it
-       easier to test with. You have to build it manually though, by
-       using "jhbuild buildone cairo-1.5".
-  -->
   <tarball id="pixman" version="0.10.0">
     <source href="http://cairographics.org/releases/pixman-0.10.0.tar.gz"
             md5sum="41804ac38025102dcc9891dfd4a3d105" size="411817"/>
@@ -132,6 +129,10 @@
     </after>
   </tarball>
 
+  <!-- Leaving this temporary module here for a while... it was used
+       before pango got compatible with the new cairo font stuff for
+       quartz.
+  -->
   <tarball id="cairo-1.5" version="1.5.18" autogenargs="--enable-pdf --enable-quartz --disable-xlib --disable-xlib-xrender">
     <source href="http://cairographics.org/snapshots/cairo-1.5.18.tar.gz"
             md5sum="9719cb02ef11fbf7c2096eb80f2b0573" size="4997107"/>
@@ -145,9 +146,12 @@
     </after> 
  </tarball>
 
-  <tarball id="cairo" version="1.4.12" autogenargs="--enable-pdf --enable-atsui --enable-quartz --disable-xlib">
-    <source href="http://cairographics.org/releases/cairo-1.4.12.tar.gz"
-            md5sum="8e50c2c0d56388e4ee94196c0c7a7904" size="3276610"/>
+  <tarball id="cairo" version="1.6.4" autogenargs="--enable-pdf --enable-atsui --enable-quartz --disable-xlib">
+    <source href="http://cairographics.org/releases/cairo-1.6.4.tar.gz"
+            md5sum="a198d509f9e3a35b78de8bb02174ebb9" size="5042623"/>
+    <dependencies>
+      <dep package="pixman"/>
+    </dependencies>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="fontconfig"/>
@@ -164,5 +168,16 @@
       <dep package="meta-gtk-osx-bootstrap"/>
     </after>
   </autotools>
+
+  <tarball id="ige-mac-integration" version="0.6">
+    <source href="http://ftp.imendio.com/pub/imendio/ige-mac-integration/ige-mac-integration-0.6.tar.gz"
+            md5sum="8e41ff7b9313fd57cb6ca891c9554a7d" size="364669"/>
+    <dependencies>
+      <dep package="gtk+"/>
+    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
+  </tarball>
 
 </moduleset>
