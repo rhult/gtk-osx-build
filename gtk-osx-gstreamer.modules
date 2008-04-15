@@ -11,20 +11,13 @@
             md5sum="7a9f719e50656b795c06c0167012a84f" size="819559"/>
   </tarball>
 
-  <!--tarball id="liboil" version="0.3.9">
-    <source href="http://liboil.freedesktop.org/download/liboil-0.3.9.tar.gz"
-            md5sum="5d139b1fb16f0e93f0c84290ad2aaff8" size="833083"/>
-  </tarball-->
-
-  <!-- This is the original tarball from
-       http://belnet.dl.sourceforge.net/sourceforge/faac/faad2-2.6.tar.gz
-       but retarred after running "autoreconf -vif", since the tarball
-       is broken.
-  -->
-  <tarball id="faad" version="2.6-rh1" autogenargs="-without-bmp --without-xmms --without-drm --without-mpeg4ip">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/faad2-2.6-rh1.tar.gz"
-            md5sum="25f4e0f0bce5961966c8b0e9b05b9d1b" size="1589478"/>
-  </tarball>
+  <repository type="tarball" name="sourceforge" href="http://superb-east.dl.sourceforge.net/sourceforge/" />
+  <autotools id="faad" autogen-sh="autoreconf"
+             autogenargs="-without-bmp --without-xmms --without-drm --without-mpeg4ip">
+    <branch repo="sourceforge" module="faac/faad2-2.6.1.tar.gz"
+            version="2.6.1" checkoutdir="faad2"
+            md5sum="74e92df40c270f216a8305fc87603c8a" size="839410"/>
+  </autotools>
 
   <autotools id="gstreamer" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
     makeargs="ERROR_CFLAGS=">
