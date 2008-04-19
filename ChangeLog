@@ -1,5 +1,9 @@
 2008-04-19  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-random.modules: Use the github repo for loudmouth.
+
+2008-04-19  Richard Hult  <richard@imendio.com>
+
 	* jhbuildrc-gtk-osx: Rearrange the checks for starting
 	recursively, and some other small tweaks.
 
