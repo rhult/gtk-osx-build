@@ -1,9 +1,28 @@
 # -*- mode: python -*-
+#
+# Copyright (C) 2006 - 2008, Imendio AB
+#
+# Default setup for building GTK+ on Mac OS X. Note that you should
+# normally never need to edit this file. Any custom settings should be
+# done in ~/.jhbuildrc-custom.
+#
+# Specific builds can be set up by creating files named
+# ~/.jhbuildrc-<build>. When setting the environment variable JHB to
+# such a name, the corresponding rc file will be read (e.g.:
+# JHB=mybuild jhbuild shell).
+#
+# Use .jhbuildrc-custom to override the moduleset, modules to build,
+# the source checkout location, installation prefix, or svn usernames
+# etc.
+#
+# Please email richard@imendio.com if you have suggestions for
+# improving this setup, or have any patches that you would like to get
+# included.
 
 import sys
 import errno
 
-# Some utitilies:
+# Some utitily functions used here and in custom files:
 #
 def environ_append(key, value, separator=' '):
     try:
@@ -68,6 +87,20 @@ path = os.path.expanduser('~/bin/install-check')
 if os.path.exists(path):
     os.environ['INSTALL'] = path
 
+# When building on intel, force build to be 486, since glib won't
+# enable asm atomic operations otherwise.
+#
+try:
+    f = os.popen('uname -p')
+    if f.read().startswith('i386'):
+        module_autogenargs['glib'] = autogenargs + ' --build=i486-apple-darwin'
+except:
+    pass
+
+# Prefix to use in the shell, can be overridden in the custom rc file
+# or in specific setups. Can be set to None to be removed.
+prompt_prefix = "JH"
+
 # Import optional user RC for further customization. You can override the
 # prefix for example, or CFLAGS or module_autogenargs, etc.
 #
@@ -79,7 +112,32 @@ except EnvironmentError, e:
     if e.errno != errno.ENOENT:
         pass # File not found is OK.
 
+# Allow including different variants depending on the environment
+# variable JHB. This can be used to have different setups for SDK
+# builds, for example.
+#
+build = environ_get('JHB')
+if build and build != "":
+    try:
+        execfile(os.path.join(os.environ['HOME'], '.jhbuildrc-' + build))
+    except EnvironmentError, e:
+        print "Couldn't find the file '.jhbuildrc-" + build + "'"
+
+        # Be evil and close this just to shut up the exception handler
+        # in jhbuild:
+        sys.__stderr__.close() 
+        sys.exit(1)
+
 tarballdir = os.path.join(checkoutroot, 'pkgs')
+
+# Check and warn if jhbuild is started from within jhbuild, since that
+# will mess up environment variables, especially if different build
+# setups are used.
+#
+old_prefix = environ_get('JHBUILD_PREFIX')
+ran_recursively = old_prefix != ""
+if ran_recursively:
+    print "\n   *** Warning: jhbuild is started from within a jhbuild session ***\n"
 
 os.environ['PREFIX'] = prefix # Deprecated, please move to JHBUILD_PREFIX.
 os.environ['JHBUILD_PREFIX'] = prefix
@@ -90,19 +148,16 @@ os.environ['LIBTOOLIZE'] = prefix + '/bin/libtoolize'
 # changing the library locations with install_name_tool. Note that GNU
 # libtool seems to drop the option if we don't use -W here.
 #
-environ_append('LDFLAGS', '-Wl,-headerpad_max_install_names') #-headerpad_max_install_names')
+environ_append('LDFLAGS', '-Wl,-headerpad_max_install_names')
 
 # Make sure we find our installed modules, and before other versions.
 environ_prepend('LDFLAGS', '-L' + prefix + '/lib')
 environ_prepend('CPPFLAGS', '-I' + prefix + '/include')
 
-# Add additional Python path so that our Python modules can be found.
+# Add additional Python/Perl paths so that our modules can be found.
 #
 version = 'python' + str(sys.version_info[0]) + '.' + str(sys.version_info[1])
 environ_append('PYTHONPATH', prefix + '/lib/' + version + '/site-packages/gtk-2.0', ':')
-
-# Likewise for Perl.
-#
 environ_append('PERL5LIB', prefix + '/lib/perl5/vendor_perl', ':')
 environ_append('PERL5LIB', prefix + '/lib/perl5/site_perl', ':')
 
@@ -111,11 +166,13 @@ environ_append('PERL5LIB', prefix + '/lib/perl5/site_perl', ':')
 os.environ['XML_CATALOG_FILES'] = prefix + '/etc/xml/catalog'
 
 # Speed up gettext build a lot by disabling unneeded stuff.
+#
 try:
     old_value = module_autogenargs['gettext']
 except:
     old_value = autogenargs
 module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --disable-native-java'
+
 
 if userrc:
     print "Using customized config: %s, prefix: %s" % (userrc, prefix)
@@ -124,3 +181,6 @@ else:
 
 if "shell" in sys.argv:
     print "Entered jhbuild shell, type 'exit' to return."
+
+if not ran_recursively and prompt_prefix:
+    environ_prepend("PS1", "[" + prompt_prefix + "]", separator=' ')

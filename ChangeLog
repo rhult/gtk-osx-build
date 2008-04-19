@@ -1,3 +1,11 @@
+2008-04-19  Richard Hult  <richard@imendio.com>
+
+	* jhbuildrc-gtk-osx: Lots of small updates:
+	- Add shell prompt prefix.
+	- Warn if jhbuild is started recursively.
+	- Add support for customized build setups.
+	- Make glib use asm for atomic operations.
+
 2008-04-15  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-gstreamer.modules: Use new jhbuild tricks to get rid of
