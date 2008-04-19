@@ -1,5 +1,10 @@
 2008-04-19  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-themes.modules: Remove unneeded dependencies, and only
+	use "before" deps to the core and bootstrap modules.
+
+2008-04-19  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx-random.modules: Use the github repo for loudmouth.
 
 2008-04-19  Richard Hult  <richard@imendio.com>

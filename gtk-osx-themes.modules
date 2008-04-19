@@ -20,9 +20,9 @@
     <source href="http://tango.freedesktop.org/releases/icon-naming-utils-0.8.6.tar.gz"
             md5sum="22bd13295d42ff886f6ea355d00e036b" size="69522"/>
     <branch repo="icon-theme.freedesktop.org"/>
-    <dependencies>
-      <dep package="perl-xml-simple"/>
-    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
   </tarball>
 
   <autotools id="tango-icon-theme" autogenargs="--disable-icon-framing">
@@ -45,16 +45,14 @@
     <dependencies>
       <dep package="hicolor-icon-theme"/>
       <dep package="icon-naming-utils"/>
-      <dep package="gnome-common"/>
-      <dep package="intltool"/>
     </dependencies>
   </autotools>
 
   <autotools id="gtk-engines">
     <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
   </autotools>
 
 </moduleset>
