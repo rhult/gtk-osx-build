@@ -1,5 +1,10 @@
 2008-04-19  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx: Rearrange the checks for starting
+	recursively, and some other small tweaks.
+
+2008-04-19  Richard Hult  <richard@imendio.com>
+
 	* jhbuildrc-gtk-osx: Lots of small updates:
 	- Add shell prompt prefix.
 	- Warn if jhbuild is started recursively.

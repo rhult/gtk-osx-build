@@ -46,6 +46,13 @@ def environ_get(key):
     except:
         return ""
 
+def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, original_ldflags):
+    # Possibly also need '-Wl,-syslibroot,' + root for ldflags...
+    return \
+        'CFLAGS="' + original_cflags + ' -isysroot ' + root + ' -arch ' + arch + '" ' + \
+        'CXXFLAGS="' + original_cxxflags + ' -isysroot ' + root + ' -arch ' + arch + '" ' + \
+        'LDFLAGS="' + original_ldflags + ' -arch ' + arch + '"'
+
 
 # Moduleset to use.
 #
@@ -101,6 +108,38 @@ except:
 # or in specific setups. Can be set to None to be removed.
 prompt_prefix = "JH"
 
+# Allow including different variants depending on the environment
+# variable JHB. This can be used to have different setups for SDK
+# builds, for example.
+#
+build = environ_get('JHB')
+
+# Check and warn if jhbuild is started from within jhbuild, since that
+# will mess up environment variables, especially if different build
+# setups are used.
+#
+old_prefix = environ_get('JHBUILD_PREFIX')
+old_build = environ_get('JHBUILD_CONFIG')
+ran_recursively = old_prefix != ""
+if ran_recursively:
+    if old_build != build:
+        print "Error: jhbuild is already running with a different build setup, exiting."
+        sys.__stderr__.close() 
+        sys.exit(1)
+
+    print "\n   *** Warning: jhbuild is started from within a jhbuild session ***\n"
+
+if build != "":
+    try:
+        execfile(os.path.join(os.environ['HOME'], '.jhbuildrc-' + build))
+    except EnvironmentError, e:
+        print "Couldn't find the file '.jhbuildrc-" + build + "'"
+
+        # Be evil and close this just to shut up the exception handler
+        # in jhbuild:
+        sys.__stderr__.close() 
+        sys.exit(1)
+
 # Import optional user RC for further customization. You can override the
 # prefix for example, or CFLAGS or module_autogenargs, etc.
 #
@@ -112,32 +151,7 @@ except EnvironmentError, e:
     if e.errno != errno.ENOENT:
         pass # File not found is OK.
 
-# Allow including different variants depending on the environment
-# variable JHB. This can be used to have different setups for SDK
-# builds, for example.
-#
-build = environ_get('JHB')
-if build and build != "":
-    try:
-        execfile(os.path.join(os.environ['HOME'], '.jhbuildrc-' + build))
-    except EnvironmentError, e:
-        print "Couldn't find the file '.jhbuildrc-" + build + "'"
-
-        # Be evil and close this just to shut up the exception handler
-        # in jhbuild:
-        sys.__stderr__.close() 
-        sys.exit(1)
-
 tarballdir = os.path.join(checkoutroot, 'pkgs')
-
-# Check and warn if jhbuild is started from within jhbuild, since that
-# will mess up environment variables, especially if different build
-# setups are used.
-#
-old_prefix = environ_get('JHBUILD_PREFIX')
-ran_recursively = old_prefix != ""
-if ran_recursively:
-    print "\n   *** Warning: jhbuild is started from within a jhbuild session ***\n"
 
 os.environ['PREFIX'] = prefix # Deprecated, please move to JHBUILD_PREFIX.
 os.environ['JHBUILD_PREFIX'] = prefix
@@ -174,13 +188,17 @@ except:
 module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --disable-native-java'
 
 
-if userrc:
-    print "Using customized config: %s, prefix: %s" % (userrc, prefix)
-else:
-    print "Using prefix: %s" % (prefix)
+if build:
+    print "Build setup: %s" % (build)
+    os.environ["JHBUILD_CONFIG"] = build
+print "Prefix: %s" % (prefix)
 
 if "shell" in sys.argv:
     print "Entered jhbuild shell, type 'exit' to return."
 
 if not ran_recursively and prompt_prefix:
     environ_prepend("PS1", "[" + prompt_prefix + "]", separator=' ')
+
+# Unset this se we don't mess with the check for not starting
+# recursively.
+os.unsetenv("JHB")
