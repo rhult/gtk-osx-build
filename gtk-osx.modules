@@ -146,9 +146,11 @@
     </after> 
  </tarball>
 
-  <tarball id="cairo" version="1.6.4" autogenargs="--enable-pdf --enable-atsui --enable-quartz --disable-xlib">
-    <source href="http://cairographics.org/releases/cairo-1.6.4.tar.gz"
-            md5sum="a198d509f9e3a35b78de8bb02174ebb9" size="5042623"/>
+  <!-- href="http://cairographics.org/releases/cairo-1.6.4.tar.gz" -->
+  <!-- Temporary snapshot with quartz font pc installation fix -->
+  <tarball id="cairo" version="1.6.5-snapshot-1" autogenargs="--enable-pdf --enable-atsui --enable-quartz --disable-xlib">
+    <source href="http://people.imendio.com/richard/gtk-osx/files/cairo-1.6.5-20080421-a2c4fd.tar.gz"
+            md5sum="9506ed104c3f567909aa86b649f8e3b5" size="5241874"/>
     <dependencies>
       <dep package="pixman"/>
     </dependencies>
