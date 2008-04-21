@@ -40,11 +40,11 @@ def environ_prepend(key, value, separator=' '):
         pass
     os.environ[key] = value
 
-def environ_get(key):
+def environ_get(key, default=""):
     try:
         return os.environ[key]
     except:
-        return ""
+        return default
 
 def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, original_ldflags):
     # Possibly also need '-Wl,-syslibroot,' + root for ldflags...
@@ -108,11 +108,25 @@ except:
 # or in specific setups. Can be set to None to be removed.
 prompt_prefix = "JH"
 
+default_build = ""
+
+# Import optional user RC for further customization. You can override
+# the prefix or default build setup for example, or CFLAGS or
+# module_autogenargs, etc.
+#
+userrc = os.path.join(os.environ['HOME'], '.jhbuildrc-custom')
+try:
+    execfile(userrc)
+except EnvironmentError, e:
+    userrc = None
+    if e.errno != errno.ENOENT:
+        pass # File not found is OK.
+
 # Allow including different variants depending on the environment
 # variable JHB. This can be used to have different setups for SDK
 # builds, for example.
 #
-build = environ_get('JHB')
+build = environ_get('JHB', default_build)
 
 # Check and warn if jhbuild is started from within jhbuild, since that
 # will mess up environment variables, especially if different build
@@ -139,17 +153,6 @@ if build != "":
         # in jhbuild:
         sys.__stderr__.close() 
         sys.exit(1)
-
-# Import optional user RC for further customization. You can override the
-# prefix for example, or CFLAGS or module_autogenargs, etc.
-#
-userrc = os.path.join(os.environ['HOME'], '.jhbuildrc-custom')
-try:
-    execfile(userrc)
-except EnvironmentError, e:
-    userrc = None
-    if e.errno != errno.ENOENT:
-        pass # File not found is OK.
 
 tarballdir = os.path.join(checkoutroot, 'pkgs')
 

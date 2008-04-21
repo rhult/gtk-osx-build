@@ -1,5 +1,10 @@
 2008-04-21  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx: Make it possible to choose a default build
+	setup by setting the variable "default_build" in the custom rc.
+
+2008-04-21  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Update cairo to a snapshot from today to fix
 	the quartz font pkgconfig file install issue that has been fixed
 	but not released yet.
