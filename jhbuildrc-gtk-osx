@@ -46,10 +46,6 @@ def environ_get(key, default=""):
     except:
         return default
 
-def exit_silently():
-    sys.__stderr__.close() 
-    sys.exit(1)
-
 def parse_custom_argument(key):
     try:
         for arg, i in zip(sys.argv, range(0, len(sys.argv))):
@@ -151,7 +147,7 @@ ran_recursively = old_prefix != ""
 if ran_recursively:
     if old_build != build:
         print "Error: jhbuild is already running with a different build setup, exiting."
-        exit_silently()
+        raise SystemExit
 
     print "\n   *** Warning: jhbuild is started from within a jhbuild session ***\n"
 
@@ -159,8 +155,8 @@ if build != "":
     try:
         execfile(os.path.join(os.environ['HOME'], '.jhbuildrc-' + build))
     except EnvironmentError, e:
-        print "Couldn't find the file '.jhbuildrc-" + build + "'"
-        exit_silently()
+        print "Couldn't find the file '.jhbuildrc-" + build + "', exiting."
+        raise SystemExit
 
 tarballdir = os.path.join(checkoutroot, 'pkgs')
 
@@ -219,8 +215,7 @@ for framework in frameworks.split(":"):
 value = parse_custom_argument("getenv")
 if value:
     print environ_get (value, "")
-    exit_silently()
-
+    raise SystemExit
 
 if build:
     print "Build setup: %s, prefix: %s" % (build, prefix)
