@@ -1,6 +1,6 @@
 # -*- mode: python -*-
 #
-# Copyright (C) 2006 - 2008, Imendio AB
+# Copyright (C) 2006, 2007, 2008 Imendio AB
 #
 # Default setup for building GTK+ on Mac OS X. Note that you should
 # normally never need to edit this file. Any custom settings should be
@@ -45,6 +45,19 @@ def environ_get(key, default=""):
         return os.environ[key]
     except:
         return default
+
+def exit_silently():
+    sys.__stderr__.close() 
+    sys.exit(1)
+
+def parse_custom_argument(key):
+    try:
+        for arg, i in zip(sys.argv, range(0, len(sys.argv))):
+            if arg == key:
+                return sys.argv[i+1]
+    except:
+        pass
+    return None
 
 def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, original_ldflags):
     # Possibly also need '-Wl,-syslibroot,' + root for ldflags...
@@ -138,8 +151,7 @@ ran_recursively = old_prefix != ""
 if ran_recursively:
     if old_build != build:
         print "Error: jhbuild is already running with a different build setup, exiting."
-        sys.__stderr__.close() 
-        sys.exit(1)
+        exit_silently()
 
     print "\n   *** Warning: jhbuild is started from within a jhbuild session ***\n"
 
@@ -148,16 +160,13 @@ if build != "":
         execfile(os.path.join(os.environ['HOME'], '.jhbuildrc-' + build))
     except EnvironmentError, e:
         print "Couldn't find the file '.jhbuildrc-" + build + "'"
-
-        # Be evil and close this just to shut up the exception handler
-        # in jhbuild:
-        sys.__stderr__.close() 
-        sys.exit(1)
+        exit_silently()
 
 tarballdir = os.path.join(checkoutroot, 'pkgs')
 
 os.environ['PREFIX'] = prefix # Deprecated, please move to JHBUILD_PREFIX.
 os.environ['JHBUILD_PREFIX'] = prefix
+os.environ['JHBUILD_SOURCE'] = checkoutroot
 
 os.environ['LIBTOOLIZE'] = prefix + '/bin/libtoolize'
 
@@ -190,18 +199,49 @@ except:
     old_value = autogenargs
 module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --disable-native-java'
 
+# Support prepending uninstalled frameworks to the PKG_CONFIG_PATH,
+# CFLAGS and LDFLAGS variables.  This is used for creating frameworks.
+#
+frameworks = environ_get("JHB_PREPEND_FRAMEWORKS")
+for framework in frameworks.split(":"):
+    if framework != "":
+        # Use prependpath from jhbuild here to ensure our paths are
+        # added in front of the ones jhbuild sets up.
+        prependpath("PKG_CONFIG_PATH", framework + "/Resources/lib/pkgconfig")
+        prependpath("PATH", framework + "/Resources/bin")
+        environ_prepend("LDFLAGS", "-L" + framework + "/Resources/atlib", " ")
+        environ_prepend("CFLAGS", "-I" + framework + "/Headers", " ")
+
+# We do some crude extra argument parsing just to add support for
+# getting environment variables. Used in framework creation to pick up
+# the jhbuild prefix.
+#
+value = parse_custom_argument("getenv")
+if value:
+    print environ_get (value, "")
+    exit_silently()
+
 
 if build:
-    print "Build setup: %s" % (build)
+    print "Build setup: %s, prefix: %s" % (build, prefix)
     os.environ["JHBUILD_CONFIG"] = build
-print "Prefix: %s" % (prefix)
-
-if "shell" in sys.argv:
-    print "Entered jhbuild shell, type 'exit' to return."
+else:
+    print "Prefix: %s" % (prefix)
 
 if not ran_recursively and prompt_prefix:
     environ_prepend("PS1", "[" + prompt_prefix + "]", separator=' ')
 
+    # Make it possible to reset this from your .bashrc when dropping
+    # into a build error shell, i.e.:
+    #
+    # if [ "x$JHBUILD_PROMPT" != x ]; then
+    #    export PS1=$JHBUILD_PROMPT
+    # fi
+    os.environ["JHBUILD_PROMPT"] = environ_get("PS1")
+
 # Unset this se we don't mess with the check for not starting
 # recursively.
 os.unsetenv("JHB")
+
+if "shell" in sys.argv:
+    print "Entered jhbuild shell, type 'exit' to return."
