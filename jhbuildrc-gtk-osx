@@ -28,8 +28,7 @@ def environ_append(key, value, separator=' '):
     old_value = os.environ.get(key)
     if old_value is not None:
         value = old_value + separator + value
-    else:
-        os.environ[key] = value
+    os.environ[key] = value
 
 def environ_prepend(key, value, separator=' '):
     old_value = os.environ.get(key)
@@ -38,8 +37,8 @@ def environ_prepend(key, value, separator=' '):
     os.environ[key] = value
 
 def parse_custom_argument(key):
-    for i, arg in enumerate(sys.argv):
-        if arg == key and i+1 < len(sys.argv):
+    for i, arg in enumerate(sys.argv[:-1]):
+        if arg == key:
             return sys.argv[i+1]
     return None
 

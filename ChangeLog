@@ -1,5 +1,12 @@
 2008-04-25  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-webkit-deps.modules: Add webkit module, doesn't work
+	without freetype yet.
+
+	* jhbuildrc-gtk-osx: Fix bug introduce in the cleanups.
+
+2008-04-25  Richard Hult  <richard@imendio.com>
+
 	* jhbuildrc-gtk-osx:
 	* jhbuildrc-gtk-osx-fw: Lots of cleanups pointed out by Johan.
 

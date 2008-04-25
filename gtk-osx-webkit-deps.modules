@@ -2,6 +2,7 @@
 <!DOCTYPE moduleset SYSTEM "moduleset.dtd">
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
+  <repository type="git" name="git.debian.org" href="git://git.debian.org/"/>
 
   <tarball id="icu" version="3.6" checkoutdir="icu/source">
     <source href="ftp://ftp.software.ibm.com/software/globalization/icu/3.6/icu4c-3_6-src.tgz"
@@ -16,7 +17,19 @@
     </dependencies>
   </metamodule>
 
-  <!-- This is a prebuilt version of webkit that uses
+  <autotools id="WebKit" autogenargs="--enable-video=yes --with-http-backend=curl --enable-dom-storage=yes --enable-icon-database=yes --enable-svg=yes --enable-svg-experimental=yes --enable-svg-filters=yes --with-target=quartz --with-font-backend=pango"
+      makefile="GNUmakefile">
+    <branch repo="git.debian.org" module="git/pkg-webkit/upstream.git"
+      checkoutdir="WebKit" revision="filtered"/>
+    <after>
+      <dep package="gtk+"/>
+      <dep package="libxml2"/>
+      <dep package="libxslt"/>
+      <dep package="gst-plugins-base"/>
+    </after>
+  </autotools>
+
+  <!-- This is a old prebuilt version of webkit that uses
        install_name_tool to change library references to point to the
        right jhbuild prefix. It has some patches applied to make it
        work on GTK+ OS X, those are targetted for upstream and
