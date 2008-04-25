@@ -25,34 +25,22 @@ import errno
 # Some utitily functions used here and in custom files:
 #
 def environ_append(key, value, separator=' '):
-    try:
-        old_value = os.environ[key]
+    old_value = os.environ.get(key)
+    if old_value is not None:
         value = old_value + separator + value
-    except:
-        pass
-    os.environ[key] = value
+    else:
+        os.environ[key] = value
 
 def environ_prepend(key, value, separator=' '):
-    try:
-        old_value = os.environ[key]
+    old_value = os.environ.get(key)
+    if old_value is not None:
         value = value + separator + old_value
-    except:
-        pass
     os.environ[key] = value
 
-def environ_get(key, default=""):
-    try:
-        return os.environ[key]
-    except:
-        return default
-
 def parse_custom_argument(key):
-    try:
-        for arg, i in zip(sys.argv, range(0, len(sys.argv))):
-            if arg == key:
-                return sys.argv[i+1]
-    except:
-        pass
+    for i, arg in enumerate(sys.argv):
+        if arg == key and i+1 < len(sys.argv):
+            return sys.argv[i+1]
     return None
 
 def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, original_ldflags):
@@ -124,25 +112,21 @@ default_build = ""
 # module_autogenargs, etc.
 #
 userrc = os.path.join(os.environ['HOME'], '.jhbuildrc-custom')
-try:
+if os.path.exists(userrc):
     execfile(userrc)
-except EnvironmentError, e:
-    userrc = None
-    if e.errno != errno.ENOENT:
-        pass # File not found is OK.
 
 # Allow including different variants depending on the environment
 # variable JHB. This can be used to have different setups for SDK
 # builds, for example.
 #
-build = environ_get('JHB', default_build)
+build = os.environ.get('JHB', default_build)
 
 # Check and warn if jhbuild is started from within jhbuild, since that
 # will mess up environment variables, especially if different build
 # setups are used.
 #
-old_prefix = environ_get('JHBUILD_PREFIX')
-old_build = environ_get('JHBUILD_CONFIG')
+old_prefix = os.environ.get('JHBUILD_PREFIX', "")
+old_build = os.environ.get('JHBUILD_CONFIG', "")
 ran_recursively = old_prefix != ""
 if ran_recursively:
     if old_build != build:
@@ -189,16 +173,13 @@ os.environ['XML_CATALOG_FILES'] = prefix + '/etc/xml/catalog'
 
 # Speed up gettext build a lot by disabling unneeded stuff.
 #
-try:
-    old_value = module_autogenargs['gettext']
-except:
-    old_value = autogenargs
+old_value = module_autogenargs.get('gettext', autogenargs)
 module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --disable-native-java'
 
 # Support prepending uninstalled frameworks to the PKG_CONFIG_PATH,
 # CFLAGS and LDFLAGS variables.  This is used for creating frameworks.
 #
-frameworks = environ_get("JHB_PREPEND_FRAMEWORKS")
+frameworks = os.environ.get("JHB_PREPEND_FRAMEWORKS", "")
 for framework in frameworks.split(":"):
     if framework != "":
         # Use prependpath from jhbuild here to ensure our paths are
@@ -214,7 +195,7 @@ for framework in frameworks.split(":"):
 #
 value = parse_custom_argument("getenv")
 if value:
-    print environ_get (value, "")
+    print os.environ.get(value, "")
     raise SystemExit
 
 if build:
@@ -232,7 +213,7 @@ if not ran_recursively and prompt_prefix:
     # if [ "x$JHBUILD_PROMPT" != x ]; then
     #    export PS1=$JHBUILD_PROMPT
     # fi
-    os.environ["JHBUILD_PROMPT"] = environ_get("PS1")
+    os.environ["JHBUILD_PROMPT"] = os.environ.get("PS1", "")
 
 # Unset this se we don't mess with the check for not starting
 # recursively.

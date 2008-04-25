@@ -59,12 +59,9 @@ module_autogenargs["libxslt"] = autogenargs + " --with-libxml-prefix=" + prefix
 
 # Keep any overriden repo name here to keep custom username.
 #
-try:
-    repo = repos["svn.gnome.org"]
-    if repo.endswith("/"):
-        repo = repo[0:len(repo)-1]
-except:
-    repo = "http://svn.gnome.org/svn"
+repo = repos.get("svn.gnome.org", "http://svn.gnome.org/svn")
+if repo.endswith("/"):
+    repo = repo[:-1]
 
 # Use latest stable branches for some modules.
 #
