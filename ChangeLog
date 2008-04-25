@@ -1,5 +1,10 @@
 2008-04-25  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx-fw: Add work in progress for framework
+	creation setup.
+
+2008-04-25  Richard Hult  <richard@imendio.com>
+
 	* jhbuildrc-gtk-osx: Changes to support upcoming framework
 	creation.
 

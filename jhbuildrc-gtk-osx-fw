@@ -1,0 +1,95 @@
+# -*- mode: python -*-
+#
+# Copyright (C) 2006, 2007, 2008 Imendio AB
+#
+# Build setup for creating frameworks against the 10.4 SDK. This file
+# should normally not need any editing.
+#
+# Copy it or symlink it into ~/.jhbuildrc-fw
+#
+
+prompt_prefix = "FW"
+
+modules = [
+         "meta-gtk-osx-bootstrap",
+         "meta-gtk-osx-core",
+         "meta-gtk-osx-themes",
+         "meta-gstreamer",
+         "meta-webkit-deps",
+         "libglade",
+         "loudmouth"
+         ]
+
+# Source and installation locations.
+#
+root = os.path.expanduser("~/fw-build")
+checkoutroot = os.path.join(root, "Source")
+prefix = os.path.join(root, "inst")
+
+# Target.
+#
+target = "10.4"
+sdk = "MacOSX10.4u.sdk"
+sdkdir = os.path.join("/Developer/SDKs", sdk)
+
+# To pick up cups-config from the right place. NOTE: Change this as
+# soon as GTK+ is fixed, and only set CUPS_CONFIG instead (GTK+ 2.14
+# is fixed).
+#
+prependpath("PATH", os.path.join(sdkdir, "usr/bin"))
+
+os.environ["MACOSX_DEPLOYMENT_TARGET"] = target
+
+# Seems like we need this since many libraries otherwise only look for
+# various dependencies (e.g. libiconv) in /usr/lib, hence pulling in
+# the wrong -L that doesn't have fat binaries on pre-10.5.
+#
+environ_prepend("LDFLAGS", "-L" + sdkdir + "/usr/lib")
+environ_prepend("CPPFLAGS", "-I" + sdkdir + "/usr/include")
+
+environ_append("CFLAGS", "-isysroot " + sdkdir)
+environ_append("CXXFLAGS", "-isysroot " + sdkdir)
+
+# Need to point some modules to the right place so we don't pick up
+# things from /usr/lib.
+#
+module_autogenargs["gettext"] = autogenargs + " --with-libiconv-prefix=" + sdkdir + "/usr"
+module_autogenargs["libxml2"] = autogenargs + " --with-iconv=" + sdkdir + "/usr" + " --with-zlib=" + sdkdir + "/usr" 
+module_autogenargs["libxslt"] = autogenargs + " --with-libxml-prefix=" + prefix
+
+# Keep any overriden repo name here to keep custom username.
+#
+try:
+    repo = repos["svn.gnome.org"]
+    if repo.endswith("/"):
+        repo = repo[0:len(repo)-1]
+except:
+    repo = "http://svn.gnome.org/svn"
+
+# Use latest stable branches for some modules.
+#
+branches["glib"] = repo + "/glib/branches/glib-2-16"
+branches["gtk+"] = repo + "/gtk+/branches/gtk-2-12"
+#branches["pango"] = repo + "/pango/branches/pango-1-20"
+
+# Skip those for now.
+#
+skip.append("gst-plugins-ugly")
+skip.append("gst-plugins-bad")
+skip.append("gst-ffmpeg")
+skip.append("faad")
+
+# Use libxml/libxslt from the system.
+#
+skip.append("libxml2")
+skip.append("libxslt")
+
+# Include the ATSUI font module into pango. The makeargs bit is a hack
+# to work around build failure with included modules for now.
+#
+module_autogenargs["pango"] = autogenargs + " --with-included-modules=basic-atsui"
+module_makeargs["pango"] = "-k -C modules; make"
+
+# Needed to pick up libxml2 and libxslt from the system.
+#
+addpath("PKG_CONFIG_PATH", "/usr/lib/pkgconfig")
