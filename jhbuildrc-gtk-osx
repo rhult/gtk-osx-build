@@ -204,15 +204,7 @@ else:
     print "Prefix: %s" % (prefix)
 
 if not ran_recursively and prompt_prefix:
-    environ_prepend("PS1", "[" + prompt_prefix + "]", separator=' ')
-
-    # Make it possible to reset this from your .bashrc when dropping
-    # into a build error shell, i.e.:
-    #
-    # if [ "x$JHBUILD_PROMPT" != x ]; then
-    #    export PS1=$JHBUILD_PROMPT
-    # fi
-    os.environ["JHBUILD_PROMPT"] = os.environ.get("PS1", "")
+    os.environ["JHBUILD_PROMPT"] = "[" + prompt_prefix + "] "
 
 # Unset this se we don't mess with the check for not starting
 # recursively.

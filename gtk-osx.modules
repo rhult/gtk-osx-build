@@ -57,10 +57,8 @@
     </after>
   </autotools>
 
-  <!-- We could (and will soon) include the atsui module by using 
-       with-included-modules=basic-atsui.
-  --> 
-  <autotools id="pango" autogenargs="--without-x">
+  <autotools id="pango" autogenargs="--without-x --with-included-modules=basic-atsui"
+             makeargs="-k -C modules; make">
     <branch/>
     <dependencies>
       <dep package="glib"/>

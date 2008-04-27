@@ -1,3 +1,12 @@
+2008-04-27  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Include pango modules as builtin ones.
+
+	* jhbuildrc-gtk-osx: Tweak the prompt stuff.
+
+	* jhbuildrc-gtk-osx-fw: Set minimum version to 10.4, and use flat
+	namespace. Use stable branch for atk.
+
 2008-04-25  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-webkit-deps.modules: Add webkit module, doesn't work
