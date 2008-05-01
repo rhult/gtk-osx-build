@@ -163,7 +163,7 @@ if ran_recursively:
         print "Error: jhbuild is already running with a different build setup, exiting."
         raise SystemExit
 
-    print "\n   *** Warning: jhbuild is started from within a jhbuild session ***\n"
+    print "Warning: jhbuild is started from within a jhbuild session."
 
 if build != "":
     try:
@@ -201,23 +201,20 @@ environ_append('PERL5LIB', prefix + '/lib/perl5/site_perl', ':')
 #
 os.environ['XML_CATALOG_FILES'] = prefix + '/etc/xml/catalog'
 
-# Speed up gettext build a lot by disabling unneeded stuff.
+# Speed up gettext build by disabling unneeded stuff.
 #
 old_value = module_autogenargs.get('gettext', autogenargs)
-module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --disable-native-java'
+module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --disable-native-java --disable-libasprintf --disable-csharp'
 
-# Support prepending uninstalled frameworks to the PKG_CONFIG_PATH,
-# CFLAGS and LDFLAGS variables.  This is used for creating frameworks.
+# Support prepending frameworks to the PKG_CONFIG_PATH, CFLAGS,
+# LDFLAGS and ACLOCAL_FLAGS variables.
 #
 frameworks = os.environ.get("JHB_PREPEND_FRAMEWORKS", "")
 for framework in frameworks.split(":"):
     if framework != "":
+        # Use prependpath where possible to ensure our paths are added
+        # in front of the ones jhbuild sets up.
         environ_prepend("CFLAGS", "-I" + framework + "/Headers", " ")
-
-        # Add neccessary bits for development. Use prependpath where
-        # possible to ensure our paths are added in front of the ones
-        # jhbuild sets up.
-
         prependpath("PATH", framework + "/Resources/dev/bin")
         prependpath("PKG_CONFIG_PATH", framework + "/Resources/dev/lib/pkgconfig")
         environ_prepend("LDFLAGS", "-L" + framework + "/Resources/dev/lib", " ")
