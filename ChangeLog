@@ -1,5 +1,11 @@
 2008-05-01  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx:
+	* jhbuildrc-gtk-osx-fw: Split out the 10.4 SDK setup and add as a
+	function in the base rc file.
+
+2008-05-01  Richard Hult  <richard@imendio.com>
+
 	* jhbuildrc-gtk-osx: Set ACLOCAL_FLAGS if necessary.
 
 2008-04-27  Richard Hult  <richard@imendio.com>

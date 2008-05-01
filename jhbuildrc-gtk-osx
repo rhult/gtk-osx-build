@@ -42,6 +42,37 @@ def parse_custom_argument(key):
             return sys.argv[i+1]
     return None
 
+# Set up the environment for building against 10.4 SDK.
+#
+def setup_sdk_10_4:
+    # Target.
+    #
+    target = "10.4"
+    sdk = "MacOSX10.4u.sdk"
+    sdkdir = os.path.join("/Developer/SDKs", sdk)
+
+    # To pick up cups-config from the right place. NOTE: Change this as
+    # soon as GTK+ is fixed, and only set CUPS_CONFIG instead (GTK+ 2.13
+    # is fixed).
+    #
+    prependpath("PATH", os.path.join(sdkdir, "usr/bin"))
+
+    os.environ["MACOSX_DEPLOYMENT_TARGET"] = target
+
+    # Seems like we need this since many libraries otherwise only look for
+    # various dependencies (e.g. libiconv) in /usr/lib, hence pulling in
+    # the wrong -L that doesn't have fat binaries on pre-10.5.
+    #
+    environ_prepend("LDFLAGS", "-L" + sdkdir + "/usr/lib")
+    environ_prepend("CPPFLAGS", "-I" + sdkdir + "/usr/include")
+
+    environ_append("CFLAGS", "-isysroot " + sdkdir)
+    environ_append("CXXFLAGS", "-isysroot " + sdkdir)
+    environ_append("LDFLAGS", "-isysroot " + sdkdir)
+
+    environ_append("CFLAGS", "-mmacosx-version-min=" + target)
+    environ_append("LDFLAGS", "-mmacosx-version-min=" + target)
+
 def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, original_ldflags):
     # Possibly also need '-Wl,-syslibroot,' + root for ldflags...
     return \
