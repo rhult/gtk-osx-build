@@ -26,7 +26,7 @@ root = os.path.expanduser("~/fw-build")
 checkoutroot = os.path.join(root, "Source")
 prefix = os.path.join(root, "inst")
 
-setup_sdk_10_4()
+sdkdir = setup_sdk_10_4()
 
 # Needed to get the various sublibraries to find and use the same
 # symbols.

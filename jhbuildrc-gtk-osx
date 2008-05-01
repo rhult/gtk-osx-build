@@ -44,9 +44,7 @@ def parse_custom_argument(key):
 
 # Set up the environment for building against 10.4 SDK.
 #
-def setup_sdk_10_4:
-    # Target.
-    #
+def setup_sdk_10_4():
     target = "10.4"
     sdk = "MacOSX10.4u.sdk"
     sdkdir = os.path.join("/Developer/SDKs", sdk)
@@ -72,6 +70,8 @@ def setup_sdk_10_4:
 
     environ_append("CFLAGS", "-mmacosx-version-min=" + target)
     environ_append("LDFLAGS", "-mmacosx-version-min=" + target)
+
+    return sdkdir
 
 def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, original_ldflags):
     # Possibly also need '-Wl,-syslibroot,' + root for ldflags...
