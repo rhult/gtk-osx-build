@@ -181,12 +181,17 @@ module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --d
 frameworks = os.environ.get("JHB_PREPEND_FRAMEWORKS", "")
 for framework in frameworks.split(":"):
     if framework != "":
-        # Use prependpath from jhbuild here to ensure our paths are
-        # added in front of the ones jhbuild sets up.
-        prependpath("PKG_CONFIG_PATH", framework + "/Resources/lib/pkgconfig")
-        prependpath("PATH", framework + "/Resources/bin")
-        environ_prepend("LDFLAGS", "-L" + framework + "/Resources/atlib", " ")
         environ_prepend("CFLAGS", "-I" + framework + "/Headers", " ")
+
+        # Add neccessary bits for development. Use prependpath where
+        # possible to ensure our paths are added in front of the ones
+        # jhbuild sets up.
+
+        prependpath("PATH", framework + "/Resources/dev/bin")
+        prependpath("PKG_CONFIG_PATH", framework + "/Resources/dev/lib/pkgconfig")
+        environ_prepend("LDFLAGS", "-L" + framework + "/Resources/dev/lib", " ")
+        if os.path.exists(framework + "/Resources/dev/share/aclocal"):
+            prependpath("ACLOCAL_FLAGS", framework + "/Resources/dev/share/aclocal")
 
 # We do some crude extra argument parsing just to add support for
 # getting environment variables. Used in framework creation to pick up
