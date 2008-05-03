@@ -1,5 +1,9 @@
 2008-05-03  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx: Only add framework paths if they exist.
+
+2008-05-03  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx-random.modules: Fix up dependencies a bit.
 	
 	* gtk-osx-webkit-deps.modules: Add libsoup, not used for
