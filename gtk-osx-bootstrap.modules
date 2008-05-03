@@ -37,7 +37,7 @@
   -->
   <tarball id="docbook-setup" version="3-1">
     <source href="http://people.imendio.com/richard/gtk-osx/files/docbook-setup-3.tar.gz"
-            md5sum="ec56ccd504a6897357ae3768e6f7f354" size="1933643"/>
+            md5sum="b9ad37be175e08d3eb9d632e3bd4de1a" size="1933641"/>
   </tarball>
 
   <!-- This is not gnome-doc-utils, it just contains smallest set of
