@@ -10,40 +10,45 @@
 
   <autotools id="loudmouth" autogenargs="--with-ssl=openssl">
     <branch repo="github.com" module="hallski/loudmouth.git" checkoutdir="loudmouth" />
-    <dependencies>
-      <dep package="gtk-doc"/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="glib"/>
-    </dependencies>
+    </after>
   </autotools>
 
   <autotools id="gossip">
     <branch/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-themes"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
     <dependencies>
       <dep package="loudmouth"/>
-      <dep package="gtk+"/>
       <dep package="libglade"/>
-      <dep package="gnome-icon-theme"/>
     </dependencies>
   </autotools>
 
   <autotools id="gtksourceview" autogenargs="--disable-gnome-print">
     <branch revision="gnome-2-18"/> <!-- module="ardour2" checkoutdir="ardour"/-->
-    <dependencies>
-      <dep package="gtk+"/>
-    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
   </autotools>
 
   <autotools id="libIDL">
     <branch/>
-    <dependencies>
-      <dep package="glib"/>
-    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
   </autotools>
   <autotools id="ORBit2">
     <branch/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
     <dependencies>
       <dep package="libIDL"/>
-      <dep package="gnome-common"/>
     </dependencies>
   </autotools>
   <autotools id="gconf">
@@ -98,20 +103,11 @@
     </dependencies>
   </autotools>
 
-  <autotools id="gail">
-    <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="atk"/>
-    </dependencies>
-  </autotools>
-
   <autotools id="libgnomecanvas">
     <branch/>
     <dependencies>
       <dep package="gtk+"/>
       <dep package="libart_lgpl"/>
-      <dep package="gail"/>
     </dependencies>
   </autotools>
 

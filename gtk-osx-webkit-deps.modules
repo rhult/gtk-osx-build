@@ -2,6 +2,7 @@
 <!DOCTYPE moduleset SYSTEM "moduleset.dtd">
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
+  <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
   <repository type="git" name="git.debian.org" href="git://git.debian.org/"/>
 
   <tarball id="icu" version="3.6" checkoutdir="icu/source">
@@ -11,20 +12,25 @@
 
   <metamodule id="meta-webkit-deps">
     <dependencies>
-      <dep package="gtk+"/>
       <dep package="libcurl"/>
       <dep package="icu"/>
     </dependencies>
   </metamodule>
 
-  <autotools id="WebKit" autogenargs="--enable-video=yes --with-http-backend=curl --enable-dom-storage=yes --enable-icon-database=yes --enable-svg=yes --enable-svg-experimental=yes --enable-svg-filters=yes --with-target=quartz --with-font-backend=pango"
+  <!-- Not sure which HTTP backend is best for the mac build yet, leave this here. -->
+  <autotools id="libsoup">
+    <branch/>
+    <after>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
+  </autotools>
+
+  <autotools id="WebKit" autogenargs="--enable-video=yes --with-http-backend=curl --enable-dom-storage=no --enable-database=no --enable-icon-database=no --enable-svg=yes --enable-svg-experimental=yes --enable-svg-filters=yes --with-target=quartz --with-font-backend=pango"
       makefile="GNUmakefile">
     <branch repo="git.debian.org" module="git/pkg-webkit/upstream.git"
       checkoutdir="WebKit" revision="filtered"/>
     <after>
-      <dep package="gtk+"/>
-      <dep package="libxml2"/>
-      <dep package="libxslt"/>
+      <dep package="meta-gtk-osx-core"/>
       <dep package="gst-plugins-base"/>
     </after>
   </autotools>

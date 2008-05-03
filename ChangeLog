@@ -1,5 +1,18 @@
 2008-05-03  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-random.modules: Fix up dependencies a bit.
+	
+	* gtk-osx-webkit-deps.modules: Add libsoup, not used for
+	now. Tweak the webkit setup, still doesn't work though.
+	
+	* jhbuildrc-gtk-osx-cfw-10.4: Disable some more modules, we don't
+	use them (yet).
+
+	* jhbuildrc-gtk-osx-fw-10.4: Add setup for building against
+	frameworks.
+
+2008-05-03  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx-bootstrap.modules: Update fake packages for docbook and
 	gnome-doc-utils to add clean targets.
 	- Also update the jpeg patch to support make clean.

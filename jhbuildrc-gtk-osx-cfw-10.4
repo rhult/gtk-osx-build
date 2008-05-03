@@ -14,8 +14,8 @@ modules = [
          "meta-gtk-osx-bootstrap",
          "meta-gtk-osx-core",
          "meta-gtk-osx-themes",
-         "meta-gstreamer",
-         "meta-webkit-deps",
+         #"meta-gstreamer",
+         #"meta-webkit-deps",
          "libglade",
          "loudmouth"
          ]
@@ -69,6 +69,8 @@ skip.append("faad")
 #
 skip.append("waf")
 skip.append("automake-1.4")
+skip.append("tango-icon-theme")
+skip.append("tango-icon-theme-extras")
 
 # Use libxml/libxslt from the system.
 #
