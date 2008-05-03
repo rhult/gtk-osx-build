@@ -1,5 +1,11 @@
 2008-05-03  Richard Hult  <richard@imendio.com>
 
+	* gtk-osx-bootstrap.modules: Update fake packages for docbook and
+	gnome-doc-utils to add clean targets.
+	- Also update the jpeg patch to support make clean.
+
+2008-05-03  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx.modules: Add patch to pixman to disable gtk tests.
 
 2008-05-01  Richard Hult  <richard@imendio.com>
