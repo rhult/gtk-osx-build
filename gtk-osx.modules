@@ -119,10 +119,17 @@
     </after>
   </autotools>
 
-  <tarball id="pixman" version="0.10.0">
+  <!-- Once 0.12 is released and have a disable-gtk patch committed
+       we can get rid of the patches here.
+    -->
+  <tarball id="pixman" version="0.10.0" autogenargs="--disable-gtk">
     <source href="http://cairographics.org/releases/pixman-0.10.0.tar.gz"
             md5sum="41804ac38025102dcc9891dfd4a3d105" size="411817"/>
-    <after>
+    <patches>
+      <patch file="http://people.imendio.com/richard/gtk-osx/files/pixman-disable-gtk.patch" strip="0"/>
+      <patch file="http://people.imendio.com/richard/gtk-osx/files/pixman-disable-gtk-2.patch" strip="1"/>
+    </patches>
+   <after>
       <dep package="meta-gtk-osx-bootstrap"/>
     </after>
   </tarball>
