@@ -68,6 +68,7 @@ skip.append("faad")
 # Not needed.
 #
 skip.append("waf")
+skip.append("pyxml")
 skip.append("automake-1.4")
 skip.append("tango-icon-theme")
 skip.append("tango-icon-theme-extras")
@@ -80,3 +81,7 @@ skip.append("libxslt")
 # Needed to pick up libxml2 and libxslt from the system.
 #
 addpath("PKG_CONFIG_PATH", "/usr/lib/pkgconfig")
+
+# We want the system perl and python, not from macports or so.
+os.environ["PERL"] = "/usr/bin/perl"
+os.environ["PYTHON"] = "/usr/bin/python"

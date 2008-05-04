@@ -51,6 +51,7 @@ skip.append("libjpeg")
 skip.append("libglade")
 skip.append("loudmouth")
 skip.append("waf")
+skip.append("pyxml")
 skip.append("automake-1.4")
 
 environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/GLib.framework", ":")
@@ -58,3 +59,11 @@ environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Cairo.framework",
 environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Gtk.framework", ":")
 environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Libglade.framework", ":")
 environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Loudmouth.framework", ":")
+
+# Needed to pick up libxml2 and libxslt from the system.
+#
+addpath("PKG_CONFIG_PATH", "/usr/lib/pkgconfig")
+
+# We want the system perl and python, not from macports or so.
+os.environ["PERL"] = "/usr/bin/perl"
+os.environ["PYTHON"] = "/usr/bin/python"

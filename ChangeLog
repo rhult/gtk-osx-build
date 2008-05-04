@@ -1,3 +1,10 @@
+2008-05-04  Richard Hult  <richard@imendio.com>
+
+	* jhbuildrc-gtk-osx-cfw-10.4:
+	* jhbuildrc-gtk-osx-fw-10.4: Skip pyxml and set PERL and PYTHON
+	environment variables to ensure we use the system versions instead
+	of from macports.
+
 2008-05-03  Richard Hult  <richard@imendio.com>
 
 	* jhbuildrc-gtk-osx: Only add framework paths if they exist.
