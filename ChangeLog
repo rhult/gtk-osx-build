@@ -1,5 +1,9 @@
 2008-05-04  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx: Set -I flags in CPPFLAGS, not CFLAGS.
+
+2008-05-04  Richard Hult  <richard@imendio.com>
+
 	* jhbuildrc-gtk-osx-cfw-10.4:
 	* jhbuildrc-gtk-osx-fw-10.4: Skip pyxml and set PERL and PYTHON
 	environment variables to ensure we use the system versions instead

@@ -215,7 +215,7 @@ for framework in frameworks.split(":"):
         # Use prependpath where possible to ensure our paths are added
         # in front of the ones jhbuild sets up.
         if os.path.exists(framework + "/Headers"):
-            environ_prepend("CFLAGS", "-I" + framework + "/Headers", " ")
+            environ_prepend("CPPFLAGS", "-I" + framework + "/Headers", " ")
         if os.path.exists(framework + "/Resources/dev/bin"):
             prependpath("PATH", framework + "/Resources/dev/bin")
         if os.path.exists(framework + "/Resources/dev/lib/pkgconfig"):
