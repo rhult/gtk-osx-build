@@ -8,7 +8,7 @@
 # Copy it or symlink it into ~/.jhbuildrc-cfw-10.4
 #
 
-prompt_prefix = "CFW"
+prompt_prefix = "*CFW*"
 
 modules = [
          "meta-gtk-osx-bootstrap",
@@ -22,8 +22,8 @@ modules = [
 
 # Source and installation locations.
 #
-root = os.path.expanduser("~/fw-build")
-checkoutroot = os.path.join(root, "Source")
+root = os.path.expanduser("~/Source/create-gtk-fw")
+checkoutroot = os.path.join(root, "source")
 prefix = os.path.join(root, "inst")
 
 sdkdir = setup_sdk_10_4()

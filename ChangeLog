@@ -1,3 +1,11 @@
+2008-05-06  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-build-setup.sh: Add script to get jhbuild and jhbuild
+	config from svn and install them.
+
+	* jhbuildrc-gtk-osx-cfw-10.4:
+	* jhbuildrc-gtk-osx-fw-10.4: Change the checkout/inst directories.
+
 2008-05-04  Richard Hult  <richard@imendio.com>
 
 	* jhbuildrc-gtk-osx: Set -I flags in CPPFLAGS, not CFLAGS.
