@@ -1,0 +1,17 @@
+The files here are used together with the build script "jhbuild" to
+build GTK+ for Mac OS X.
+
+You need Mac OS X 10.4 or newer and Xcode 2.5 or newer. Make sure you
+have subversion (svn) installed, 10.5 has it by default.
+
+Then run the script provided here:
+
+ ./gtk-osx-build-setup.sh
+
+After that has completed, do the following:
+
+ jhbuild bootstrap
+ jhbuild build
+
+See http://developer.imendio.com/projects/gtk-macosx for more
+information.

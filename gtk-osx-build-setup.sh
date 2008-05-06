@@ -27,4 +27,13 @@ echo "Installing gtk-osx build setup..."
 (cd gtk-osx-build; ln -sfh `pwd`/jhbuildrc-gtk-osx-fw-10.4 $HOME/.jhbuildrc-fw-10.4)
 (cd gtk-osx-build; cp jhbuildrc-gtk-osx-custom-example $HOME/.jhbuildrc-custom)
 
+if test "x$1" == "xmaintainer-mode"; then
+    echo "Setting up extra modulesets for maintainer mode..."
+    cd gtk-osx-build
+    for f in `ls *modules`; do
+        ln -sfh `pwd`/$f $SOURCE/jhbuild/modulesets/
+    done
+    cd ..
+fi
+
 echo "Done."

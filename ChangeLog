@@ -1,5 +1,12 @@
 2008-05-06  Richard Hult  <richard@imendio.com>
 
+	* README: Add.
+
+	* gtk-osx-build-setup.sh: Add maintainer-mode which also links the
+	modulesets.
+
+2008-05-06  Richard Hult  <richard@imendio.com>
+
 	* gtk-osx-build-setup.sh: Add script to get jhbuild and jhbuild
 	config from svn and install them.
 
