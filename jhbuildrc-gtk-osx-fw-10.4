@@ -41,6 +41,7 @@ skip.append("atk")
 skip.append("cairo")
 skip.append("gtk+")
 skip.append("ige-mac-integration")
+skip.append("gtk-engines")
 skip.append("hicolor-icon-theme")
 skip.append("gnome-icon-theme")
 skip.append("gettext")
@@ -50,15 +51,14 @@ skip.append("libtiff")
 skip.append("libjpeg")
 skip.append("libglade")
 skip.append("loudmouth")
+
+# Not needed.
+#
 skip.append("waf")
 skip.append("pyxml")
 skip.append("automake-1.4")
-
-environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/GLib.framework", ":")
-environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Cairo.framework", ":")
-environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Gtk.framework", ":")
-environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Libglade.framework", ":")
-environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Loudmouth.framework", ":")
+skip.append("tango-icon-theme")
+skip.append("tango-icon-theme-extras")
 
 # Needed to pick up libxml2 and libxslt from the system.
 #
@@ -67,3 +67,12 @@ addpath("PKG_CONFIG_PATH", "/usr/lib/pkgconfig")
 # We want the system perl and python, not from macports or so.
 os.environ["PERL"] = "/usr/bin/perl"
 os.environ["PYTHON"] = "/usr/bin/python"
+
+# Setup jhbuild to point to frameworks.
+#
+environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/GLib.framework", ":")
+environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Cairo.framework", ":")
+environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Gtk.framework", ":")
+environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Libglade.framework", ":")
+environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Loudmouth.framework", ":")
+

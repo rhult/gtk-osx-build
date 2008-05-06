@@ -65,8 +65,28 @@ skip.append("gst-plugins-bad")
 skip.append("gst-ffmpeg")
 skip.append("faad")
 
+# We build those as frameworks instead.
+#
+skip.append("glib")
+skip.append("pango")
+skip.append("atk")
+skip.append("cairo")
+skip.append("gtk+")
+skip.append("ige-mac-integration")
+skip.append("hicolor-icon-theme")
+skip.append("gtk-engines")
+skip.append("gnome-icon-theme")
+skip.append("intltool")
+skip.append("libpng")
+skip.append("libtiff")
+skip.append("libjpeg")
+skip.append("libglade")
+skip.append("loudmouth")
+
 # Not needed.
 #
+skip.append("libcurl")
+skip.append("bison")
 skip.append("waf")
 skip.append("pyxml")
 skip.append("automake-1.4")

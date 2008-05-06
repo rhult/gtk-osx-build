@@ -1,5 +1,10 @@
 2008-05-06  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx-cfw-10.4:
+	* jhbuildrc-gtk-osx-fw-10.4: Skip unnecessary modules.
+
+2008-05-06  Richard Hult  <richard@imendio.com>
+
 	* README: Add.
 
 	* gtk-osx-build-setup.sh: Add maintainer-mode which also links the
