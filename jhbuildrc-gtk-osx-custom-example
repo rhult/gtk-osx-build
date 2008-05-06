@@ -1,0 +1,23 @@
+# -*- mode: python -*-
+
+# The username for repositories can be overridden.
+#
+# repos['svn.gnome.org'] = 'svn+ssh://myusername@svn.gnome.org/svn/'
+
+# You can set the default setup here.
+#
+# default_build = "fw-10.4"
+ 
+# The moduleset can be overridden.
+#
+# moduleset = 'gtk-osx'
+
+# As can the default modules to build.
+#
+# modules = [ 'meta-gtk-osx-core', 'meta-gstreamer' ]
+
+# You can skip modules.
+#
+# skip.append("libglade")
+
+# And more...
