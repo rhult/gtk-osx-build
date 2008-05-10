@@ -1,3 +1,13 @@
+2008-05-10  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-bootstrap.modules: Change freetype to use autotools
+	modtype instead of tarball, to be able to use an autogen template
+	so we can remove the exec_prefix that freetype doesn't understand.
+
+2008-05-08  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Update ige-mac-integration to 0.8.
+
 2008-05-06  Richard Hult  <richard@imendio.com>
 
 	* jhbuildrc-gtk-osx-cfw-10.4:

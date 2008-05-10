@@ -5,6 +5,7 @@
 
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
   <repository type="tarball" name="cpan" href="http://search.cpan.org/CPAN/" />
+  <repository type="tarball" name="sourceforge" href="http://heanet.dl.sourceforge.net/sourceforge"/>
 
   <tarball id="libpng" version="1.2.26" autogenargs="--enable-shared">
     <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.26.tar.bz2"
@@ -58,10 +59,12 @@
             md5sum="d945df7f1c0868c5c73cf66ba9596f3f" size="450860"/>
   </tarball>
 
-  <tarball id="freetype" version="2.3.5">
-    <source href="http://heanet.dl.sourceforge.net/sourceforge/freetype/freetype-2.3.5.tar.gz"
-            md5sum="a7aefa88799df081ca981ce6aa32ec90" size="1775673"/>
-  </tarball>
+  <autotools id="freetype" autogen-template="%(srcdir)s/configure --prefix %(prefix)s %(autogenargs)s">
+    <branch module="freetype/freetype-2.3.5.tar.gz" version="2.3.5"
+            repo="sourceforge" 
+            md5sum="a7aefa88799df081ca981ce6aa32ec90" size="1775673">
+    </branch>
+  </autotools>
 
   <tarball id="fontconfig" version="2.4.1">
     <source href="http://www.fontconfig.org/release/fontconfig-2.4.1.tar.gz"
