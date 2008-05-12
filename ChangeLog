@@ -1,3 +1,7 @@
+2008-05-12  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx.modules: Update ige-mac-integration.
+
 2008-05-10  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx-bootstrap.modules: Change freetype to use autotools

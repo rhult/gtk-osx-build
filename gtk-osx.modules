@@ -176,9 +176,9 @@
     </after>
   </autotools>
 
-  <tarball id="ige-mac-integration" version="0.7">
-    <source href="http://ftp.imendio.com/pub/imendio/ige-mac-integration/ige-mac-integration-0.7.tar.gz"
-            md5sum="8676dac5800e3df1b8c6cbf559e68ed3" size="371938"/>
+  <tarball id="ige-mac-integration" version="0.8">
+    <source href="http://ftp.imendio.com/pub/imendio/ige-mac-integration/ige-mac-integration-0.8.tar.gz"
+            md5sum="cf7ef53261c40fca5f48e7b9a72f1b78" size="373610"/>
     <dependencies>
       <dep package="gtk+"/>
     </dependencies>
