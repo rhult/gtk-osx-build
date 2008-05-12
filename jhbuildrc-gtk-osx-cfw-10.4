@@ -53,9 +53,10 @@ repo = repos.get("svn.gnome.org", "http://svn.gnome.org/svn")
 if repo.endswith("/"):
     repo = repo[:-1]
 
+# Use unstable branches until GTK+ 2.14 is released.
 branches["glib"] = repo + "/glib/branches/glib-2-16"
-branches["gtk+"] = repo + "/gtk+/branches/gtk-2-12"
-branches["atk"] = repo + "/atk/branches/gnome-2-22"
+#branches["gtk+"] = repo + "/gtk+/branches/gtk-2-12"
+#branches["atk"] = repo + "/atk/branches/gnome-2-22"
 #branches["pango"] = repo + "/pango/branches/pango-1-20"
 
 # Skip those for now.
