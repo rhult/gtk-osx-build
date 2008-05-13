@@ -1,5 +1,12 @@
 2008-05-13  Richard Hult  <richard@imendio.com>
 
+	* jhbuildrc-gtk-osx-cfw-10.4: Skip gnome-icon-theme, it needs to
+	be built after the glib framework since it depends on gettext.
+
+	* gtk-osx.modules: Update ige-mac-integration to 0.8.1.
+
+2008-05-13  Richard Hult  <richard@imendio.com>
+
 	* jhbuildrc-gtk-osx: Tweak the per-arch setup, in preparation for
 	universal builds...
 
