@@ -44,6 +44,7 @@ def parse_custom_argument(key):
 
 # Set up the environment for building against 10.4 SDK.
 #
+sdkdir = None
 def setup_sdk_10_4():
     target = "10.4"
     sdk = "MacOSX10.4u.sdk"
@@ -74,11 +75,15 @@ def setup_sdk_10_4():
     return sdkdir
 
 def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, original_ldflags):
-    # Possibly also need '-Wl,-syslibroot,' + root for ldflags...
+    if root is not None:
+        rootstr = " -isysroot " + root
+    else:
+        rootstr = ""
+    archstr = " -arch " + arch 
     return \
-        'CFLAGS="' + original_cflags + ' -isysroot ' + root + ' -arch ' + arch + '" ' + \
-        'CXXFLAGS="' + original_cxxflags + ' -isysroot ' + root + ' -arch ' + arch + '" ' + \
-        'LDFLAGS="' + original_ldflags + ' -arch ' + arch + '"'
+        'CFLAGS="' + original_cflags + rootstr + archstr + '" ' + \
+        'CXXFLAGS="' + original_cxxflags + rootstr + archstr + '" ' + \
+        'LDFLAGS="' + original_ldflags + archstr + '"'
 
 
 # Moduleset to use.
@@ -133,6 +138,7 @@ except:
 
 # Prefix to use in the shell, can be overridden in the custom rc file
 # or in specific setups. Can be set to None to be removed.
+#
 prompt_prefix = "JH"
 
 default_build = ""

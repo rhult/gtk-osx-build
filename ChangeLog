@@ -1,3 +1,16 @@
+2008-05-13  Richard Hult  <richard@imendio.com>
+
+	* jhbuildrc-gtk-osx: Tweak the per-arch setup, in preparation for
+	universal builds...
+
+	* gtk-osx.modules: Remove the universal moduleset, it's not used
+	and fairly broken.
+
+2008-05-13  Richard Hult  <richard@imendio.com>
+
+	* gtk-osx-build-setup.sh: Disable gettext.
+	- Also don't overwrite a custom rc file if there is one.
+
 2008-05-12  Richard Hult  <richard@imendio.com>
 
 	* gtk-osx.modules: Update ige-mac-integration.
