@@ -7,6 +7,7 @@
 #
 
 SOURCE=$HOME/Source
+BASEURL=http://people.imendio.com/richard
 
 if test x`which svn` == x; then
     echo "Svn (subversion) isn't available, please install it and try again."
@@ -27,10 +28,10 @@ echo "Installing jhbuild..."
 (cd jhbuild && make -f Makefile.plain DISABLE_GETTEXT=1 install >/dev/null)
 
 echo "Installing jhbuild configuration..."
-curl http://people.imendio.com/richard/gtk-osx-build/jhbuildrc-gtk-osx -o $HOME/.jhbuildrc
-curl http://people.imendio.com/richard/gtk-osx-build/jhbuildrc-gtk-osx-fw-10.4 -o $HOME/.jhbuildrc-fw-10.4
+curl $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx -o $HOME/.jhbuildrc
+curl $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-fw-10.4 -o $HOME/.jhbuildrc-fw-10.4
 if [ ! -f $HOME/.jhbuildrc-custom ]; then
-    curl http://people.imendio.com/richard/gtk-osx-build/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
+    curl $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
 fi
 
 # FIXME: Check if $HOME/bin is in the path and warn if not.
