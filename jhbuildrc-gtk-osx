@@ -88,7 +88,7 @@ def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, origina
 
 # Moduleset to use.
 #
-moduleset = 'http://developer.imendio.com/svn/gtk-osx-build/gtk-osx.modules'
+moduleset = 'http://people.imendio.com/richard/gtk-osx-build/modulesets/gtk-osx.modules'
 
 # A list of the modules to build.
 #

@@ -1,8 +1,19 @@
 #!/bin/sh
+#
+# Script that sets up jhbuild for GTK+ OS X building. Run this to
+# checkout jhbuild and the required configuration.
+#
+# Copyright 2007, 2008 Imendio AB
+#
 
 SOURCE=$HOME/Source
-mkdir -p $SOURCE
 
+if test x`which svn` == x; then
+    echo "Svn (subversion) isn't available, please install it and try again."
+    exit 1
+fi
+
+mkdir -p $SOURCE
 cd $SOURCE
 
 echo "Checking out jhbuild from subversion..."
@@ -15,13 +26,13 @@ fi
 echo "Installing jhbuild..."
 (cd jhbuild && make -f Makefile.plain DISABLE_GETTEXT=1 install >/dev/null)
 
-echo "Downloading and installing gtk-osx jhbuild setup..."
-#curl -O ... test
-#(cd gtk-osx-build; ln -sfh `pwd`/jhbuildrc-gtk-osx $HOME/.jhbuildrc)
-(#cd gtk-osx-build; ln -sfh `pwd`/jhbuildrc-gtk-osx-fw-10.4 $HOME/.jhbuildrc-fw-10.4)
-#if [ ! -f $HOME/.jhbuildrc-custom ]; then
-#    (cd gtk-osx-build; cp jhbuildrc-gtk-osx-custom-example $HOME/.jhbuildrc-custom)
-#fi
+echo "Installing jhbuild configuration..."
+curl http://people.imendio.com/richard/gtk-osx-build/jhbuildrc-gtk-osx -o $HOME/.jhbuildrc
+curl http://people.imendio.com/richard/gtk-osx-build/jhbuildrc-gtk-osx-fw-10.4 -o $HOME/.jhbuildrc-fw-10.4
+if [ ! -f $HOME/.jhbuildrc-custom ]; then
+    curl http://people.imendio.com/richard/gtk-osx-build/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
+fi
+
+# FIXME: Check if $HOME/bin is in the path and warn if not.
 
 echo "Done."
-
