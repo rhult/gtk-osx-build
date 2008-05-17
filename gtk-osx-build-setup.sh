@@ -3,37 +3,48 @@
 # Script that sets up jhbuild for GTK+ OS X building. Run this to
 # checkout jhbuild and the required configuration.
 #
+# Run this whenever you want to update jhbuild or the jhbuild setup;
+# it is safe to run it repeatedly.
+#
 # Copyright 2007, 2008 Imendio AB
 #
 
 SOURCE=$HOME/Source
 BASEURL=http://people.imendio.com/richard
 
-if test x`which svn` == x; then
-    echo "Svn (subversion) isn't available, please install it and try again."
+do_exit()
+{
+    echo $1
     exit 1
+}
+
+if test x`which svn` == x; then
+    do_exit "Svn (subversion) is not available, please install it and try again."
 fi
 
-mkdir -p $SOURCE
-cd $SOURCE
+mkdir -p $SOURCE 2>/dev/null || do_exit "The directory $SOURCE could not be created. Check permissions and try again."
 
-echo "Checking out jhbuild from subversion..."
 if ! test -d $SOURCE/jhbuild; then
-    svn co http://svn.gnome.org/svn/jhbuild/trunk jhbuild >/dev/null
+    echo "Checking out jhbuild from subversion..."
+    svn co http://svn.gnome.org/svn/jhbuild/trunk $SOURCE/jhbuild >/dev/null
 else
-    (cd jhbuild && svn up >/dev/null)
+    echo "Updating jhbuild from subversion..."
+    (cd $SOURCE/jhbuild && svn up >/dev/null)
 fi
 
 echo "Installing jhbuild..."
-(cd jhbuild && make -f Makefile.plain DISABLE_GETTEXT=1 install >/dev/null)
+(cd $SOURCE/jhbuild && make -f Makefile.plain DISABLE_GETTEXT=1 install >/dev/null)
 
 echo "Installing jhbuild configuration..."
-curl $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx -o $HOME/.jhbuildrc
-curl $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-fw-10.4 -o $HOME/.jhbuildrc-fw-10.4
+curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx -o $HOME/.jhbuildrc
+curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-fw-10.4 -o $HOME/.jhbuildrc-fw-10.4
 if [ ! -f $HOME/.jhbuildrc-custom ]; then
-    curl $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
+    curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
 fi
 
-# FIXME: Check if $HOME/bin is in the path and warn if not.
+if test "x`echo $PATH | grep $HOME/bin`" == x; then
+    echo "PATH does not contain $HOME/bin, it is recommended that you add that."
+    echo 
+fi
 
 echo "Done."
