@@ -13,5 +13,4 @@ After that has completed, do the following:
  jhbuild bootstrap
  jhbuild build
 
-See http://developer.imendio.com/projects/gtk-macosx for more
-information.
+See http://developer.imendio.com/projects/gtk-macosx for more information.
