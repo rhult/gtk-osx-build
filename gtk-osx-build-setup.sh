@@ -16,7 +16,7 @@ echo "Installing jhbuild..."
 (cd jhbuild && make -f Makefile.plain DISABLE_GETTEXT=1 install >/dev/null)
 
 echo "Downloading and installing gtk-osx jhbuild setup..."
-#curl -O ...
+#curl -O ... test
 #(cd gtk-osx-build; ln -sfh `pwd`/jhbuildrc-gtk-osx $HOME/.jhbuildrc)
 (#cd gtk-osx-build; ln -sfh `pwd`/jhbuildrc-gtk-osx-fw-10.4 $HOME/.jhbuildrc-fw-10.4)
 #if [ ! -f $HOME/.jhbuildrc-custom ]; then
