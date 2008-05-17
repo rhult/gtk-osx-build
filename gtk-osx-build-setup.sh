@@ -3,10 +3,22 @@
 # Script that sets up jhbuild for GTK+ OS X building. Run this to
 # checkout jhbuild and the required configuration.
 #
+# Copyright 2007, 2008 Imendio AB
+#
 # Run this whenever you want to update jhbuild or the jhbuild setup;
 # it is safe to run it repeatedly.
 #
-# Copyright 2007, 2008 Imendio AB
+# You need Mac OS X 10.4 or newer and Xcode 2.5 or newer. Make sure
+# you have subversion (svn) installed, 10.5 has it by default.
+#
+# Quick HOWTO:
+#
+# ./gtk-osx-build-setup.sh
+#
+# jhbuild bootstrap
+# jhbuild build
+#
+# See http://developer.imendio.com/projects/gtk-macosx for more information.
 #
 
 SOURCE=$HOME/Source
