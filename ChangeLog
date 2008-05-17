@@ -1,3 +1,11 @@
+2008-05-17  Richard Hult  <richard@imendio.com>
+
+	* jhbuildrc-gtk-osx: Change default source and installation
+	directories to ~/gtk/{source,inst}. This streamlines the build
+	process for most people since there is no need to change
+	permissions on /opt/... You can still override this in your custom
+	rc file if you don't like it.
+
 2008-05-13  Richard Hult  <richard@imendio.com>
 
 	* jhbuildrc-gtk-osx-cfw-10.4: Skip gnome-icon-theme, it needs to

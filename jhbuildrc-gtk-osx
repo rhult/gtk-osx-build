@@ -98,13 +98,11 @@ modules = [ 'meta-gtk-osx-bootstrap', 'meta-gtk-osx-core' ]
 #
 skip = [ 'python', 'gmp', 'guile' ]
 
-# The directory where the source will be checked out to.
+# Source and installation locations.
 #
-checkoutroot = os.path.expanduser('~/Source/gnome')
-
-# The prefix to configure/install modules to (must have write access).
-#
-prefix = '/opt/gtk'
+root = os.path.expanduser("~/gtk")
+checkoutroot = os.path.join(root, "source")
+prefix = os.path.join(root, "inst")
 
 # Extra arguments to pass to all autogen.sh scripts.
 #
