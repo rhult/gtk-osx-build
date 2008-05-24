@@ -20,4 +20,19 @@
 #
 # skip.append("libglade")
 
+# Override the source checkout and installation directories.
+#
+jhb = os.environ.get("JHB")
+if jhb is None:
+    # The default setup...
+    # checkoutroot = os.path.expanduser("~/Source/gtk")
+    # prefix = "/opt/gtk"
+    pass
+elif jhb == "FW":
+    # The framework build...
+    # checkoutroot = os.path.expanduser("~/Source/gtk-fw")
+    # prefix = "/opt/gtk-fw"
+    pass
+
 # And more...
+
