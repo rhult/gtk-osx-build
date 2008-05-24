@@ -51,6 +51,7 @@ skip.append("libtiff")
 skip.append("libjpeg")
 skip.append("libglade")
 skip.append("loudmouth")
+skip.append("WebKit")
 
 # Not needed.
 #
@@ -59,10 +60,6 @@ skip.append("pyxml")
 skip.append("automake-1.4")
 skip.append("tango-icon-theme")
 skip.append("tango-icon-theme-extras")
-
-# Needed to pick up libxml2 and libxslt from the system.
-#
-addpath("PKG_CONFIG_PATH", "/usr/lib/pkgconfig")
 
 # We want the system perl and python, not from macports or so.
 os.environ["PERL"] = "/usr/bin/perl"
@@ -75,4 +72,4 @@ environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Cairo.framework",
 environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Gtk.framework", ":")
 environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Libglade.framework", ":")
 environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/Loudmouth.framework", ":")
-
+environ_prepend("JHB_PREPEND_FRAMEWORKS", "/Library/Frameworks/WebKitGtk.framework", ":")

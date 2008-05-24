@@ -25,13 +25,13 @@
     </after>
   </autotools>
 
-  <autotools id="WebKit" autogenargs="--enable-video=yes --with-http-backend=curl --enable-dom-storage=no --enable-database=no --enable-icon-database=no --enable-svg=yes --enable-svg-experimental=yes --enable-svg-filters=yes --with-target=quartz --with-font-backend=pango"
+    <autotools id="WebKit" autogenargs="--disable-video --with-http-backend=curl --disable-dom-storage --disable-database --disable-icon-database --disable-svg --with-target=quartz --with-font-backend=pango --disable-offline-web-applications"
       makefile="GNUmakefile">
     <branch repo="git.debian.org" module="git/pkg-webkit/upstream.git"
       checkoutdir="WebKit" revision="filtered"/>
     <after>
       <dep package="meta-gtk-osx-core"/>
-      <dep package="gst-plugins-base"/>
+      <!--dep package="gst-plugins-base"/-->
     </after>
   </autotools>
 

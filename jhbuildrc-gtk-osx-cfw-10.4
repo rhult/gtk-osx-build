@@ -14,10 +14,10 @@ modules = [
          "meta-gtk-osx-bootstrap",
          "meta-gtk-osx-core",
          "meta-gtk-osx-themes",
-         #"meta-gstreamer",
-         #"meta-webkit-deps",
          "libglade",
-         "loudmouth"
+         "loudmouth",
+         #"meta-gstreamer",
+         "WebKit"
          ]
 
 # Source and installation locations.
@@ -37,8 +37,6 @@ environ_append('LDFLAGS', '-Wl,-flat_namespace')
 # things from /usr/lib.
 #
 module_autogenargs["gettext"] = autogenargs + " --with-libiconv-prefix=" + sdkdir + "/usr"
-module_autogenargs["libxml2"] = autogenargs + " --with-iconv=" + sdkdir + "/usr" + " --with-zlib=" + sdkdir + "/usr" 
-module_autogenargs["libxslt"] = autogenargs + " --with-libxml-prefix=" + prefix
 
 # For unknown reasons, iconv is not picked up correctly without this
 # (possibly due to using -flat_namespace....).
@@ -79,6 +77,7 @@ skip.append("gtk-engines")
 skip.append("libglade")
 skip.append("loudmouth")
 skip.append("gnome-icon-theme")
+skip.append("WebKit")
 
 # Not needed.
 #
