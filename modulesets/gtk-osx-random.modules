@@ -56,6 +56,7 @@
     <dependencies>
       <dep package="ORBit2"/>
       <dep package="libxml2"/>
+      <dep package="dbus-glib"/>
     </dependencies>
   </autotools>
 
@@ -111,9 +112,8 @@
     </dependencies>
   </autotools>
 
-  <tarball autogenargs="--disable-selinux" id="dbus" version="1.0.2">
-    <source href="http://dbus.freedesktop.org/releases/dbus/dbus-1.0.2.tar.gz"
-            md5sum="0552a9b54beb4a044951b7cdbc8fc855" size="1400278"/>
+  <tarball autogenargs="--disable-selinux --disable-static --enable-shared" id="dbus" version="1.2.1">
+    <source href="http://dbus.freedesktop.org/releases/dbus/dbus-1.2.1.tar.gz"/>
     <dependencies>
       <dep package="glib"/>
     </dependencies>
@@ -122,9 +122,8 @@
     </after>
   </tarball>
 
-  <tarball id="dbus-glib" version="0.71">
-    <source href="http://dbus.freedesktop.org/releases/dbus-glib-0.71.tar.gz"
-            md5sum="4e1e7348b26ee8b6485452113f4221cc" size="566889"/>
+  <tarball id="dbus-glib" autogenargs="--disable-selinux --disable-static --enable-shared" version="0.74">
+    <source href="http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.74.tar.gz"/>
     <dependencies>
       <dep package="libxml2"/>
       <dep package="dbus"/>
