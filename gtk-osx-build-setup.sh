@@ -6,7 +6,9 @@
 # Copyright 2007, 2008 Imendio AB
 #
 # Run this whenever you want to update jhbuild or the jhbuild setup;
-# it is safe to run it repeatedly.
+# it is safe to run it repeatedly. Note that it overwrites
+# ~/.jhbuildrc however. Custom settings should be kept in
+# ~/.jhbuildrc-custom.
 #
 # You need Mac OS X 10.4 or newer and Xcode 2.5 or newer. Make sure
 # you have subversion (svn) installed, 10.5 has it by default.
