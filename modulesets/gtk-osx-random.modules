@@ -29,6 +29,15 @@
     </dependencies>
   </autotools>
 
+  <autotools id="glade3">
+    <branch/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-themes"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
+  </autotools>
+
   <autotools id="gtksourceview" autogenargs="--disable-gnome-print">
     <branch revision="gnome-2-18"/> <!-- module="ardour2" checkoutdir="ardour"/-->
     <after>
