@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
-  <repository type="git" name="git.imendio.com" href="git://git.imendio.com/projects/"/>
+  <repository type="git" name="git.imendio.com" href="git://git.imendio.com/"/>
   <repository type="svn" name="inkscape.svn.sourceforge.net" href="https://inkscape.svn.sourceforge.net/svnroot/inkscape/"/>
   <repository type="svn" name="ardour" href="http://subversion.ardour.org/svn/"/>
   <repository type="git" name="github.com" href="git://github.com/"/>
@@ -29,6 +29,20 @@
     </dependencies>
   </autotools>
 
+  <autotools id="jamboree" autogenargs="--disable-dbus">
+    <branch repo="git.imendio.com" module="richard/jamboree.git"
+      checkoutdir="jamboree"/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-themes"/>
+      <dep package="meta-gtk-osx-core"/>
+      <dep package="meta-gtk-gstreamer"/>
+    </after>
+    <dependencies>
+      <dep package="libglade"/>
+    </dependencies>
+  </autotools>
+
   <autotools id="glade3">
     <branch/>
     <after>
@@ -38,9 +52,10 @@
     </after>
   </autotools>
 
-  <autotools id="gtksourceview" autogenargs="--disable-gnome-print">
-    <branch revision="gnome-2-18"/> <!-- module="ardour2" checkoutdir="ardour"/-->
+  <autotools id="gtksourceview">
+    <branch/>
     <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="meta-gtk-osx-core"/>
     </after>
   </autotools>
@@ -48,6 +63,7 @@
   <autotools id="libIDL">
     <branch/>
     <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="meta-gtk-osx-core"/>
     </after>
   </autotools>
@@ -86,8 +102,11 @@
 
   <autotools id="gimp" autogenargs="--disable-python --disable-print --without-x">
     <branch/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
     <dependencies>
-      <dep package="gtk+"/>
       <dep package="lcms"/>
       <dep package="libart_lgpl"/>
       <dep package="fontconfig"/>
@@ -108,26 +127,37 @@
 
   <autotools id="libart_lgpl">
     <branch/>
-    <dependencies>
-      <dep package="glib"/>
-    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
   </autotools>
 
   <autotools id="libgnomecanvas">
     <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="libart_lgpl"/>
-    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
   </autotools>
 
-  <!-- This does not work out of the box, but keeping here to keep
-       track of the autogen flags needed.
+  <!-- Totem and totem-pl-parser, those do not work out of the box,
+       but keeping here to keep track of the autogen flags needed.
   -->
-  <autotools id="totem" autogenargs="--enable-gtk --disable-iso-codes --with-dbus=no --disable-xtest --disable-python">
+  <autotools id="totem-pl-parser">
     <branch/>
     <dependencies>
       <dep package="gtk+"/>
+    </dependencies>
+  </autotools>
+  <autotools id="totem" autogenargs="--enable-gtk --disable-iso-codes --without-dbus --disable-python --with-plugins=none --disable-nautilus --disable-scrollkeeper">
+    <branch/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
+    <dependencies>
+      <dep package="totem-pl-parser"/>
     </dependencies>
   </autotools>
 
@@ -143,19 +173,20 @@
     <dependencies>
       <dep package="libxml2"/>
       <dep package="dbus"/>
-      <dep package="glib"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
   </tarball>
 
   <tarball id="poppler" version="0.5.9"
            autogenargs="--disable-qt --disable-qt4 --without-x --disable-gtk-test --enable-xpdf-headers">
     <source href="http://poppler.freedesktop.org/poppler-0.5.9.tar.gz"
             md5sum="8d1ac008614c0e413bcac95b8102fa07" size="1169002"/>
-     <dependencies>
-       <dep package="cairo"/>
-     </dependencies>
     <after>
-      <dep package="gtk+"/>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
     </after>
   </tarball>
 
@@ -238,6 +269,10 @@
       <dep package="jack"/>
       <dep package="boost"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
   </autotools>
 
   <autotools id="inkscape">
@@ -250,6 +285,10 @@
       <dep package="boost"/>
       <dep package="lcms"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
   </autotools>
 
 </moduleset>
