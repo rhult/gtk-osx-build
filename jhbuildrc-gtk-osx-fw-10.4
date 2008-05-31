@@ -1,6 +1,6 @@
 # -*- mode: python -*-
 #
-# Copyright (C) 2006, 2007, 2008 Imendio AB
+# Copyright (C) 2006 - 2008 Imendio AB
 #
 # Build setup for using the frameworks for GLib, Cairo, GTK+ etc.
 #
@@ -58,12 +58,10 @@ skip.append("WebKit")
 skip.append("waf")
 skip.append("pyxml")
 skip.append("automake-1.4")
+skip.append("automake-1.7")
+skip.append("automake-1.8")
 skip.append("tango-icon-theme")
 skip.append("tango-icon-theme-extras")
-
-# We want the system perl and python, not from macports or so.
-os.environ["PERL"] = "/usr/bin/perl"
-os.environ["PYTHON"] = "/usr/bin/python"
 
 # Setup jhbuild to point to frameworks.
 #
