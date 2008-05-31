@@ -8,10 +8,10 @@
   <repository type="tarball" name="sourceforge" href="http://heanet.dl.sourceforge.net/sourceforge"/>
 
   <tarball id="libpng" version="1.2.26" autogenargs="--enable-shared">
-    <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.26.tar.bz2"
-            md5sum="1f743f4a3e5a9c12ea16eff0c60c3f8e" size="627569"/>
+    <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.29.tar.bz2"/>
   </tarball>
 
+ <!-- The patch only adds a makefile that can build shared libraries on OS X.-->
  <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b"
           makeargs="-f makefile.gtkosx"
           checkoutdir="jpeg-6b" autogenargs="--enable-shared --disable-static">
@@ -122,18 +122,6 @@
             md5sum="3534f7b8e59785c7d5bfa923e85510a7" size="33616"/>
   </tarball>
 
-  <!-- 10.5 has 7.16.3, which is too old for some things. Otherwise can be skipped. -->
-  <tarball id="libcurl" version="7.18.1">
-    <source href="http://curl.haxx.se/download/curl-7.18.1.tar.bz2"
-            md5sum="805834fc1136ff7600d2179bc0386c5a" size="1700966"/>
-  </tarball>
-
-  <!-- 10.4 has 1.28 which is too old, 10.5 has 2.3 which is OK. -->
-  <tarball id="bison" version="2.3">
-    <source href="http://ftp.gnu.org/gnu/bison/bison-2.3.tar.bz2"
-            md5sum="c18640c6ec31a169d351e3117ecce3ec" size="1080319"/>
-  </tarball>
-
   <autotools id="intltool">
     <branch/>
     <dependencies>
@@ -156,8 +144,6 @@
       <dep package="perl-xml-parser"/>
       <dep package="perl-xml-simple"/>
       <dep package="hicolor-icon-theme"/>
-      <dep package="libcurl"/>
-      <dep package="bison"/>
       <dep package="gnome-common"/>
       <dep package="intltool"/>
     </dependencies>

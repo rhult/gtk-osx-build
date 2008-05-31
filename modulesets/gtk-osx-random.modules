@@ -16,6 +16,14 @@
     </after>
   </autotools>
 
+  <autotools id="libglade">
+    <branch/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
+  </autotools>
+
   <autotools id="gossip">
     <branch/>
     <after>
@@ -25,6 +33,19 @@
     </after>
     <dependencies>
       <dep package="loudmouth"/>
+      <dep package="libglade"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="devhelp">
+    <branch/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-themes"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
+    <dependencies>
+      <dep package="WebKit"/>
       <dep package="libglade"/>
     </dependencies>
   </autotools>
@@ -117,7 +138,6 @@
   <autotools id="babl">
     <branch/>
   </autotools>
-
   <autotools id="gegl">
     <branch/>
     <dependencies>
@@ -167,7 +187,6 @@
       <dep package="gtk+"/>
     </after>
   </tarball>
-
   <tarball id="dbus-glib"  version="0.74" autogenargs="--disable-selinux">
     <source href="http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.74.tar.gz"/>
     <dependencies>

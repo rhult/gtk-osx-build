@@ -5,17 +5,24 @@
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
   <repository type="git" name="git.debian.org" href="git://git.debian.org/"/>
 
-  <tarball id="icu" version="3.6" checkoutdir="icu/source">
-    <source href="ftp://ftp.software.ibm.com/software/globalization/icu/3.6/icu4c-3_6-src.tgz"
-            md5sum="6243f7a19e03e05403ce84e597510d4c" size="10183358"/>
-  </tarball>
-
   <metamodule id="meta-webkit-deps">
     <dependencies>
       <dep package="libcurl"/>
-      <dep package="icu"/>
+      <dep package="bison"/>
     </dependencies>
   </metamodule>
+
+  <!-- 10.5 has 7.16.3, which is too old for some things. Otherwise can be skipped. -->
+  <tarball id="libcurl" version="7.18.1">
+    <source href="http://curl.haxx.se/download/curl-7.18.1.tar.bz2"
+            md5sum="805834fc1136ff7600d2179bc0386c5a" size="1700966"/>
+  </tarball>
+
+  <!-- 10.4 has 1.28 which is too old, 10.5 has 2.3 which is OK. -->
+  <tarball id="bison" version="2.3">
+    <source href="http://ftp.gnu.org/gnu/bison/bison-2.3.tar.bz2"
+            md5sum="c18640c6ec31a169d351e3117ecce3ec" size="1080319"/>
+  </tarball>
 
   <!-- Not sure which HTTP backend is best for the mac build yet, leave this here. -->
   <autotools id="libsoup">
@@ -49,6 +56,14 @@
   <tarball id="webkit-prebuilt-sdk10.4" version="20080114">
     <source href="http://people.imendio.com/richard/gtk-osx/files/webkit-prebuilt-sdk10.4-20080114.tar.gz"
             md5sum="4840be0c6a83c9cc71b38b1ea7c04a6f" size="3185149"/>
+  </tarball>
+
+  <!-- The prebuilt version uses a standalone icu instead of the
+       system one. Remove this once the prebuilt webkit is removed.
+  -->
+  <tarball id="icu" version="3.6" checkoutdir="icu/source">
+    <source href="ftp://ftp.software.ibm.com/software/globalization/icu/3.6/icu4c-3_6-src.tgz"
+            md5sum="6243f7a19e03e05403ce84e597510d4c" size="10183358"/>
   </tarball>
 
 </moduleset>

@@ -160,19 +160,8 @@
     </after>
   </tarball>
 
-  <autotools id="libglade">
-    <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-    </dependencies>
-    <after>
-      <dep package="meta-gtk-osx-bootstrap"/>
-    </after>
-  </autotools>
-
-  <tarball id="ige-mac-integration" version="0.8.1">
-    <source href="http://ftp.imendio.com/pub/imendio/ige-mac-integration/ige-mac-integration-0.8.1.tar.gz"
-            md5sum="7a9c68dbdd3b54fd122b07619c8d886f" size="373769"/>
+  <tarball id="ige-mac-integration" version="0.8.2">
+    <source href="http://ftp.imendio.com/pub/imendio/ige-mac-integration/ige-mac-integration-0.8.2.tar.gz"/>
     <dependencies>
       <dep package="gtk+"/>
     </dependencies>
