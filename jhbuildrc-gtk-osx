@@ -42,6 +42,16 @@ def parse_custom_argument(key):
             return sys.argv[i+1]
     return None
 
+def set_branch(module, branch):
+    # Keep any overriden repo name here to keep custom usernames set
+    # up in a custom setup.
+    #
+    repo = repos.get("svn.gnome.org", "http://svn.gnome.org/svn")
+    if repo.endswith("/"):
+        repo = repo[:-1]
+
+    branches[module] = repo + "/" + module + "/" + branch
+
 # Set up the environment for building against 10.4 SDK.
 #
 sdkdir = None
@@ -200,6 +210,11 @@ version = 'python' + str(sys.version_info[0]) + '.' + str(sys.version_info[1])
 environ_append('PYTHONPATH', prefix + '/lib/' + version + '/site-packages/gtk-2.0', ':')
 environ_append('PERL5LIB', prefix + '/lib/perl5/vendor_perl', ':')
 environ_append('PERL5LIB', prefix + '/lib/perl5/site_perl', ':')
+
+# We want the system perl and python, not from macports or so.
+#
+os.environ["PERL"] = "/usr/bin/perl"
+os.environ["PYTHON"] = "/usr/bin/python"
 
 # Point gtk-doc and other xlstproc users to our XML catalog.
 #
