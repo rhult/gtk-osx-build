@@ -24,6 +24,7 @@
        - gtk-osx-themes.modules: self explaining.
 
        - gtk-osx-random.modules: "random stuff", has apps for testing GTK+.
+       - gtk-osx-unsupported.modules: more testing stuff, competely unsupported.
   -->
 
   <include href="gtk-osx-bootstrap.modules"/>
@@ -33,6 +34,7 @@
   <include href="gtk-osx-gtkmm.modules"/>
   <include href="gtk-osx-themes.modules"/>
   <include href="gtk-osx-random.modules"/>
+  <include href="gtk-osx-unsupported.modules"/>
 
   <metamodule id="meta-gtk-osx-core">
     <dependencies>
