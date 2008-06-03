@@ -106,7 +106,8 @@ modules = [ 'meta-gtk-osx-core' ]
 
 # A list of modules to skip.
 #
-skip = [ 'python', 'gmp', 'guile' ]
+skip.append('gmp')
+skip.append('guile')
 
 # Source and installation locations.
 #
@@ -150,6 +151,7 @@ except:
 prompt_prefix = "JH"
 
 default_build = ""
+want_jhbuild_python = False
 
 # Import optional user RC for further customization. You can override
 # the prefix or default build setup for example, or CFLAGS or
@@ -194,6 +196,14 @@ os.environ['JHBUILD_SOURCE'] = checkoutroot
 
 os.environ['LIBTOOLIZE'] = prefix + '/bin/libtoolize'
 
+# By default, we want the system perl and python, not from macports or
+# so.
+#
+os.environ["PERL"] = "/usr/bin/perl"
+if not want_jhbuild_python:
+    skip.append('python')
+    os.environ["PYTHON"] = "/usr/bin/python"
+
 # The option "headerpad_max_install_names" is there to leave some room for
 # changing the library locations with install_name_tool. Note that GNU
 # libtool seems to drop the option if we don't use -W here.
@@ -210,11 +220,6 @@ version = 'python' + str(sys.version_info[0]) + '.' + str(sys.version_info[1])
 environ_append('PYTHONPATH', prefix + '/lib/' + version + '/site-packages/gtk-2.0', ':')
 environ_append('PERL5LIB', prefix + '/lib/perl5/vendor_perl', ':')
 environ_append('PERL5LIB', prefix + '/lib/perl5/site_perl', ':')
-
-# We want the system perl and python, not from macports or so.
-#
-os.environ["PERL"] = "/usr/bin/perl"
-os.environ["PYTHON"] = "/usr/bin/python"
 
 # Point gtk-doc and other xlstproc users to our XML catalog.
 #

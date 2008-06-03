@@ -2,7 +2,7 @@
 
 # The username for repositories can be overridden.
 #
-# repos['svn.gnome.org'] = 'svn+ssh://myusername@svn.gnome.org/svn/'
+# repos["svn.gnome.org"] = "svn+ssh://myusername@svn.gnome.org/svn/"
 
 # You can set the default setup here.
 #
@@ -10,15 +10,20 @@
  
 # The moduleset can be overridden.
 #
-# moduleset = 'gtk-osx'
+# moduleset = "gtk-osx"
 
 # As can the default modules to build.
 #
-# modules = [ 'meta-gtk-osx-core', 'meta-gstreamer' ]
+# modules = [ "meta-gtk-osx-core", "meta-gstreamer" ]
 
 # You can skip modules.
 #
 # skip.append("libglade")
+
+# Set this to true if you want to build python as part of jhbuild (for
+# example if you want a newer version than your system has.
+#
+# want_jhbuild_python = True
 
 # Override the source checkout and installation directories.
 #
