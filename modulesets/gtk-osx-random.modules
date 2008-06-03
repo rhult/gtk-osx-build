@@ -37,6 +37,17 @@
     </dependencies>
   </autotools>
 
+  <!-- You need to bootstrap vala yourself before installing this (by
+       installing a tarball version.
+  -->
+  <autotools id="vala">
+    <branch/>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
+  </autotools>
+
   <autotools id="devhelp">
     <branch/>
     <after>

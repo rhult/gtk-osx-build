@@ -38,6 +38,9 @@
       checkoutdir="WebKit" revision="filtered"/>
     <after>
       <dep package="meta-gtk-osx-core"/>
+      <dep package="libcurl"/>
+      <dep package="libsoup"/>
+      <dep package="bison"/>
       <!--dep package="gst-plugins-base"/-->
     </after>
   </autotools>
