@@ -95,6 +95,7 @@ def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, origina
         'CXXFLAGS="' + original_cxxflags + rootstr + archstr + '" ' + \
         'LDFLAGS="' + original_ldflags + archstr + '"'
 
+osx_version = os.popen("uname -r").read().strip()
 
 # Moduleset to use.
 #
@@ -151,7 +152,16 @@ except:
 prompt_prefix = "JH"
 
 default_build = ""
-want_jhbuild_python = False
+
+if osx_version.startswith("7."):
+    print "Error: Mac OS X 10.4 or newer is required, exiting."
+    raise SystemExit
+elif osx_version.startswith("8."):
+    # Tiger, we want to use the python version from jhbuild.
+    want_jhbuild_python = True
+else:
+    # Leopard or newer.
+    want_jhbuild_python = False
 
 # Import optional user RC for further customization. You can override
 # the prefix or default build setup for example, or CFLAGS or
