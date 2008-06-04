@@ -220,6 +220,13 @@ if not want_jhbuild_python:
     skip.append('python')
     os.environ["PYTHON"] = "/usr/bin/python"
 
+# Use libxml/libxslt from the system. Append to the pkg-config path to
+# get the system versions picked up.
+#
+skip.append("libxml2")
+skip.append("libxslt")
+addpath("PKG_CONFIG_PATH", "/usr/lib/pkgconfig")
+
 # The option "headerpad_max_install_names" is there to leave some room for
 # changing the library locations with install_name_tool. Note that GNU
 # libtool seems to drop the option if we don't use -W here.

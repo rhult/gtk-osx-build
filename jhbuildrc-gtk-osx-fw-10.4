@@ -22,15 +22,6 @@ skip.append("gst-plugins-bad")
 skip.append("gst-ffmpeg")
 skip.append("faad")
 
-# Use libxml/libxslt from the system.
-#
-skip.append("libxml2")
-skip.append("libxslt")
-
-# Needed to pick up libxml2 and libxslt from the system.
-#
-addpath("PKG_CONFIG_PATH", "/usr/lib/pkgconfig")
-
 module_autogenargs["gettext"] = autogenargs + " --with-libiconv-prefix=" + sdkdir + "/usr"
 
 # Skip everything that is included in our frameworks.

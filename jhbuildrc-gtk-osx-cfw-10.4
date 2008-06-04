@@ -47,11 +47,12 @@ module_autogenargs['glib'] = old_value + ' --with-libiconv=gnu'
 # Replace trunk with tags/branches for some modules.
 #
 set_branch("glib", "tags/GLIB_2_17_0")
-#set_branch("gtk+", "tags/GTK_2_13_1")
+#set_branch("gtk+", "tags/GTK_2_13_2")
 set_branch("atk", "tags/ATK_1_22_0")
 set_branch("pango", "tags/PANGO_1_21_2")
 set_branch("libglade", "tags/LIBGLADE_2_6_2")
 set_branch("gtk-engines", "tags/GTK_ENGINES_2_15_1")
+#set_branch("intltool", "tags/INTLTOOL_0_40")
 #set_branch("gnome-icon-theme", "tags/GNOME_ICON_THEME_2_23_0")
 
 # Skip those for now.
@@ -83,12 +84,3 @@ skip.append("automake-1.4")
 skip.append("automake-1.8")
 skip.append("tango-icon-theme")
 skip.append("tango-icon-theme-extras")
-
-# Use libxml/libxslt from the system.
-#
-skip.append("libxml2")
-skip.append("libxslt")
-
-# Needed to pick up libxml2 and libxslt from the system.
-#
-addpath("PKG_CONFIG_PATH", "/usr/lib/pkgconfig")
