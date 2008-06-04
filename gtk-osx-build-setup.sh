@@ -15,9 +15,10 @@
 #
 # Quick HOWTO:
 #
-# ./gtk-osx-build-setup.sh
+# sh gtk-osx-build-setup.sh
 #
 # jhbuild bootstrap
+# jhbuild build meta-gtk-osx-bootstrap
 # jhbuild build
 #
 # See http://developer.imendio.com/projects/gtk-macosx for more information.
