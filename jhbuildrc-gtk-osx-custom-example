@@ -20,8 +20,9 @@
 #
 # skip.append("libglade")
 
-# Set this to true if you want to build python as part of jhbuild (for
-# example if you want a newer version than your system has.
+# Set this to True/False if you want to force using or not building
+# and using python as part of jhbuild. If not set, the script will use
+# the system python when building on 10.5 or newer only.
 #
 # want_jhbuild_python = True
 
