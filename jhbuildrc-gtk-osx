@@ -52,6 +52,10 @@ def set_branch(module, branch):
 
     branches[module] = repo + "/" + module + "/" + branch
 
+def append_autogenargs(module, args):
+    old_value = module_autogenargs.get(module, autogenargs)
+    module_autogenargs[module] = old_value + " " + args
+
 # Set up the environment for building against 10.4 SDK.
 #
 sdkdir = None
@@ -145,9 +149,9 @@ if os.path.exists(path):
 # enable asm atomic operations otherwise.
 #
 try:
-    f = os.popen('uname -p')
-    if f.read().startswith('i386'):
-        module_autogenargs['glib'] = autogenargs + ' --build=i486-apple-darwin'
+    f = os.popen("uname -p")
+    if f.read().startswith("i386"):
+        append_autogenargs("glib", "--build=i486-apple-darwin")
 except:
     pass
 
@@ -250,8 +254,7 @@ os.environ['XML_CATALOG_FILES'] = prefix + '/etc/xml/catalog'
 
 # Speed up gettext build by disabling unneeded stuff.
 #
-old_value = module_autogenargs.get('gettext', autogenargs)
-module_autogenargs['gettext'] = old_value + ' --without-emacs --disable-java --disable-native-java --disable-libasprintf --disable-csharp'
+append_autogenargs("gettext", "--without-emacs --disable-java --disable-native-java --disable-libasprintf --disable-csharp")
 
 # Support prepending frameworks to the PKG_CONFIG_PATH, CFLAGS,
 # LDFLAGS and ACLOCAL_FLAGS variables.

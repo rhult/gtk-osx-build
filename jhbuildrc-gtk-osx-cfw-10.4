@@ -36,13 +36,12 @@ environ_append('LDFLAGS', '-Wl,-flat_namespace')
 # Need to point some modules to the right place so we don't pick up
 # things from /usr/lib.
 #
-module_autogenargs["gettext"] = autogenargs + " --with-libiconv-prefix=" + sdkdir + "/usr"
+append_autogenargs("gettext", "--with-libiconv-prefix=" + sdkdir + "/usr")
 
 # For unknown reasons, iconv is not picked up correctly without this
 # (possibly due to using -flat_namespace....).
 #
-old_value = module_autogenargs.get('glib', autogenargs)
-module_autogenargs['glib'] = old_value + ' --with-libiconv=gnu'
+append_autogenargs('glib', ' --with-libiconv=gnu')
 
 # Replace trunk with tags/branches for some modules.
 #

@@ -22,8 +22,6 @@ skip.append("gst-plugins-bad")
 skip.append("gst-ffmpeg")
 skip.append("faad")
 
-module_autogenargs["gettext"] = autogenargs + " --with-libiconv-prefix=" + sdkdir + "/usr"
-
 # Skip everything that is included in our frameworks.
 # 
 skip.append("glib")
