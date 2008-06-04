@@ -210,6 +210,7 @@ os.environ['LIBTOOLIZE'] = prefix + '/bin/libtoolize'
 # so.
 #
 os.environ["PERL"] = "/usr/bin/perl"
+os.environ["INTLTOOL_PERL"] = "/usr/bin/perl"
 if not want_jhbuild_python:
     skip.append('python')
     os.environ["PYTHON"] = "/usr/bin/python"
