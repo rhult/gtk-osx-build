@@ -75,9 +75,14 @@ def setup_sdk_10_4():
     environ_prepend("LDFLAGS", "-L" + sdkdir + "/usr/lib")
     environ_prepend("CPPFLAGS", "-I" + sdkdir + "/usr/include")
 
-    environ_append("CFLAGS", "-isysroot " + sdkdir)
-    environ_append("CXXFLAGS", "-isysroot " + sdkdir)
-    environ_append("LDFLAGS", "-isysroot " + sdkdir)
+    # It looks like -isysroot is broken on 10.4, causing link
+    # problems. But we don't really need to set it for 10.4 so just
+    # skip that.
+    #
+    if not osx_version.startswith("8."):
+        environ_append("CFLAGS", "-isysroot " + sdkdir)
+        environ_append("CXXFLAGS", "-isysroot " + sdkdir)
+        environ_append("LDFLAGS", "-isysroot " + sdkdir)
 
     environ_append("CFLAGS", "-mmacosx-version-min=" + target)
     environ_append("LDFLAGS", "-mmacosx-version-min=" + target)
@@ -85,7 +90,7 @@ def setup_sdk_10_4():
     return sdkdir
 
 def autogenargs_for_arch(root, arch, original_cflags, original_cxxflags, original_ldflags):
-    if root is not None:
+    if root is not None and not osx_version.startswith("8."):
         rootstr = " -isysroot " + root
     else:
         rootstr = ""
