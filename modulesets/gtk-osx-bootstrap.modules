@@ -11,9 +11,13 @@
     <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.29.tar.bz2"/>
   </tarball>
 
- <!-- The patch only adds a makefile that can build shared libraries on OS X.-->
+ <!-- The patch only adds a makefile that can build shared libraries
+      on OS X, and regenerates config.guess. For some reason the
+      "makefile" argument doesn't work so I'm using make*args.
+ -->
  <tarball id="libjpeg" supports-non-srcdir-builds="no" version="6b"
           makeargs="-f makefile.gtkosx"
+          makeinstallargs="-f makefile.gtkosx"
           checkoutdir="jpeg-6b" autogenargs="--enable-shared --disable-static">
    <source href="ftp://anonymous:needsemail%40forsomereason.com@ftp.uu.net/graphics/jpeg/jpegsrc.v6b.tar.gz"
            md5sum="dbd5f3b47ed13132f04c685d608a7547" size="613261"/>
