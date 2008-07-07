@@ -132,7 +132,7 @@
     </dependencies>
   </tarball>
 
-  <autotools id="gimp" autogenargs="--disable-python --disable-print --without-x">
+  <autotools id="gimp" autogenargs="--disable-python --disable-print --without-x --without-dbus --without-gnomevfs">
     <branch/>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
@@ -181,7 +181,7 @@
       <dep package="gtk+"/>
     </dependencies>
   </autotools>
-  <autotools id="totem" autogenargs="--enable-gtk --disable-iso-codes --without-dbus --disable-python --with-plugins=none --disable-nautilus --disable-scrollkeeper">
+  <autotools id="totem" autogenargs="--enable-gtk --disable-iso-codes --without-dbus --disable-python --with-plugins=none --disable-browser-plugins --disable-nautilus --disable-scrollkeeper">
     <branch/>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
