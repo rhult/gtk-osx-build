@@ -6,7 +6,7 @@
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
   <repository type="tarball" name="cpan" href="http://search.cpan.org/CPAN/" />
   <repository type="tarball" name="sourceforge" href="http://heanet.dl.sourceforge.net/sourceforge"/>
-  <repository type="tarball" name="jpeg" href="http://anonymous:needsemail%40forsomereason.com@ftp.uu.net/graphics"/>
+  <repository type="tarball" name="jpeg" href="ftp://anonymous:needsemail%40forsomereason.com@ftp.uu.net"/>
 
   <tarball id="libpng" version="1.2.26" autogenargs="--enable-shared">
     <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.29.tar.bz2"/>
@@ -17,15 +17,13 @@
       "makefile" argument doesn't work so I'm using make*args.
  -->
   <autotools id="libjpeg" makeargs="-f makefile.gtkosx" makeinstallargs="-f makefile.gtkosx install"
-             autogen-template="%(srcdir)s/configure --prefix %(prefix)s %(autogenargs)s">
-    <branch module="jpeg/jpegsrc.v6b.tar.gz" version="6b-2"
+             autogen-template="%(srcdir)s/configure --prefix %(prefix)s %(autogenargs)s --disable-static --enable-shared">
+    <branch module="graphics/jpeg/jpegsrc.v6b.tar.gz" version="6b-2"
             repo="jpeg"
             md5sum="dbd5f3b47ed13132f04c685d608a7547" size="613261"
             checkoutdir="jpeg-6b">
+          <patch file="http://people.imendio.com/richard/gtk-osx/files/libjpeg-libtool-build.patch" strip="1"/>
     </branch>
-    <patches>
-      <patch file="http://people.imendio.com/richard/gtk-osx/files/libjpeg-libtool-build.patch" strip="1"/>
-    </patches>
   </autotools>
 
   <tarball id="libtiff" version="3.8.2">
