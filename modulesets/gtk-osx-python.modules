@@ -4,8 +4,8 @@
 <moduleset>
 
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
-  <repository type="cvs" name="cvs-cairo.freedesktop.org" cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/cairo"
-      password=""/>
+  <repository type="cvs" name="cvs-cairo.freedesktop.org" cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/cairo" password=""/>
+  <repository type="tarball" name="cairographics.org" href="http://cairographics.org/"/>
 
   <metamodule id="meta-gtk-osx-python">
     <dependencies>
@@ -15,17 +15,27 @@
     </dependencies>
   </metamodule>
 
-  <autotools id="pycairo">
+  <autotools id="pycairo" autogen-sh="configure">
+    <branch module="releases/pycairo-1.4.12.tar.gz" version="1.4.12"
+            repo="cairographics.org"
+            md5sum="c63199d35b1e1d3c5133509f315f70d7" size="490053">
+    </branch>
+    <dependencies>
+      <dep package="meta-gtk-osx-core"/>
+    </dependencies>
+  </autotools>
+
+  <!--autotools id="pycairo">
     <branch repo="cvs-cairo.freedesktop.org"/>
     <dependencies>
       <dep package="cairo"/>
     </dependencies>
-  </autotools>
+  </autotools-->
 
   <autotools id="pygobject">
     <branch/>
     <dependencies>
-      <dep package="glib"/>
+      <dep package="meta-gtk-osx-core"/>
     </dependencies>
   </autotools>
 
@@ -33,7 +43,7 @@
     <branch/>
     <dependencies>
       <dep package="pygobject"/>
-      <dep package="gtk+"/>
+      <dep package="meta-gtk-osx-core"/>
       <dep package="pycairo"/>
       <dep package="libglade"/>
     </dependencies>
