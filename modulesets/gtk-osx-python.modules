@@ -6,6 +6,7 @@
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
   <repository type="cvs" name="cvs-cairo.freedesktop.org" cvsroot=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/cairo" password=""/>
   <repository type="tarball" name="cairographics.org" href="http://cairographics.org/"/>
+  <repository type="tarball" name="cairo-rhult" href="http://people.imendio.com/richard/gtk-osx/files/"/>
 
   <metamodule id="meta-gtk-osx-python">
     <dependencies>
@@ -15,7 +16,22 @@
     </dependencies>
   </metamodule>
 
+  <!-- We are using 1.4.12 since that is the last version that works
+       with <2.5 and we have our own tarball since the upstream one is
+       generated with a too old libtool which breaks on leopard. No
+       patches, just re-autogen:ed.
+  -->
   <autotools id="pycairo" autogen-sh="configure">
+    <branch module="pycairo-1.4.12-rhult.tar.gz" version="1.4.12-rhult"
+            repo="cairo-rhult"
+            md5sum="f5db8befce4db7cefa61b55ca0494f49" size="493330">
+    </branch>
+    <dependencies>
+      <dep package="meta-gtk-osx-core"/>
+    </dependencies>
+  </autotools>
+
+  <!--autotools id="pycairo" autogen-sh="configure">
     <branch module="releases/pycairo-1.4.12.tar.gz" version="1.4.12"
             repo="cairographics.org"
             md5sum="c63199d35b1e1d3c5133509f315f70d7" size="490053">
@@ -23,7 +39,7 @@
     <dependencies>
       <dep package="meta-gtk-osx-core"/>
     </dependencies>
-  </autotools>
+  </autotools-->
 
   <!--autotools id="pycairo">
     <branch repo="cvs-cairo.freedesktop.org"/>
