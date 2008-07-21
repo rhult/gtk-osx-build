@@ -305,12 +305,19 @@
     </after>
   </autotools>
 
-  <autotools id="inkscape">
+  <tarball id="gsl" version="1.11">
+    <source href="ftp://ftp.gnu.org/gnu/gsl/gsl-1.11.tar.gz"
+            md5sum="f28f9de8bec867f3f4f436d3ed80680a" size="2700307"/>
+  </tarball>
+
+  <autotools id="inkscape"
+             autogen-template="%(srcdir)s/autogen.sh &amp;&amp; %(srcdir)s/configure --prefix %(prefix)s %(autogenargs)s">
     <branch repo="inkscape.svn.sourceforge.net"/>
     <dependencies>
       <dep package="poppler"/>
       <dep package="gtkmm"/>
       <dep package="popt"/>
+      <dep package="gsl"/>
       <dep package="gc"/>
       <dep package="boost"/>
       <dep package="lcms"/>
