@@ -50,8 +50,8 @@
        gnome-doc-utils, but with disable-scrollkeeper.
   -->
   <tarball id="gnome-doc-utils-fake" version="0.10.13-2">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-2.tar.gz"
-            md5sum="f69cfd9ad2022affcb4158b83172dfe0" size="16566"/>
+    <source href="http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-3.tar.gz"
+            md5sum="9b00925d7982908ed539617c1a1f474c" size="16575"/>
     <dependencies>
       <dep package="docbook-setup"/>
     </dependencies>
