@@ -50,6 +50,7 @@
     <branch/>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
+      <dep package="gtk-doc"/> <!-- FIXME: http://bugs.gnome.org/546640 -->
     </after>
   </autotools>
 
@@ -144,7 +145,7 @@
       <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="fontconfig"/>
       <dep package="freetype"/>
-    </after> 
+    </after>
  </tarball>
 
   <!-- href="http://cairographics.org/releases/cairo-1.6.4.tar.gz" -->
@@ -159,6 +160,7 @@
       <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="fontconfig"/>
       <dep package="freetype"/>
+      <dep package="gtk-doc"/> <!-- FIXME: http://bugs.gnome.org/546640 -->
     </after>
   </tarball>
 
