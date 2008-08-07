@@ -65,7 +65,7 @@
 
   <autotools id="freetype" autogen-template="%(srcdir)s/configure --prefix %(prefix)s %(autogenargs)s">
     <branch module="freetype/freetype-2.3.5.tar.gz" version="2.3.5"
-            repo="sourceforge" 
+            repo="sourceforge"
             md5sum="a7aefa88799df081ca981ce6aa32ec90" size="1775673">
     </branch>
   </autotools>
