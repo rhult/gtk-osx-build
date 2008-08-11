@@ -119,7 +119,7 @@
   <!-- Update to stable 0.12 once released
     -->
   <tarball id="pixman" version="0.11.8" autogenargs="--disable-gtk">
-    <source href="http://www.cairographics.org/releases/pixman-0.11.8.tar.gz
+    <source href="http://www.cairographics.org/releases/pixman-0.11.8.tar.gz"
             md5sum="7b5db768c51337b5e5e954fc9c961cd3" size="451489"/>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
