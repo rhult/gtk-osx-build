@@ -120,8 +120,8 @@
        we can get rid of the patches here.
     -->
   <tarball id="pixman" version="0.10.0" autogenargs="--disable-gtk">
-    <source href="http://cairographics.org/releases/pixman-0.10.0.tar.gz"
-            md5sum="41804ac38025102dcc9891dfd4a3d105" size="411817"/>
+    <source href="http://www.cairographics.org/releases/pixman-0.11.8.tar.gz
+            md5sum="7b5db768c51337b5e5e954fc9c961cd3" size="451489"/>
     <patches>
       <patch file="http://people.imendio.com/richard/gtk-osx/files/pixman-disable-gtk.patch" strip="0"/>
       <patch file="http://people.imendio.com/richard/gtk-osx/files/pixman-disable-gtk-2.patch" strip="1"/>
@@ -150,9 +150,9 @@
 
   <!-- href="http://cairographics.org/releases/cairo-1.6.4.tar.gz" -->
   <!-- Temporary snapshot with quartz font pc installation fix -->
-  <tarball id="cairo" version="1.7.2" autogenargs="--enable-pdf --enable-atsui --enable-quartz --disable-xlib">
-    <source href="http://cairographics.org/snapshots/cairo-1.7.2.tar.gz"
-            md5sum="696c66c4ee5cb869e737cfed16ecb84e" size="5482909"/>
+  <tarball id="cairo" version="1.7.4" autogenargs="--enable-pdf --enable-atsui --enable-quartz --disable-xlib">
+    <source href="http://www.cairographics.org/snapshots/cairo-1.7.4.tar.gz"
+	    md5sum="7583b6ff663a708fbfe1501c74d8fd77" size="5482111"/>
     <dependencies>
       <dep package="pixman"/>
     </dependencies>
