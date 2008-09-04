@@ -9,7 +9,7 @@
   <repository type="git" name="github.com" href="git://github.com/"/>
 
   <autotools id="loudmouth" autogenargs="--with-ssl=openssl">
-    <branch repo="github.com" module="hallski/loudmouth.git" checkoutdir="loudmouth" />
+    <branch repo="github.com" module="hallski/loudmouth.git" checkoutdir="loudmouth" revision="loudmouth-1-4"/>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="glib"/>
