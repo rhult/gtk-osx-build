@@ -66,33 +66,8 @@
       <dep package="fontconfig"/>
       <dep package="freetype"/>
       <dep package="cairo-lipo"/>
-      <dep package="cairo-1.5"/>
     </after>
   </autotools>
-
-  <!-- Provide a patched pango snapshot that works with cairo
-       1.5.x. Remove this once we have a release of cairo 1.6 that
-       works with unpatched pango.
-  -->
-  <tarball id="pango-cairo-1.5" autogenargs="--without-x">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/pango-1.20.0-snapshot-20080401.tar.gz"
-            md5sum="df20386d4ed015a39f073d00c17217b8" size="2062793"/>
-    <patches>
-      <patch file="http://people.imendio.com/richard/gtk-osx/files/pango-quartz-font.patch" strip="0"/>
-      <patch file="http://people.imendio.com/richard/patches/pango-utils-relative-path-2.patch" strip="0"/>
-    </patches>
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="cairo-1.5"/>
-    </dependencies>
-    <after>
-      <dep package="meta-gtk-osx-bootstrap"/>
-      <dep package="fontconfig"/>
-      <dep package="freetype"/>
-      <dep package="cairo-lipo"/>
-      <dep package="cairo-1.5"/>
-    </after>
-  </tarball>
 
  <autotools id="atk">
     <branch/>
@@ -112,39 +87,17 @@
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
-      <dep package="pango-cairo-1.5"/>
     </after>
   </autotools>
 
-  <!-- Update to stable 0.12 once released
-    -->
-  <tarball id="pixman" version="0.11.8" autogenargs="--disable-gtk">
-    <source href="http://www.cairographics.org/releases/pixman-0.11.8.tar.gz"
-            md5sum="7b5db768c51337b5e5e954fc9c961cd3" size="451489"/>
+  <tarball id="pixman" version="0.12.0" autogenargs="--disable-gtk">
+    <source href="http://cairographics.org/releases/pixman-0.12.0.tar.gz"
+            md5sum="09357cc74975b01714e00c5899ea1881" size="456304"/>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
     </after>
   </tarball>
 
-  <!-- Leaving this temporary module here for a while... it was used
-       before pango got compatible with the new cairo font stuff for
-       quartz.
-  -->
-  <tarball id="cairo-1.5" version="1.5.18" autogenargs="--enable-pdf --enable-quartz --disable-xlib --disable-xlib-xrender">
-    <source href="http://cairographics.org/snapshots/cairo-1.5.18.tar.gz"
-            md5sum="9719cb02ef11fbf7c2096eb80f2b0573" size="4997107"/>
-    <dependencies>
-      <dep package="pixman"/>
-    </dependencies>
-    <after>
-      <dep package="meta-gtk-osx-bootstrap"/>
-      <dep package="fontconfig"/>
-      <dep package="freetype"/>
-    </after>
- </tarball>
-
-  <!-- href="http://cairographics.org/releases/cairo-1.6.4.tar.gz" -->
-  <!-- Temporary snapshot with quartz font pc installation fix -->
   <tarball id="cairo" version="1.7.4" autogenargs="--enable-pdf --enable-quartz --disable-xlib">
     <source href="http://www.cairographics.org/snapshots/cairo-1.7.4.tar.gz"
 	    md5sum="7583b6ff663a708fbfe1501c74d8fd77" size="5482111"/>
@@ -155,7 +108,6 @@
       <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="fontconfig"/>
       <dep package="freetype"/>
-      <dep package="gtk-doc"/> <!-- FIXME: http://bugs.gnome.org/546640 -->
     </after>
   </tarball>
 
