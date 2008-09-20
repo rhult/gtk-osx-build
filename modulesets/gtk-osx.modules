@@ -98,9 +98,9 @@
     </after>
   </tarball>
 
-  <tarball id="cairo" version="1.7.4" autogenargs="--enable-pdf --enable-quartz --disable-xlib">
-    <source href="http://www.cairographics.org/snapshots/cairo-1.7.4.tar.gz"
-	    md5sum="7583b6ff663a708fbfe1501c74d8fd77" size="5482111"/>
+  <tarball id="cairo" version="1.7.6" autogenargs="--enable-pdf --enable-quartz --disable-xlib">
+    <source href="http://cairographics.org/snapshots/cairo-1.7.6.tar.gz"
+	    md5sum="c612f581b18903b0751a171685fc38dd" size="5680454"/>
     <dependencies>
       <dep package="pixman"/>
     </dependencies>
