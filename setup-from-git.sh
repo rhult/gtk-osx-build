@@ -10,28 +10,38 @@
 
 SOURCE=$HOME/Source
 
-if test x`which svn` == x; then
-    echo "Svn (subversion) isn't available, please install it and try again."
+do_exit()
+{
+    echo $1
     exit 1
+}
+
+if test x`which svn` == x; then
+    do_exit "Svn (subversion) isn't available, please install it and try again."
 fi
 
 if test ! -d $SOURCE; then
-    echo "The directory $SOURCE does not exist, please create it and try again."
-    exit 1
+    do_exit "The directory $SOURCE does not exist, please create it and try again."
 fi
 
 if test ! -d $SOURCE/gtk-osx-build; then
-    echo "The directory $SOURCE/gtk-osx-build does not exist, please check it out from git and try again."
-    exit 1
+    do_exit "The directory $SOURCE/gtk-osx-build does not exist, please check it out from git and try again."
 fi
 
 cd $SOURCE
 
-echo "Checking out jhbuild from subversion..."
+JHBUILD_REVISION=`cat $SOURCE/gtk-osx-build/jhbuild-revision 2>/dev/null`
+if test x"$JHBUILD_REVISION" = x; then
+    do_exit "Could not find jhbuild revision to use."
+fi
+
+JHBUILD_REVISION_OPTION="-r$JHBUILD_REVISION"
+
+echo "Checking out jhbuild ($JHBUILD_REVISION) from subversion..."
 if ! test -d $SOURCE/jhbuild; then
-    svn co http://svn.gnome.org/svn/jhbuild/trunk jhbuild >/dev/null
+    svn co $JHBUILD_REVISION_OPTION http://svn.gnome.org/svn/jhbuild/trunk jhbuild >/dev/null
 else
-    (cd jhbuild && svn up >/dev/null)
+    (cd jhbuild && svn up $JHBUILD_REVISION_OPTION >/dev/null)
 fi
 
 echo "Installing jhbuild..."

@@ -39,12 +39,20 @@ fi
 
 mkdir -p $SOURCE 2>/dev/null || do_exit "The directory $SOURCE could not be created. Check permissions and try again."
 
+rm -f tmp-jhbuild-revision
+curl -s $BASEURL/gtk-osx-build/jhbuild-revision -o tmp-jhbuild-revision
+JHBUILD_REVISION=`cat tmp-jhbuild-revision 2>/dev/null`
+if test x"$JHBUILD_REVISION" = x; then
+    do_exit "Could not find jhbuild revision to use."
+fi
+
+JHBUILD_REVISION_OPTION="-r$JHBUILD_REVISION"
+
+echo "Checking out jhbuild ($JHBUILD_REVISION) from subversion..."
 if ! test -d $SOURCE/jhbuild; then
-    echo "Checking out jhbuild from subversion..."
-    svn co http://svn.gnome.org/svn/jhbuild/trunk $SOURCE/jhbuild >/dev/null
+    svn co $JHBUILD_REVISION_OPTION http://svn.gnome.org/svn/jhbuild/trunk $SOURCE/jhbuild >/dev/null
 else
-    echo "Updating jhbuild from subversion..."
-    (cd $SOURCE/jhbuild && svn up >/dev/null)
+    (cd $SOURCE/jhbuild && svn up $JHBUILD_REVISION_OPTION >/dev/null)
 fi
 
 echo "Installing jhbuild..."
