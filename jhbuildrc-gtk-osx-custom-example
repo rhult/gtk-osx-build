@@ -24,21 +24,20 @@
 # and using python as part of jhbuild. If not set, the script will use
 # the system python when building on 10.5 or newer only.
 #
-# want_jhbuild_python = True
+# _gtk_osx_use_jhbuild_python = True
 
 # Override the source checkout and installation directories.
 #
-jhb = os.environ.get("JHB")
-if jhb is None:
+_jhb = os.environ.get("JHB")
+if _jhb is None:
     # The default setup...
     # checkoutroot = os.path.expanduser("~/Source/gtk")
     # prefix = "/opt/gtk"
     pass
-elif jhb == "FW":
+elif _jhb == "FW":
     # The framework build...
     # checkoutroot = os.path.expanduser("~/Source/gtk-fw")
     # prefix = "/opt/gtk-fw"
     pass
 
 # And more...
-
