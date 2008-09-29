@@ -3,10 +3,20 @@
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
 
+  <repository type="tarball" name="ftp.gnu.org" href="ftp://ftp.gnu.org/gnu/"/>
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
   <repository type="tarball" name="cpan" href="http://search.cpan.org/CPAN/" />
   <repository type="tarball" name="sourceforge" href="http://heanet.dl.sourceforge.net/sourceforge"/>
   <repository type="tarball" name="jpeg" href="ftp://anonymous:needsemail%40forsomereason.com@ftp.uu.net"/>
+
+  <!-- We skip autoconf 2.62 from jhbuild bootstrap and build 2.61
+       instead since it works on 10.4 without upgrading m4.
+  -->
+  <autotools id="autoconf-2.61" autogen-sh="configure">
+    <branch repo="ftp.gnu.org"
+	    module="autoconf/autoconf-2.61.tar.bz2" version="2.61"
+	    size="1042439" md5sum="36d3fe706ad0950f1be10c46a429efe0"/>
+  </autotools>
 
   <tarball id="libpng" version="1.2.29" autogenargs="--enable-shared">
     <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.29.tar.bz2"/>
@@ -136,6 +146,7 @@
 
   <metamodule id="meta-gtk-osx-bootstrap">
     <dependencies>
+      <dep package="autoconf-2.61"/>
       <dep package="libpng"/>
       <dep package="gtk-doc"/>
       <dep package="libjpeg"/>

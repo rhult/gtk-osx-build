@@ -115,6 +115,7 @@ modules = [ 'meta-gtk-osx-core' ]
 
 # A list of modules to skip.
 #
+skip.append('autoconf') # We build autoconf-2.61 instead.
 skip.append('gmp')
 skip.append('guile')
 
@@ -222,7 +223,8 @@ os.environ["PERL"] = "/usr/bin/perl"
 os.environ["INTLTOOL_PERL"] = "/usr/bin/perl"
 if not _gtk_osx_use_jhbuild_python:
     skip.append('python')
-    os.environ["PYTHON"] = "/usr/bin/python"
+    if os.environ.get("PYTHON", "") == "":
+        os.environ["PYTHON"] = "/usr/bin/python"
 
 # Use libxml/libxslt from the system. Append to the pkg-config path to
 # get the system versions picked up.
