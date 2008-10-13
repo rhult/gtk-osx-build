@@ -5,15 +5,15 @@
 # Build setup for using the frameworks for GLib, Cairo, GTK+ etc.
 #
 
-prompt_prefix = "FW"
+_gtk_osx_prompt_prefix = "FW"
 
 # Source and installation locations.
 #
-root = os.path.expanduser("~/Source/gtk-fw")
-checkoutroot = os.path.join(root, "source")
-prefix = os.path.join(root, "inst")
+_root = os.path.expanduser("~/Source/gtk-fw")
+checkoutroot = os.path.join(_root, "source")
+prefix = os.path.join(_root, "inst")
 
-sdkdir = setup_sdk_10_4()
+_sdkdir = setup_sdk_10_4()
 
 # Skip those for now.
 #
