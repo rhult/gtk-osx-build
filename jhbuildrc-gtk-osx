@@ -22,6 +22,33 @@
 import sys
 import errno
 
+
+# Register an extra command to get the checkout dir for a module.
+#
+import jhbuild
+class _cmd_get_srcdir(jhbuild.commands.Command):
+    doc = 'Display information about one or more modules'
+
+    from jhbuild.errors import FatalError
+
+    name = 'gtk-osx-get-srcdir'
+    usage_args = 'module'
+
+    def run(self, config, options, args):
+        module_set = jhbuild.moduleset.load(config)
+
+        if args:
+            modname = args[0]
+            try:
+                module = module_set.get_module(modname, ignore_case = True)
+            except KeyError:
+                raise FatalError(_('unknown module %s') % modname)
+            print module.get_srcdir(None)
+        else:
+            raise FatalError('no module specified')
+
+jhbuild.commands.register_command(_cmd_get_srcdir)
+
 # Some utitily functions used here and in custom files:
 #
 def environ_append(key, value, separator=' '):
@@ -287,10 +314,12 @@ if _value:
     raise SystemExit
 
 if _build:
-    print "Build setup: %s, prefix: %s" % (_build, prefix)
+    if "shell" in sys.argv:
+        print "Build setup: %s, prefix: %s" % (_build, prefix)
     os.environ["JHBUILD_CONFIG"] = _build
 else:
-    print "Prefix: %s" % (prefix)
+    if "shell" in sys.argv:
+        print "Prefix: %s" % (prefix)
 
 if not _ran_recursively and _gtk_osx_prompt_prefix:
     os.environ["JHBUILD_PROMPT"] = "[" + _gtk_osx_prompt_prefix + "] "
