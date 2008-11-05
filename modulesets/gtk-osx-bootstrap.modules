@@ -22,6 +22,13 @@
     <source href="http://heanet.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.29.tar.bz2"/>
   </tarball>
 
+  <!-- We use this in the framework creating setup only. -->
+  <autotools id="gettext-fw" autogen-sh="configure">
+    <branch repo="ftp.gnu.org"
+	    module="gettext/gettext-0.16.tar.gz" version="0.16.0"
+	    size="8546162" md5sum="1560a460c2c4e05b6ff53acb12860750" />
+  </autotools>
+
  <!-- The patch only adds a makefile that can build shared libraries
       on OS X, and regenerates config.guess. For some reason the
       "makefile" argument doesn't work so I'm using make*args.
