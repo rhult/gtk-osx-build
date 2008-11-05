@@ -24,6 +24,7 @@ skip.append("faad")
 
 # Skip everything that is included in our frameworks.
 # 
+skip.append("gettext")
 skip.append("pkg-config")
 skip.append("glib")
 skip.append("pango")
