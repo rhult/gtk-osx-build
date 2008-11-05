@@ -51,6 +51,7 @@ echo "Installing jhbuild configuration..."
 cd gtk-osx-build
 ln -sfh `pwd`/jhbuildrc-gtk-osx $HOME/.jhbuildrc
 ln -sfh `pwd`/jhbuildrc-gtk-osx-fw-10.4 $HOME/.jhbuildrc-fw-10.4
+ln -sfh `pwd`/jhbuildrc-gtk-osx-fw-10.4-test $HOME/.jhbuildrc-fw-10.4-test
 ln -sfh `pwd`/jhbuildrc-gtk-osx-cfw-10.4 $HOME/.jhbuildrc-cfw-10.4
 if [ ! -f $HOME/.jhbuildrc-custom ]; then
     cp jhbuildrc-gtk-osx-custom-example $HOME/.jhbuildrc-custom
