@@ -160,11 +160,12 @@ alwaysautogen = True
 # Set debugging format to the old one from Tiger and earlier since the
 # new default in Leopard breaks many things. Also set gnu89 as the new
 # default gnu99 changes how extern inline works, breaking, glib's
-# inline setup, until glib is fixed. Use -O1 to get warnings working
-# in gcc but without messing up gdb too much.
+# inline setup, until glib is fixed. FIXME: Make it possible to
+# override the optimization flag and also don't overwrite any user set
+# CFLAGS/CXXFLAGS.
 #
-os.environ['CFLAGS'] = '-O1 -gstabs+3 -std=gnu89'
-os.environ['CXXFLAGS'] = '-O1 -gstabs+3'
+os.environ['CFLAGS'] = "-O2 -gstabs+3 -std=gnu89"
+os.environ['CXXFLAGS'] = "-O2 -gstabs+3"
 
 # Use the included install-check program if available. It won't update
 # timestamps if the header hasn't changed, which speeds up builds.
@@ -273,9 +274,9 @@ environ_prepend('CPPFLAGS', '-I' + prefix + '/include')
 # Add additional Python/Perl paths so that our modules can be found.
 #
 _version = 'python' + str(sys.version_info[0]) + '.' + str(sys.version_info[1])
-environ_append('PYTHONPATH', prefix + '/lib/' + _version + '/site-packages/gtk-2.0', ':')
-environ_append('PERL5LIB', prefix + '/lib/perl5/vendor_perl', ':')
-environ_append('PERL5LIB', prefix + '/lib/perl5/site_perl', ':')
+prependpath('PYTHONPATH', prefix + '/lib/' + _version + '/site-packages/gtk-2.0')
+prependpath('PERL5LIB', prefix + '/lib/perl5/vendor_perl')
+prependpath('PERL5LIB', prefix + '/lib/perl5/site_perl')
 
 # Point gtk-doc and other xlstproc users to our XML catalog.
 #
@@ -285,21 +286,24 @@ os.environ['XML_CATALOG_FILES'] = prefix + '/etc/xml/catalog'
 #
 append_autogenargs("gettext", "--without-emacs --disable-java --disable-native-java --disable-libasprintf --disable-csharp")
 
-# Support prepending frameworks to the PKG_CONFIG_PATH, CFLAGS,
-# LDFLAGS and ACLOCAL_FLAGS variables.
+# Support prepending frameworks to the setup so they are picked up
+# instead of things from the prefix or /usr.
 #
 _frameworks = os.environ.get("JHB_PREPEND_FRAMEWORKS", "")
 for _framework in _frameworks.split(":"):
     if _framework != "" and os.path.exists(_framework):
-        # Use prependpath where possible to ensure our paths are added
-        # in front of the ones jhbuild sets up.
+        # Use prependpath to ensure our paths are added in front of
+        # the ones jhbuild sets up.
         if os.path.exists(_framework + "/Headers"):
-            environ_prepend("CPPFLAGS", "-I" + _framework + "/Headers", " ")
+            prependpath("C_INCLUDE_PATH", _framework + "/Headers")
+            prependpath("CPLUS_INCLUDE_PATH", _framework + "/Headers")
         if os.path.exists(_framework + "/Resources/dev/bin"):
             prependpath("PATH", _framework + "/Resources/dev/bin")
         if os.path.exists(_framework + "/Resources/dev/lib/pkgconfig"):
             prependpath("PKG_CONFIG_PATH", _framework + "/Resources/dev/lib/pkgconfig")
         if os.path.exists(_framework + "/Resources/dev/lib"):
+            # FIXME: Need fix in jhbuild for this to work:
+            #prependpath("LDFLAGS", "-L" + _framework + "/Resources/dev/lib")
             environ_prepend("LDFLAGS", "-L" + _framework + "/Resources/dev/lib", " ")
         if os.path.exists(_framework + "/Resources/dev/share/aclocal"):
             prependpath("ACLOCAL_FLAGS", _framework + "/Resources/dev/share/aclocal")
@@ -324,7 +328,7 @@ else:
 if not _ran_recursively and _gtk_osx_prompt_prefix:
     os.environ["JHBUILD_PROMPT"] = "[" + _gtk_osx_prompt_prefix + "] "
 
-# Unset this se we don't mess with the check for not starting
+# Unset this so we don't mess with the check for not starting
 # recursively.
 os.unsetenv("JHB")
 
