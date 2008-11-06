@@ -43,7 +43,7 @@
     </branch>
   </autotools>
 
-  <tarball id="libtiff" version="3.8.2">
+  <tarball id="libtiff" version="3.8.2" autogenargs="--without-x --without-apple-opengl-framework">
     <source href="ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.tar.gz"
             md5sum="fbb6f446ea4ed18955e2714934e5b698" size="1336295"/>
     <dependencies>
