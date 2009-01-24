@@ -72,15 +72,13 @@
   </tarball>
 
   <autotools id="freetype" autogen-template="%(srcdir)s/configure --prefix %(prefix)s %(autogenargs)s">
-    <branch module="freetype/freetype-2.3.5.tar.gz" version="2.3.5"
-            repo="sourceforge"
-            md5sum="a7aefa88799df081ca981ce6aa32ec90" size="1775673">
+    <branch module="freetype/freetype-2.3.8.tar.gz" version="2.3.8"
+            repo="sourceforge">
     </branch>
   </autotools>
 
-  <tarball id="fontconfig" version="2.4.1">
-    <source href="http://www.fontconfig.org/release/fontconfig-2.4.1.tar.gz"
-            md5sum="108f9a03fa9ed9dd779cc7ca236da557" size="1270946"/>
+  <tarball id="fontconfig" version="2.6.0">
+    <source href="http://www.fontconfig.org/release/fontconfig-2.6.0.tar.gz"/>
     <dependencies>
       <dep package="expat"/>
       <dep package="freetype"/>

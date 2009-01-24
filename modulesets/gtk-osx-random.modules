@@ -125,7 +125,6 @@
     </after>
     <dependencies>
       <dep package="lcms"/>
-      <dep package="libart_lgpl"/>
       <dep package="fontconfig"/>
       <dep package="gegl"/>
     </dependencies>
@@ -140,32 +139,6 @@
       <dep package="babl"/>
     </dependencies>
   </autotools>
-
-  <autotools id="libart_lgpl">
-    <branch/>
-    <after>
-      <dep package="meta-gtk-osx-bootstrap"/>
-      <dep package="meta-gtk-osx-core"/>
-    </after>
-  </autotools>
-
-  <tarball id="dbus" version="1.2.1" autogenargs="--disable-selinux --without-x">
-    <source href="http://dbus.freedesktop.org/releases/dbus/dbus-1.2.1.tar.gz"/>
-    <after>
-      <dep package="gtk+"/>
-    </after>
-  </tarball>
-  <tarball id="dbus-glib"  version="0.74" autogenargs="--disable-selinux">
-    <source href="http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.74.tar.gz"/>
-    <dependencies>
-      <dep package="libxml2"/>
-      <dep package="dbus"/>
-    </dependencies>
-    <after>
-      <dep package="meta-gtk-osx-bootstrap"/>
-      <dep package="meta-gtk-osx-core"/>
-    </after>
-  </tarball>
 
   <tarball id="poppler" version="0.5.9"
            autogenargs="--disable-qt --disable-qt4 --without-x --disable-gtk-test --enable-xpdf-headers">

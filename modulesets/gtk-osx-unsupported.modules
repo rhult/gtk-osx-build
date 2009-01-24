@@ -10,48 +10,6 @@
   <repository type="svn" name="svn.debian.org" href="svn://svn.debian.org/"/>
   <repository type="tarball" name="abisource/enchant" href="http://www.abisource.com/downloads/enchant/" />
 
-  <autotools id="goffice">
-    <branch revision="goffice-0-6"/>
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="libgsf"/>
-      <dep package="libxml2"/>
-      <dep package="pango"/>
-      <dep package="libglade"/>
-      <dep package="libgnomeprint"/>
-      <dep package="libgnomeprintui"/>
-      <dep package="libart_lgpl"/>
-      <dep package="gtk-doc"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libgnomeprintui">
-    <branch/>
-    <dependencies>
-      <dep package="libgnomeprint"/>
-      <dep package="gtk+"/>
-      <dep package="libgnomecanvas"/>
-      <dep package="gnome-icon-theme"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libgsf">
-    <branch/>
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="gnome-vfs"/>
-      <dep package="libbonobo"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libgnomecups">
-    <branch/>
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="gnome-common"/>
-    </dependencies>
-  </autotools>
-
   <autotools id="gnome-mime-data">
    <branch/>
     <dependencies>
@@ -60,57 +18,9 @@
     </dependencies>
   </autotools>
 
-<!--gnome-vfs in  gnome-suites-2.24.modules includes the following 
-      <dep package="desktop-file-utils"/>
-      <dep package="avahi"/>
-      <dep package="hal"/>
-      <dep package="gamin"/>
-but building them on OS-X proved problematic and gnome-vfs builds well 
-without them -->
-  <autotools id="gnome-vfs">
-    <branch/>
-    <dependencies>
-      <dep package="gconf"/>
-      <dep package="shared-mime-info"/>
-      <dep package="gnome-mime-data"/>
-      <dep package="dbus-glib"/>
-    </dependencies>
-  </autotools>
-
   <autotools id="iso-codes" >
     <branch repo="svn.debian.org" module="pkg-isocodes/trunk/iso-codes" />
 
-  </autotools>
-
-  <autotools id="enchant" autogen-sh="configure" >
-    <branch module="1.4.2/enchant-1.4.2.tar.gz" version="1.4.2"
-	    repo="abisource/enchant" size='595192'
-	    md5sum="fe4558269ff59f569ab9581c907d58cb" />
-    <dependencies>
-      <dep package="glib"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gtkhtml" >
-    <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="libgnomeui"/>
-      <dep package="libbonoboui"/>
-      <dep package="libglade"/>
-      <dep package="iso-codes"/>
-      <dep package="enchant"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libgnomeui">
-    <branch/>
-    <dependencies>
-      <dep package="libbonoboui"/>
-      <dep package="libglade"/>
-      <dep package="gnome-icon-theme"/>
-      <dep package="gnome-keyring"/>
-    </dependencies>
   </autotools>
 
   <autotools id="gnutls">
@@ -160,75 +70,6 @@ without them -->
 	     autogen-sh="configure">
     <branch repo="www.gnu.org" version='1.4'
 	    module="libtasn1/libtasn1-1.4.tar.gz"/>
-  </autotools>
-
- <autotools id="gnome-keyring">
-    <branch/>
-    <dependencies>
-      <dep package="gtk+"/>
-      <dep package="libgcrypt"/>
-      <dep package="libtasn1"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libgnomeprint">
-    <branch/>
-    <dependencies>
-      <dep package="intltool"/>
-      <dep package="libart_lgpl"/>
-      <dep package="glib"/>
-      <dep package="gnome-common"/>
-      <dep package="pango"/>
-      <dep package="libgnomecups"/>
-      <dep package="freetype"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libbonobo">
-    <branch/>
-    <dependencies>
-      <dep package="popt"/>
-      <dep package="ORBit2"/>
-      <dep package="intltool"/>
-      <dep package="gnome-common"/>
-      <dep package="libxml2"/>
-      <dep package="dbus-glib"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libbonoboui">
-    <branch/>
-    <dependencies>
-      <dep package="libgnome"/>
-      <dep package="libbonobo"/>
-      <dep package="libgnomecanvas"/>
-      <dep package="libglade"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id='audiofile' autogen-sh="configure">
-    <branch module='audiofile/audiofile-0.2.6.tar.gz'
-            repo='michael.68k.org' version='0.2.6'
-            size="374688" md5sum="9c1049876cd51c0f1b12c2886cce4d42"/>
-  </autotools>
-
-  <autotools id="esound">
-    <branch/>
-    <dependencies>
-      <dep package="audiofile"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libgnome">
-    <branch/>
-    <dependencies>
-      <dep package="libxml2"/>
-      <dep package="libxslt"/>
-      <dep package="libbonobo"/>
-      <dep package="gnome-vfs"/>
-      <dep package="gconf"/>
-      <dep package="esound"/>
-    </dependencies>
   </autotools>
 
 </moduleset>
