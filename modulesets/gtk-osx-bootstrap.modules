@@ -30,7 +30,7 @@
             repo="jpeg"
             md5sum="dbd5f3b47ed13132f04c685d608a7547" size="613261"
             checkoutdir="jpeg-6b">
-          <patch file="http://people.imendio.com/richard/gtk-osx/files/libjpeg-libtool-build.patch" strip="1"/>
+          <patch file="http://github.com/rhult/gtk-osx-build/raw/e5b32868b3cee131f33d7c4995a592de1e00cc5d/patches/libjpeg-libtool-build.patch" strip="1"/>
     </branch>
   </autotools>
 
