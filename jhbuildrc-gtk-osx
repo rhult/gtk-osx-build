@@ -134,7 +134,8 @@ _osx_version = os.popen("uname -r").read().strip()
 
 # Moduleset to use.
 #
-moduleset = 'http://people.imendio.com/richard/gtk-osx-build/modulesets/gtk-osx.modules'
+moduleset = 'gtk-osx'
+use_local_modulesets = True
 
 # A list of the modules to build.
 #
@@ -142,6 +143,7 @@ modules = [ 'meta-gtk-osx-core' ]
 
 # A list of modules to skip.
 #
+skip.append('autoconf') # We build autoconf-2.61 instead.
 skip.append('gmp')
 skip.append('guile')
 

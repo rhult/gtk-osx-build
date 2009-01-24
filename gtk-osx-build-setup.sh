@@ -3,7 +3,7 @@
 # Script that sets up jhbuild for GTK+ OS X building. Run this to
 # checkout jhbuild and the required configuration.
 #
-# Copyright 2007, 2008 Imendio AB
+# Copyright 2007, 2008, 2009 Imendio AB
 #
 # Run this whenever you want to update jhbuild or the jhbuild setup;
 # it is safe to run it repeatedly. Note that it overwrites
@@ -31,6 +31,12 @@ do_exit()
 {
     echo $1
     exit 1
+}
+
+get_moduleset_from_git()
+{
+    URL="http://git.imendio.com/?p=projects/gtk-osx-build.git;a=blob_plain;f=modulesets/$1;hb=HEAD"
+    curl -s $URL -o $SOURCE/jhbuild/modulesets/$1
 }
 
 if test x`which svn` == x; then
@@ -65,6 +71,12 @@ curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-fw-10.4-test -o $HOME/.jhbuildr
 if [ ! -f $HOME/.jhbuildrc-custom ]; then
     curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
 fi
+
+echo "Installing moduleset links..."
+MODULES="gtk-osx-gstreamer.modules gtk-osx-gtkmm.modules gtk-osx-python.modules gtk-osx-random.modules gtk-osx-themes.modules gtk-osx-unsupported.modules gtk-osx-webkit-deps.modules gtk-osx.modules"
+for m in $MODULES; do
+    get_moduleset_from_git $m
+done
 
 if test "x`echo $PATH | grep $HOME/bin`" == x; then
     echo "PATH does not contain $HOME/bin, it is recommended that you add that."
