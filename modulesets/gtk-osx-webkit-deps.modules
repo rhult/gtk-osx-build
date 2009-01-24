@@ -45,28 +45,4 @@
     </after>
   </autotools>
 
-  <!-- This is a old prebuilt version of webkit that uses
-       install_name_tool to change library references to point to the
-       right jhbuild prefix. It has some patches applied to make it
-       work on GTK+ OS X, those are targetted for upstream and
-       eventually will not be needed here.
-  -->
-  <tarball id="webkit-prebuilt" version="20080109">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/webkit-prebuilt-20080109.tar.gz"
-            md5sum="067ef261ee1297e78e51225fabcf1d06" size="3250563"/>
-  </tarball>
-
-  <tarball id="webkit-prebuilt-sdk10.4" version="20080114">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/webkit-prebuilt-sdk10.4-20080114.tar.gz"
-            md5sum="4840be0c6a83c9cc71b38b1ea7c04a6f" size="3185149"/>
-  </tarball>
-
-  <!-- The prebuilt version uses a standalone icu instead of the
-       system one. Remove this once the prebuilt webkit is removed.
-  -->
-  <tarball id="icu" version="3.6" checkoutdir="icu/source">
-    <source href="ftp://ftp.software.ibm.com/software/globalization/icu/3.6/icu4c-3_6-src.tgz"
-            md5sum="6243f7a19e03e05403ce84e597510d4c" size="10183358"/>
-  </tarball>
-
 </moduleset>
