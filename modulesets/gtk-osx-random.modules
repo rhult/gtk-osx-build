@@ -3,7 +3,6 @@
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
-  <repository type="git" name="git.imendio.com" href="git://git.imendio.com/"/>
   <repository type="svn" name="inkscape.svn.sourceforge.net" href="https://inkscape.svn.sourceforge.net/svnroot/inkscape/"/>
   <repository type="svn" name="ardour" href="http://subversion.ardour.org/svn/"/>
   <repository type="git" name="github.com" href="git://github.com/"/>
@@ -57,20 +56,6 @@
     </after>
     <dependencies>
       <dep package="WebKit"/>
-      <dep package="libglade"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="jamboree" autogenargs="--disable-dbus">
-    <branch repo="git.imendio.com" module="richard/jamboree.git"
-      checkoutdir="jamboree"/>
-    <after>
-      <dep package="meta-gtk-osx-bootstrap"/>
-      <dep package="meta-gtk-osx-themes"/>
-      <dep package="meta-gtk-osx-core"/>
-      <dep package="meta-gtk-gstreamer"/>
-    </after>
-    <dependencies>
       <dep package="libglade"/>
     </dependencies>
   </autotools>
