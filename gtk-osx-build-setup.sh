@@ -25,7 +25,7 @@
 #
 
 SOURCE=$HOME/Source
-BASEURL=http://people.imendio.com/richard
+BASEURL="http://github.com/rhult/gtk-osx-build/raw/HEAD"
 
 do_exit()
 {
@@ -35,8 +35,7 @@ do_exit()
 
 get_moduleset_from_git()
 {
-    URL="http://github.com/rhult/gtk-osx-build/raw/HEAD/modulesets/$1"
-    curl -s $URL -o $SOURCE/jhbuild/modulesets/$1
+    curl -s "$BASEURL/modulesets/$1" -o $SOURCE/jhbuild/modulesets/$1
 }
 
 if test x`which svn` == x; then
@@ -46,8 +45,7 @@ fi
 mkdir -p $SOURCE 2>/dev/null || do_exit "The directory $SOURCE could not be created. Check permissions and try again."
 
 rm -f tmp-jhbuild-revision
-REVISION_URL="http://github.com/rhult/gtk-osx-build/raw/HEAD/jhbuild-revision"
-curl -s $REVISION_URL -o tmp-jhbuild-revision
+curl -s $BASEURL/jhbuild-revision -o tmp-jhbuild-revision
 JHBUILD_REVISION=`cat tmp-jhbuild-revision 2>/dev/null`
 if test x"$JHBUILD_REVISION" = x; then
     do_exit "Could not find jhbuild revision to use."
@@ -66,11 +64,11 @@ echo "Installing jhbuild..."
 (cd $SOURCE/jhbuild && make -f Makefile.plain DISABLE_GETTEXT=1 install >/dev/null)
 
 echo "Installing jhbuild configuration..."
-curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx -o $HOME/.jhbuildrc
-curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-fw-10.4 -o $HOME/.jhbuildrc-fw-10.4
-curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-fw-10.4-test -o $HOME/.jhbuildrc-fw-10.4-test
+curl -s $BASEURL/jhbuildrc-gtk-osx -o $HOME/.jhbuildrc
+curl -s $BASEURL/jhbuildrc-gtk-osx-fw-10.4 -o $HOME/.jhbuildrc-fw-10.4
+curl -s $BASEURL/jhbuildrc-gtk-osx-fw-10.4-test -o $HOME/.jhbuildrc-fw-10.4-test
 if [ ! -f $HOME/.jhbuildrc-custom ]; then
-    curl -s $BASEURL/gtk-osx-build/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
+    curl -s $BASEURL/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
 fi
 
 echo "Installing moduleset links..."
