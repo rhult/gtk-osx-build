@@ -65,7 +65,6 @@
       <dep package="meta-gtk-osx-bootstrap"/>
       <dep package="fontconfig"/>
       <dep package="freetype"/>
-      <dep package="cairo-lipo"/>
     </after>
   </autotools>
 
@@ -91,16 +90,14 @@
   </autotools>
 
   <tarball id="pixman" version="0.12.0" autogenargs="--disable-gtk">
-    <source href="http://cairographics.org/releases/pixman-0.12.0.tar.gz"
-            md5sum="09357cc74975b01714e00c5899ea1881" size="456304"/>
+    <source href="http://cairographics.org/releases/pixman-0.13.2.tar.gz"/>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
     </after>
   </tarball>
 
-  <tarball id="cairo" version="1.8.4" autogenargs="--enable-pdf --enable-quartz --disable-xlib">
-    <source href="http://cairographics.org/releases/cairo-1.8.4.tar.gz"
-	    md5sum="a5067e355e78294db2485aa97afd1115" size="7070822"/>
+  <tarball id="cairo" version="1.8.6" autogenargs="--enable-pdf --enable-quartz --disable-xlib">
+    <source href="http://cairographics.org/releases/cairo-1.8.4.tar.gz"/>
     <dependencies>
       <dep package="pixman"/>
     </dependencies>
