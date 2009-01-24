@@ -35,7 +35,7 @@ do_exit()
 
 get_moduleset_from_git()
 {
-    URL="http://git.imendio.com/?p=projects/gtk-osx-build.git;a=blob_plain;f=modulesets/$1;hb=HEAD"
+    URL="http://github.com/rhult/gtk-osx-build/raw/HEAD/modulesets/$1"
     curl -s $URL -o $SOURCE/jhbuild/modulesets/$1
 }
 
@@ -46,7 +46,8 @@ fi
 mkdir -p $SOURCE 2>/dev/null || do_exit "The directory $SOURCE could not be created. Check permissions and try again."
 
 rm -f tmp-jhbuild-revision
-curl -s $BASEURL/gtk-osx-build/jhbuild-revision -o tmp-jhbuild-revision
+REVISION_URL="http://github.com/rhult/gtk-osx-build/raw/HEAD/jhbuild-revision"
+curl -s $REVISION_URL -o tmp-jhbuild-revision
 JHBUILD_REVISION=`cat tmp-jhbuild-revision 2>/dev/null`
 if test x"$JHBUILD_REVISION" = x; then
     do_exit "Could not find jhbuild revision to use."
