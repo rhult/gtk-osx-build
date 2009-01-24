@@ -71,7 +71,7 @@ if [ ! -f $HOME/.jhbuildrc-custom ]; then
     curl -s $BASEURL/jhbuildrc-gtk-osx-custom-example -o $HOME/.jhbuildrc-custom
 fi
 
-echo "Installing gtk-osx modulesets..."
+echo "Installing gtk-osx moduleset files..."
 MODULES="gtk-osx-gstreamer.modules gtk-osx-gtkmm.modules gtk-osx-python.modules gtk-osx-random.modules gtk-osx-themes.modules gtk-osx-unsupported.modules gtk-osx-webkit-deps.modules gtk-osx.modules gtk-osx-bootstrap.modules"
 for m in $MODULES; do
     get_moduleset_from_git $m
