@@ -48,9 +48,8 @@
        it used to be a huge amount of work, but might be easier these
        days.
   -->
-  <tarball id="docbook-setup" version="3-1">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/docbook-setup-3.tar.gz"
-            md5sum="b9ad37be175e08d3eb9d632e3bd4de1a" size="1933641"/>
+  <tarball id="docbook-setup" version="3-2">
+    <source href="http://github.com/tarballs/rhult-gtk-osx-docbook-b09115732e38f956730d6c0a23ff4e471ab0ead2.tar.gz"/>
   </tarball>
 
   <!-- This is not gnome-doc-utils, it just contains smallest set of
