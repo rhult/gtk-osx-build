@@ -57,9 +57,8 @@
        files to make it possible to build packages that use
        gnome-doc-utils, but with disable-scrollkeeper.
   -->
-  <tarball id="gnome-doc-utils-fake" version="0.10.13-2">
-    <source href="http://people.imendio.com/richard/gtk-osx/files/gnome-doc-utils-fake-3.tar.gz"
-            md5sum="9b00925d7982908ed539617c1a1f474c" size="16575"/>
+  <tarball id="gnome-doc-utils-fake" version="0.10.13-4">
+    <source href="http://github.com/tarballs/rhult-gnome-doc-utils-fake-ee6993e33d517ff05f55d78694e5edaa4da0bbd9.tar.gz"/>
     <dependencies>
       <dep package="docbook-setup"/>
     </dependencies>
