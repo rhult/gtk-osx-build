@@ -47,17 +47,24 @@
        uses the real docbook source from upstream, feel free to do so,
        it used to be a huge amount of work, but might be easier these
        days.
+
+       Note that you have to tag the github repo, use the tag here to
+       be able to download a tarball, then use the right checkout dir
+       to get jhbuild to understand that the name is not matching the
+       URL.
   -->
-  <tarball id="docbook-setup" version="3-2">
-    <source href="http://github.com/tarballs/rhult-gtk-osx-docbook-b09115732e38f956730d6c0a23ff4e471ab0ead2.tar.gz"/>
+  <tarball id="docbook-setup" version="3-3"
+           checkoutdir="rhult-gtk-osx-docbook-b09115732e38f956730d6c0a23ff4e471ab0ead2">
+    <source href="http://github.com/rhult/gtk-osx-docbook/tarball/DB_1"/>
   </tarball>
 
   <!-- This is not gnome-doc-utils, it just contains smallest set of
        files to make it possible to build packages that use
        gnome-doc-utils, but with disable-scrollkeeper.
   -->
-  <tarball id="gnome-doc-utils-fake" version="0.10.13-4">
-    <source href="http://github.com/tarballs/rhult-gnome-doc-utils-fake-ee6993e33d517ff05f55d78694e5edaa4da0bbd9.tar.gz"/>
+  <tarball id="gnome-doc-utils-fake" version="0.10.13-4"
+           checkoutdir="rhult-gnome-doc-utils-fake-ee6993e33d517ff05f55d78694e5edaa4da0bbd9">
+    <source href="http://github.com/rhult/gnome-doc-utils-fake/tarball/GTK_OSX_1"/>
     <dependencies>
       <dep package="docbook-setup"/>
     </dependencies>
