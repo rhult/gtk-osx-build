@@ -3,6 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
   <repository type="svn" name="svn.gnome.org" default="yes" href="http://svn.gnome.org/svn/"/>
+  <repository type="tarball" name="github" href="http://github.com/"/>
 
   <!-- This module set works a bit differently than for example the
        GNOME ones do. It's split up in seperate pieces:
@@ -108,14 +109,17 @@
     </after>
   </tarball>
 
-  <tarball id="ige-mac-integration" version="0.8.2">
-    <source href="http://ftp.imendio.com/pub/imendio/ige-mac-integration/ige-mac-integration-0.8.2.tar.gz"/>
+  <autotools id="ige-mac-integration" autogenargs="--disable-python">
+    <branch repo="github"
+	    module="rhult/ige-mac-integration/tarball/IMI_1"
+            version="0.8.3~unreleased"
+            checkoutdir="rhult-ige-mac-integration-6e75f48538dbfb6d03abe9cecc5dbd2b35c9be41"/>
     <dependencies>
       <dep package="gtk+"/>
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
     </after>
-  </tarball>
+  </autotools>
 
 </moduleset>
