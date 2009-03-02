@@ -254,6 +254,8 @@ if not _gtk_osx_use_jhbuild_python:
     skip.append('python')
     if os.environ.get("PYTHON", "") == "":
         os.environ["PYTHON"] = "/usr/bin/python"
+else:
+    os.environ["PYTHON"] = prefix + "/bin/python"
 
 # Use libxml/libxslt from the system. Append to the pkg-config path to
 # get the system versions picked up.
