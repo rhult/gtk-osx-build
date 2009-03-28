@@ -123,7 +123,7 @@
     </dependencies>
   </autotools>
 
-  <autotools id="gtk-doc" autogenargs="--disable-scrollkeepeer --with-xml-catalog=$JHBUILD_PREFIX/etc/xml/catalog" makeargs="-i" makeinstallargs="-i install">
+  <autotools id="gtk-doc" autogenargs="--disable-scrollkeepeer --with-xml-catalog=$JHBUILD_PREFIX/etc/xml/catalog" makeargs="-k -i" makeinstallargs="-k -i install">
     <branch/>
     <dependencies>
       <dep package="libxslt"/>
