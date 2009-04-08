@@ -143,7 +143,6 @@ modules = [ 'meta-gtk-osx-core' ]
 
 # A list of modules to skip.
 #
-skip.append('autoconf') # We build autoconf-2.61 instead.
 skip.append('gmp')
 skip.append('guile')
 
