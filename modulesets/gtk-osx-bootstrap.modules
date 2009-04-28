@@ -137,13 +137,13 @@
             md5sum="3534f7b8e59785c7d5bfa923e85510a7" size="33616"/>
   </tarball>
 
-  <autotools id="intltool">
-    <branch/>
+  <tarball id="intltool" version="0.40.5">
+    <source href="http://ftp.gnome.org/pub/GNOME/sources/intltool/0.40/intltool-0.40.5.tar.bz2"
+            size="141110" md5sum="3e7ded6f50d88cf8b8bb505eaf591775"/>
     <dependencies>
       <dep package="gnome-common"/>
-      <dep package="perl-xml-parser"/>
     </dependencies>
-  </autotools>
+  </tarball>
 
   <metamodule id="meta-gtk-osx-bootstrap">
     <dependencies>
